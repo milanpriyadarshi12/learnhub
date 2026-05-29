@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — LearnHub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root { --admin-primary: #6366f1; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f1f5f9; min-height: 100vh; }
+
+    /* Layout */
+    .admin-layout { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .admin-sidebar {
+      width: 260px; flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid #e8eaf0;
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      z-index: 100;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+      overflow-y: auto;
+    }
+    .admin-main { margin-left: 260px; min-height: 100vh; flex: 1; }
+
+    @media (max-width: 768px) {
+      .admin-sidebar { transform: translateX(-100%); }
+      .admin-sidebar.open { transform: translateX(0); }
+      .admin-main { margin-left: 0; }
+    }
+
+    /* Sidebar Nav */
+    .sidebar-nav-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px; border-radius: 12px; margin: 2px 0;
+      font-size: 14px; font-weight: 500; color: #64748b;
+      cursor: pointer; transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .sidebar-nav-link:hover { background: #f0f4ff; color: #6366f1; }
+    .sidebar-nav-link.active { background: linear-gradient(135deg,#ede9fe,#e0e7ff); color: #6366f1; font-weight: 600; }
+    .sidebar-nav-link.active .nav-icon { color: #6366f1; }
+    .sidebar-nav-link .nav-icon { width: 18px; text-align: center; font-size: 15px; }
+
+    /* Subscription badge in tables */
+    .sub-pill {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; white-space: nowrap;
+      line-height: 1.4; vertical-align: middle;
+    }
+    .sub-pill-paid { background: #fef3c7; color: #92400e; }
+    .sub-pill-free { background: #f1f5f9; color: #64748b; }
+
+    /* Admin table cell alignment */
+    .admin-table td { vertical-align: middle; }
+    .admin-table td .flex { align-items: center; }
+
+    /* Overview bar subscription stats */
+    .sub-stat-item {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.7); border-radius: 12px;
+      padding: 10px 14px;
+    }
+
+    /* Stats Card */
+    .stat-card {
+      background: #fff; border-radius: 18px;
+      padding: 20px 24px; border: 1px solid #e8eaf0;
+      transition: all 0.2s ease; position: relative; overflow: hidden;
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
+    .stat-card::before {
+      content: ''; position: absolute; top: 0; right: 0;
+      width: 80px; height: 80px; border-radius: 0 0 0 80px;
+      opacity: 0.08;
+    }
+
+    /* Tables */
+    .admin-table { width: 100%; border-collapse: collapse; }
+    .admin-table th {
+      background: #f8fafc; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8;
+      padding: 10px 16px; text-align: left; border-bottom: 1px solid #e8eaf0;
+    }
+    .admin-table tr:last-child td { border-bottom: none; }
+
+    /* Admin Input */
+    .admin-input {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #e2e8f0;
+      border-radius: 10px; font-size: 13px; font-family: 'Inter', sans-serif;
+      background: #fff; color: #1e293b; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .admin-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
+
+    /* Section heading */
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+    }
+    .section-title { font-size: 20px; font-weight: 700; color: #1e293b; }
+
+    /* Btn primary */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; background: linear-gradient(135deg,#6366f1,#4f46e5);
+      color: #fff; border: none; border-radius: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.4); }
+
+    /* Card */
+    .admin-card { background: #fff; border-radius: 18px; border: 1px solid #e8eaf0; }
+
+    /* Modal */
+    #adminModal {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(15,23,42,0.5); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-box {
+      background: #fff; border-radius: 20px; padding: 28px;
+      width: 100%; max-width: 540px; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+      transform: scale(0.96) translateY(10px); opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-box.modal-in { transform: scale(1) translateY(0); opacity: 1; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+    /* Top bar */
+    .top-bar {
+      background: #fff; border-bottom: 1px solid #e8eaf0;
+      padding: 14px 24px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 50;
+    }
+
+    /* Badge pill */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600; }
+
+    /* Progress bar animated */
+    .progress-track { background: #f1f5f9; border-radius: 100px; height: 8px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 100px; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); }
+
+    /* Line clamp */
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Sidebar overlay */
+    #sidebarOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 99; }
+
+    /* Animate sections */
+    .admin-section { animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Settings color input */
+    input[type=color].admin-input { height: 44px; padding: 4px; cursor: pointer; }
+
+    /* CSV Drop Zone drag-active state */
+    .tcr-dropzone-active {
+      border-color: #6366f1 !important;
+      background: linear-gradient(135deg,#ede9fe,#e0e7ff) !important;
+    }
+    .tcr-dropzone-active i { color: #6366f1 !important; }
+
+    /* Question Palette in preview */
+    .tcr-palette {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .tcr-palette-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      font-size: 12px; font-weight: 700;
+      border: none; cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .tcr-palette-btn.unanswered { background: #f1f5f9; color: #64748b; }
+    .tcr-palette-btn.answered   { background: #dcfce7; color: #16a34a; border: 1.5px solid #86efac; }
+    .tcr-palette-btn.active     { background: #6366f1; color: #fff; box-shadow: 0 2px 8px rgba(99,102,241,.4); }
+    .tcr-palette-btn.skipped    { background: #fef3c7; color: #d97706; border: 1.5px solid #fde68a; }
+
+    /* Student palette dots (enhanced) */
+    .lh-q-dot.lh-marked { background: #fef3c7 !important; color: #d97706 !important; border: 1.5px solid #fde68a !important; }
+    .lh-q-dot.lh-answered { background: #dcfce7 !important; color: #16a34a !important; border: 1.5px solid #86efac !important; }
+    .lh-q-dot.lh-current  { background: #6366f1 !important; color: #fff !important; box-shadow: 0 2px 8px rgba(99,102,241,.4); }
+
+    /* CSV import progress bar */
+    @keyframes csvProgress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .csv-progress-bar {
+      height: 3px; background: #6366f1; border-radius: 3px;
+      animation: csvProgress 0.8s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar Overlay (mobile) -->
+  <div id="sidebarOverlay" class="hidden" onclick="document.getElementById('sidebar').classList.remove('open');this.classList.add('hidden')"></div>
+
+  <div class="admin-layout">
+    <!-- ═══════════ SIDEBAR ═══════════ -->
+    <aside class="admin-sidebar" id="sidebar">
+      <!-- Logo -->
+      <div class="p-5 border-b border-gray-100">
+        <a href="index.html" class="flex items-center gap-2.5 mb-4">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+            <i class="fas fa-graduation-cap text-white"></i>
+          </div>
+          <div>
+            <p class="font-bold text-gray-800 text-base leading-tight">LearnHub</p>
+            <p class="text-xs text-indigo-500 font-semibold">Admin Panel</p>
+          </div>
+        </a>
+        <!-- Admin Profile Mini -->
+        <div class="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl">
+          <div id="adminInitial" class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">A</div>
+          <div class="overflow-hidden">
+            <p id="adminName" class="text-sm font-semibold text-gray-800 truncate">Admin</p>
+            <p class="text-xs text-indigo-500">⚡ Administrator</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 p-3">
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider px-3 mb-2 mt-1">Main</p>
+
+        <a class="sidebar-nav-link sidebar-link active" data-section="overview">
+          <i class="fas fa-th-large nav-icon"></i>
+          <span>Dashboard</span>
+        </a>
+        <a class="sidebar-nav-link sidebar-link" data-section="students">
+          <i class="fas fa-users nav-icon"></i>
+          <span>Students</span>
+          <span class="ml-auto badge bg-indigo-100 text-indigo-600" id="studentCountBadge">—</span>
+        </a>
+        <a class="sidebar-nav-link sidebar-link" data-section="courses">
+          <i class="fas fa-book-open nav-icon"></i>
+          <span>Courses</span>
+        </a>
+        <a class="sidebar-nav-link sidebar-link" data-section="tests">
+          <i class="fas fa-file-alt nav-icon"></i>
+          <span>Mock Tests</span>
+        </a>
+        <a class="sidebar-nav-link sidebar-link" data-section="materials">
+          <i class="fas fa-folder-open nav-icon"></i>
+          <span>Study Material</span>
+        </a>
+
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider px-3 mb-2 mt-4">Reports</p>
+        <a class="sidebar-nav-link sidebar-link" data-section="analytics">
+          <i class="fas fa-chart-bar nav-icon"></i>
+          <span>Analytics</span>
+        </a>
+
+        <p class="text-xs font-bold text-gray-400 uppercase tracking-wider px-3 mb-2 mt-4">System</p>
+        <a class="sidebar-nav-link sidebar-link" data-section="settings">
+          <i class="fas fa-cog nav-icon"></i>
+          <span>Settings</span>
+        </a>
+
+        <div class="mt-4 border-t border-gray-100 pt-3">
+          <a href="index.html" class="sidebar-nav-link">
+            <i class="fas fa-external-link-alt nav-icon"></i>
+            <span>View Site</span>
+          </a>
+          <a class="sidebar-nav-link text-red-400 hover:bg-red-50 hover:text-red-500" id="logoutBtn" style="cursor:pointer">
+            <i class="fas fa-sign-out-alt nav-icon"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ═══════════ MAIN CONTENT ═══════════ -->
+    <main class="admin-main">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="flex items-center gap-3">
+          <button id="mobileMenuBtn" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-xl transition">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div>
+            <h1 class="font-bold text-gray-800 text-base leading-tight" id="adminGreeting">Admin Dashboard</h1>
+            <p class="text-xs text-gray-400" id="topBarDate"></p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-xl">
+            <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-xs font-semibold text-green-700">System Online</span>
+          </div>
+          <a href="index.html" class="text-xs text-indigo-500 font-medium hover:underline hidden sm:block">
+            <i class="fas fa-external-link-alt mr-1"></i>View Site
+          </a>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="p-5 lg:p-7">
+
+        <!-- ══════════════════════════════
+             SECTION: OVERVIEW
+        ══════════════════════════════ -->
+        <div class="admin-section" id="section-overview">
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+            <!-- Students -->
+            <div class="stat-card col-span-1" style="border-top: 3px solid #6366f1;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Students</p>
+                  <p class="text-3xl font-bold text-gray-800" id="stat-students">0</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
+                  <i class="fas fa-users text-indigo-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Total registered</p>
+            </div>
+            <!-- Courses -->
+            <div class="stat-card" style="border-top: 3px solid #0ea5e9;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Courses</p>
+                  <p class="text-3xl font-bold text-gray-800" id="stat-courses">0</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center">
+                  <i class="fas fa-book-open text-sky-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Published</p>
+            </div>
+            <!-- Mock Tests -->
+            <div class="stat-card" style="border-top: 3px solid #8b5cf6;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Mock Tests</p>
+                  <p class="text-3xl font-bold text-gray-800" id="stat-tests">0</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
+                  <i class="fas fa-file-alt text-purple-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Available</p>
+            </div>
+            <!-- Enrollments -->
+            <div class="stat-card" style="border-top: 3px solid #10b981;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Enrollments</p>
+                  <p class="text-3xl font-bold text-gray-800" id="stat-enrollments">0</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+                  <i class="fas fa-user-check text-green-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Total enrollments</p>
+            </div>
+            <!-- Revenue -->
+            <div class="stat-card" style="border-top: 3px solid #f59e0b;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Revenue</p>
+                  <p class="text-2xl font-bold text-gray-800"><span id="stat-revenue">0</span></p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
+                  <i class="fas fa-rupee-sign text-amber-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Total revenue</p>
+            </div>
+            <!-- Active Users -->
+            <div class="stat-card" style="border-top: 3px solid #ec4899;">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Active</p>
+                  <p class="text-3xl font-bold text-gray-800" id="stat-active">0</p>
+                </div>
+                <div class="w-10 h-10 rounded-xl bg-pink-50 flex items-center justify-center">
+                  <i class="fas fa-bolt text-pink-500"></i>
+                </div>
+              </div>
+              <p class="text-xs text-gray-400 mt-2">Active students</p>
+            </div>
+          </div>
+
+          <!-- Subscription Overview Bar -->
+          <div class="admin-card p-4 mb-6" style="background:linear-gradient(135deg,#f0f4ff,#faf5ff);border-color:#e0e7ff">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-crown text-amber-500"></i>
+                <span class="font-bold text-gray-700 text-sm">Subscription Overview</span>
+              </div>
+              <div class="flex flex-wrap gap-4">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+                    <i class="fas fa-star text-amber-500 text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-gray-800" id="stat-paid-users">0</p>
+                    <p class="text-xs text-gray-400">Paid Members</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
+                    <i class="fas fa-user text-gray-400 text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-gray-800" id="stat-free-users">0</p>
+                    <p class="text-xs text-gray-400">Free Members</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                    <i class="fas fa-rupee-sign text-green-500 text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-gray-800" id="stat-sub-revenue">₹0</p>
+                    <p class="text-xs text-gray-400">Est. Revenue</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
+                    <i class="fas fa-percentage text-indigo-500 text-xs"></i>
+                  </div>
+                  <div>
+                    <p class="text-lg font-bold text-gray-800" id="stat-conversion">0%</p>
+                    <p class="text-xs text-gray-400">Conversion Rate</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <!-- Recent Students Table -->
+            <div class="admin-card lg:col-span-2 overflow-hidden">
+              <div class="flex items-center justify-between p-5 border-b border-gray-100">
+                <h3 class="font-bold text-gray-800">Recent Students</h3>
+                <button class="text-xs text-indigo-600 font-medium hover:underline" onclick="showSection('students')">View All →</button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Student</th>
+                      <th>Enrolled</th>
+                      <th>Tests</th>
+                      <th>Status</th>
+                      <th>Joined</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentStudentsBody">
+                    <tr><td colspan="5" class="text-center py-8 text-gray-400">Loading…</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Activity Feed -->
+            <div class="admin-card">
+              <div class="p-5 border-b border-gray-100">
+                <h3 class="font-bold text-gray-800">Recent Activity</h3>
+              </div>
+              <div class="p-5" id="activityFeed">
+                <div class="text-center text-gray-400 py-4">Loading…</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="admin-card mt-5 p-5">
+            <h3 class="font-bold text-gray-800 mb-4">Quick Actions</h3>
+            <div class="flex flex-wrap gap-3">
+              <button onclick="showSection('courses');setTimeout(()=>openCourseForm(null),100)" class="btn-primary"><i class="fas fa-plus"></i>Add Course</button>
+              <button onclick="showSection('tests');setTimeout(()=>openTestForm(null),100)" class="btn-primary" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)"><i class="fas fa-plus"></i>New Mock Test</button>
+              <button onclick="showSection('materials');setTimeout(()=>openMaterialForm(null),100)" class="btn-primary" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)"><i class="fas fa-plus"></i>Add Material</button>
+              <button onclick="showSection('students')" class="btn-primary" style="background:linear-gradient(135deg,#10b981,#059669)"><i class="fas fa-users"></i>Manage Students</button>
+              <button onclick="showSection('analytics')" class="btn-primary" style="background:linear-gradient(135deg,#f59e0b,#d97706)"><i class="fas fa-chart-bar"></i>View Analytics</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: STUDENTS
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-students">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Student Management</h2>
+              <p class="text-sm text-gray-500 mt-0.5">View, search, block and manage student accounts</p>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div class="admin-card p-4 mb-5">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <div class="flex-1 relative">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" class="admin-input pl-9" placeholder="Search by name or email…" oninput="handleStudentSearch(this.value)">
+              </div>
+              <select class="admin-input sm:w-40" onchange="handleStudentFilter(this.value)">
+                <option value="all">All Students</option>
+                <option value="active">Active</option>
+                <option value="blocked">Blocked</option>
+                <option value="paid">⭐ Paid</option>
+                <option value="free">🆓 Free</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="admin-card overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Subscription</th>
+                    <th>Purchases</th>
+                    <th>Tests Done</th>
+                    <th>Avg Score</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                    <th>Tests</th>
+                    <th>Avg Score</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                  <tr><td colspan="8" class="text-center py-12 text-gray-400">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: COURSES
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-courses">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Course Management</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Add, edit, and delete courses</p>
+            </div>
+            <button class="btn-primary" onclick="openCourseForm(null)">
+              <i class="fas fa-plus"></i>Add New Course
+            </button>
+          </div>
+
+          <!-- Search -->
+          <div class="admin-card p-4 mb-5">
+            <div class="relative max-w-xs">
+              <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              <input type="text" id="courseSearch" class="admin-input pl-9" placeholder="Search courses…" oninput="renderCourseTable()">
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="coursesGrid">
+            <div class="text-center py-12 text-gray-400">Loading…</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: MOCK TESTS
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-tests">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Mock Test Management</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Create and manage mock tests</p>
+            </div>
+            <button class="btn-primary" onclick="openTestForm(null)">
+              <i class="fas fa-plus"></i>Create Mock Test
+            </button>
+          </div>
+
+          <div class="admin-card overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Test Title</th>
+                    <th>Category</th>
+                    <th>Questions</th>
+                    <th>Duration</th>
+                    <th>Max Score</th>
+                    <th>Difficulty</th>
+                    <th>Access</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="testsTableBody">
+                  <tr><td colspan="9" class="text-center py-12 text-gray-400">Loading…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: STUDY MATERIAL
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-materials">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Study Material</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Manage notes, PDFs, and resources</p>
+            </div>
+            <button class="btn-primary" onclick="openMaterialForm(null)">
+              <i class="fas fa-plus"></i>Add Material
+            </button>
+          </div>
+
+          <!-- Search -->
+          <div class="admin-card p-4 mb-5">
+            <div class="relative max-w-xs">
+              <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+              <input type="text" id="materialSearch" class="admin-input pl-9" placeholder="Search materials…" oninput="renderMaterialsGrid()">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="materialsGrid">
+            <div class="text-center py-12 text-gray-400">Loading…</div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: ANALYTICS
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-analytics">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Analytics & Reports</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Platform-wide performance insights</p>
+            </div>
+          </div>
+
+          <!-- Summary Stats -->
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="admin-card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-users text-indigo-500 text-xl"></i>
+              </div>
+              <p class="text-3xl font-bold text-gray-800" id="ana-totalStudents">0</p>
+              <p class="text-xs text-gray-400 mt-1 font-medium">Total Students</p>
+            </div>
+            <div class="admin-card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-chart-line text-green-500 text-xl"></i>
+              </div>
+              <p class="text-3xl font-bold text-gray-800"><span id="ana-avgScore">0</span>%</p>
+              <p class="text-xs text-gray-400 mt-1 font-medium">Avg Test Score</p>
+            </div>
+            <div class="admin-card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-sky-50 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-user-check text-sky-500 text-xl"></i>
+              </div>
+              <p class="text-3xl font-bold text-gray-800" id="ana-enrollments">0</p>
+              <p class="text-xs text-gray-400 mt-1 font-medium">Enrollments</p>
+            </div>
+            <div class="admin-card p-5 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center mx-auto mb-3">
+                <i class="fas fa-clipboard-check text-purple-500 text-xl"></i>
+              </div>
+              <p class="text-3xl font-bold text-gray-800" id="ana-testAttempts">0</p>
+              <p class="text-xs text-gray-400 mt-1 font-medium">Test Attempts</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <!-- Category Breakdown -->
+            <div class="admin-card p-5">
+              <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-layer-group text-indigo-500"></i> Courses by Category
+              </h3>
+              <div id="categoryBreakdown">Loading…</div>
+            </div>
+
+            <!-- Score Distribution -->
+            <div class="admin-card p-5">
+              <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-bar text-green-500"></i> Student Score Distribution
+              </h3>
+              <div id="scoreDist">Loading…</div>
+            </div>
+
+            <!-- Top Students -->
+            <div class="admin-card p-5">
+              <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fas fa-trophy text-amber-500"></i> Top Performers
+              </h3>
+              <div id="topStudents">Loading…</div>
+            </div>
+          </div>
+
+          <!-- Exam Category Stats -->
+          <div class="admin-card mt-5 p-5">
+            <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+              <i class="fas fa-graduation-cap text-indigo-500"></i> Student Target Exam Distribution
+            </h3>
+            <div id="examCatStats" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: SETTINGS
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-settings">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Platform Settings</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Customize your LearnHub platform</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Site Settings -->
+            <div class="admin-card p-6">
+              <h3 class="font-bold text-gray-800 mb-5 flex items-center gap-2">
+                <i class="fas fa-globe text-indigo-500"></i> Site Configuration
+              </h3>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-1.5">Site Name</label>
+                  <input id="set_siteName" class="admin-input" placeholder="LearnHub">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-1.5">Logo URL</label>
+                  <input id="set_logoUrl" class="admin-input" placeholder="https://...">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-1.5">Admin Email</label>
+                  <input id="set_adminEmail" type="email" class="admin-input" placeholder="admin@learnhub.com">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-1.5">Footer Text</label>
+                  <input id="set_footerText" class="admin-input" placeholder="© 2024 LearnHub">
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-600 mb-1.5">Theme Color</label>
+                  <div class="flex items-center gap-3">
+                    <input id="set_themeColor" type="color" class="admin-input w-20" value="#6366f1">
+                    <span class="text-sm text-gray-500">Primary brand color</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-3 mt-6">
+                <button onclick="saveSettings()" class="btn-primary">
+                  <i class="fas fa-save"></i>Save Settings
+                </button>
+                <button onclick="resetSettings()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition text-sm">
+                  <i class="fas fa-undo mr-1"></i>Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Database & Admin Info -->
+            <div class="space-y-5">
+              <!-- DB Stats -->
+              <div class="admin-card p-6">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <i class="fas fa-database text-sky-500"></i> Database Info
+                </h3>
+                <div class="space-y-3" id="dbStats">Loading…</div>
+                <button onclick="refreshDbStats()" class="mt-4 w-full py-2 bg-sky-50 text-sky-600 rounded-xl font-medium hover:bg-sky-100 transition text-sm">
+                  <i class="fas fa-sync-alt mr-1"></i>Refresh Stats
+                </button>
+              </div>
+
+              <!-- Danger Zone -->
+              <div class="admin-card p-6 border border-red-100">
+                <h3 class="font-bold text-red-600 mb-3 flex items-center gap-2">
+                  <i class="fas fa-exclamation-triangle"></i> Danger Zone
+                </h3>
+                <p class="text-sm text-gray-500 mb-4">These actions cannot be undone. Be careful.</p>
+                <div class="space-y-2">
+                  <button onclick="clearStudentData()" class="w-full py-2 bg-red-50 text-red-500 border border-red-200 rounded-xl font-medium hover:bg-red-100 transition text-sm">
+                    <i class="fas fa-user-times mr-1"></i>Clear All Student Data
+                  </button>
+                  <button onclick="resetAllData()" class="w-full py-2 bg-red-50 text-red-600 border border-red-300 rounded-xl font-bold hover:bg-red-100 transition text-sm">
+                    <i class="fas fa-trash-alt mr-1"></i>Reset All Data (Reseed)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: MOCK TEST CREATOR
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-test-creator">
+          <!-- Header -->
+          <div class="section-header">
+            <div class="flex items-center gap-3">
+              <button onclick="closeTestCreator()" class="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition">
+                <i class="fas fa-arrow-left text-sm"></i>
+              </button>
+              <div>
+                <h2 class="section-title" id="tcr-heading">Create Mock Test</h2>
+                <p class="text-sm text-gray-500 mt-0.5" id="tcr-subheading">Build your test step by step — inside the admin panel</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="tcr-status-badge" class="badge bg-yellow-100 text-yellow-700"><i class="fas fa-circle text-xs mr-1"></i>Draft</span>
+              <button onclick="previewTest()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition text-sm">
+                <i class="fas fa-eye mr-1.5"></i>Preview
+              </button>
+              <button onclick="saveDraftTest()" class="px-4 py-2 bg-indigo-50 text-indigo-600 rounded-xl font-medium hover:bg-indigo-100 transition text-sm">
+                <i class="fas fa-save mr-1.5"></i>Save Draft
+              </button>
+              <button onclick="publishTest()" class="btn-primary" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+                <i class="fas fa-rocket"></i>Publish Test
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-5">
+
+            <!-- LEFT: Test Settings -->
+            <div class="xl:col-span-1 space-y-4">
+
+              <!-- Basic Info -->
+              <div class="admin-card p-5">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-sm">
+                  <div class="w-7 h-7 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-info-circle text-indigo-500 text-xs"></i>
+                  </div>
+                  Test Information
+                </h3>
+                <div class="space-y-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Test Title *</label>
+                    <input id="tcr_title" class="admin-input" placeholder="e.g. SSC CGL Tier 1 — Full Mock Test 2025" oninput="tcrUpdateStats()">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Description</label>
+                    <textarea id="tcr_desc" class="admin-input" rows="2" style="resize:none;font-family:inherit" placeholder="Brief description of this test…"></textarea>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Category *</label>
+                      <select id="tcr_cat" class="admin-input">
+                        <option>SSC</option><option>Banking</option><option>UPSC</option><option>Railway</option><option>General</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Difficulty</label>
+                      <select id="tcr_diff" class="admin-input">
+                        <option>Easy</option><option selected>Medium</option><option>Hard</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timer & Scoring -->
+              <div class="admin-card p-5">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-sm">
+                  <div class="w-7 h-7 rounded-lg bg-purple-50 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-clock text-purple-500 text-xs"></i>
+                  </div>
+                  Timer &amp; Scoring
+                </h3>
+                <div class="space-y-3">
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Duration (min) *</label>
+                      <input id="tcr_dur" type="number" class="admin-input" value="60" min="1" placeholder="60" oninput="tcrUpdateStats()">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Marks / Question</label>
+                      <input id="tcr_marks" type="number" class="admin-input" value="2" min="0.5" step="0.5" placeholder="2" oninput="tcrUpdateStats()">
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Negative Marks</label>
+                      <input id="tcr_neg" type="number" class="admin-input" value="0.5" min="0" step="0.25" placeholder="0.5">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Pass % (optional)</label>
+                      <input id="tcr_pass" type="number" class="admin-input" value="33" min="0" max="100" placeholder="33" oninput="tcrUpdateStats()">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Access Settings -->
+              <div class="admin-card p-5">
+                <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2 text-sm">
+                  <div class="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-lock-open text-green-500 text-xs"></i>
+                  </div>
+                  Access Settings
+                </h3>
+                <div class="space-y-1">
+                  <label class="flex items-center gap-3 cursor-pointer p-2.5 rounded-xl hover:bg-gray-50 transition">
+                    <input type="checkbox" id="tcr_free" class="w-4 h-4 text-indigo-600 rounded flex-shrink-0">
+                    <div>
+                      <p class="text-sm font-medium text-gray-700">Free Access</p>
+                      <p class="text-xs text-gray-400">All students can attempt this test</p>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-3 cursor-pointer p-2.5 rounded-xl hover:bg-gray-50 transition">
+                    <input type="checkbox" id="tcr_shuffle" class="w-4 h-4 text-indigo-600 rounded flex-shrink-0">
+                    <div>
+                      <p class="text-sm font-medium text-gray-700">Shuffle Questions</p>
+                      <p class="text-xs text-gray-400">Randomise order for each student</p>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-3 cursor-pointer p-2.5 rounded-xl hover:bg-gray-50 transition">
+                    <input type="checkbox" id="tcr_showResult" class="w-4 h-4 text-indigo-600 rounded flex-shrink-0" checked>
+                    <div>
+                      <p class="text-sm font-medium text-gray-700">Show Result Instantly</p>
+                      <p class="text-xs text-gray-400">Students see score on submit</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Live Stats -->
+              <div class="admin-card p-5" style="background:linear-gradient(135deg,#f0f4ff,#faf5ff);border-color:#e0e7ff">
+                <h3 class="font-bold text-gray-700 mb-3 flex items-center gap-2 text-sm">
+                  <i class="fas fa-chart-pie text-indigo-400"></i> Live Test Stats
+                </h3>
+                <div class="grid grid-cols-2 gap-3">
+                  <div class="bg-white rounded-xl p-3 text-center shadow-sm">
+                    <p class="text-2xl font-bold text-indigo-600" id="tcr-stat-q">0</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Questions</p>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 text-center shadow-sm">
+                    <p class="text-2xl font-bold text-purple-600" id="tcr-stat-marks">0</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Total Marks</p>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 text-center shadow-sm">
+                    <p class="text-2xl font-bold text-sky-600" id="tcr-stat-dur">60</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Minutes</p>
+                  </div>
+                  <div class="bg-white rounded-xl p-3 text-center shadow-sm">
+                    <p class="text-2xl font-bold text-green-600" id="tcr-stat-pass">0</p>
+                    <p class="text-xs text-gray-500 mt-0.5">Pass Marks</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Question Builder -->
+            <div class="xl:col-span-2 space-y-4">
+
+              <!-- Builder Toolbar -->
+              <div class="admin-card p-5" id="tcr-builder-toolbar">
+                <!-- Top row: title + action buttons -->
+                <div class="flex items-center justify-between flex-wrap gap-3 mb-4">
+                  <h3 class="font-bold text-gray-800 flex items-center gap-2 text-sm">
+                    <div class="w-7 h-7 rounded-lg bg-sky-50 flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-question-circle text-sky-500 text-xs"></i>
+                    </div>
+                    Question Builder
+                    <span id="tcr-q-count-badge" class="hidden ml-1 px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold">0 questions</span>
+                  </h3>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <select id="tcr_qtype" class="admin-input text-xs" style="width:150px;padding:8px 10px">
+                      <option value="mcq">MCQ (4 options)</option>
+                      <option value="truefalse">True / False</option>
+                    </select>
+                    <button onclick="addQuestion()" class="btn-primary text-xs px-3 py-2">
+                      <i class="fas fa-plus"></i> Add Question
+                    </button>
+                    <button onclick="tcrTriggerCSV()" class="text-xs px-3 py-2 rounded-xl font-semibold border-2 border-dashed border-indigo-300 text-indigo-600 hover:bg-indigo-50 hover:border-indigo-500 transition flex items-center gap-1.5">
+                      <i class="fas fa-file-csv"></i> Upload CSV
+                    </button>
+                    <input type="file" id="tcr-csv-input" accept=".csv" style="display:none" onchange="tcrHandleCSVFile(this)">
+                  </div>
+                </div>
+
+                <!-- CSV Drop Zone (hidden by default, shown when dragging) -->
+                <div id="tcr-csv-dropzone"
+                  class="hidden border-2 border-dashed border-indigo-300 rounded-xl p-6 text-center mb-4 transition-all"
+                  style="background:linear-gradient(135deg,#f0f4ff,#faf5ff)"
+                  ondragover="tcrDragOver(event)" ondragleave="tcrDragLeave(event)" ondrop="tcrDrop(event)">
+                  <div class="w-12 h-12 rounded-2xl bg-indigo-100 flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-file-csv text-indigo-500 text-xl"></i>
+                  </div>
+                  <p class="font-semibold text-indigo-700 mb-1">Drop your CSV file here</p>
+                  <p class="text-xs text-gray-500 mb-3">or <button onclick="tcrTriggerCSV()" class="text-indigo-600 font-semibold hover:underline">browse file</button></p>
+                  <p class="text-xs text-gray-400">Supported format: <strong>.csv</strong> only</p>
+                </div>
+
+                <!-- CSV Format Reference (collapsible) -->
+                <div id="tcr-csv-format-box" class="hidden mb-4 bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <div class="flex items-center justify-between mb-2">
+                    <p class="text-xs font-bold text-gray-700 flex items-center gap-1.5"><i class="fas fa-info-circle text-indigo-500"></i> CSV Format Reference</p>
+                    <button onclick="document.getElementById('tcr-csv-format-box').classList.add('hidden')" class="text-gray-400 hover:text-gray-600 text-xs"><i class="fas fa-times"></i></button>
+                  </div>
+                  <div class="overflow-x-auto">
+                    <table style="width:100%;border-collapse:collapse;font-size:11px">
+                      <thead>
+                        <tr style="background:#e0e7ff;color:#3730a3">
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">Question</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">OptionA</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">OptionB</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">OptionC</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">OptionD</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">CorrectAnswer</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">Marks</th>
+                          <th style="padding:6px 10px;border:1px solid #c7d2fe;text-align:left">Explanation</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr style="background:#fff">
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">What is 2+2?</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">1</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">2</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">3</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">4</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#6366f1;font-weight:700">D</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">1</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">Because 2+2=4</td>
+                        </tr>
+                        <tr style="background:#f8fafc">
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">Capital of India?</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">Mumbai</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">New Delhi</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">Kolkata</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">Chennai</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#6366f1;font-weight:700">B</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">2</td>
+                          <td style="padding:5px 10px;border:1px solid #e2e8f0;color:#374151">New Delhi is the capital</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="text-xs text-gray-500 mt-2">💡 <strong>CorrectAnswer</strong> must be A, B, C, or D. First row must be the header. Explanation is optional.</p>
+                  <button onclick="tcrDownloadSampleCSV()" class="mt-2 text-xs text-indigo-600 font-semibold hover:underline flex items-center gap-1">
+                    <i class="fas fa-download"></i> Download Sample CSV
+                  </button>
+                </div>
+
+                <!-- CSV Validation Error Panel -->
+                <div id="tcr-csv-errors" class="hidden mb-4 bg-red-50 border border-red-200 rounded-xl p-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <i class="fas fa-exclamation-circle text-red-500"></i>
+                    <p class="text-sm font-bold text-red-700">CSV Import Errors</p>
+                    <button onclick="document.getElementById('tcr-csv-errors').classList.add('hidden')" class="ml-auto text-red-400 hover:text-red-600 text-xs"><i class="fas fa-times"></i></button>
+                  </div>
+                  <div id="tcr-csv-error-list" class="space-y-1 text-xs text-red-600"></div>
+                </div>
+
+                <!-- CSV Import Success Bar -->
+                <div id="tcr-csv-success" class="hidden mb-4 bg-green-50 border border-green-200 rounded-xl p-3 flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                    <i class="fas fa-check text-green-600 text-sm"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-bold text-green-700" id="tcr-csv-success-msg">Imported successfully!</p>
+                    <p class="text-xs text-green-600" id="tcr-csv-success-sub"></p>
+                  </div>
+                  <div class="flex gap-2 flex-shrink-0">
+                    <button onclick="tcrShowFormatBox()" class="text-xs text-green-700 bg-green-100 hover:bg-green-200 px-3 py-1.5 rounded-lg transition font-medium">
+                      <i class="fas fa-upload mr-1"></i>Re-upload
+                    </button>
+                    <button onclick="document.getElementById('tcr-csv-success').classList.add('hidden')" class="text-green-400 hover:text-green-600"><i class="fas fa-times text-sm"></i></button>
+                  </div>
+                </div>
+
+                <!-- Tip bar -->
+                <div class="bg-blue-50 rounded-xl p-3 text-xs text-blue-700 flex items-start gap-2">
+                  <i class="fas fa-lightbulb mt-0.5 flex-shrink-0"></i>
+                  <span>
+                    <strong>Upload CSV</strong> to import questions in bulk instantly, or click <strong>Add Question</strong> to build manually.
+                    <button onclick="tcrShowFormatBox()" class="ml-1 underline hover:no-underline font-semibold">View CSV format</button>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Questions List -->
+              <div id="tcr-questions-list" class="space-y-3">
+                <div id="tcr-empty-state" class="admin-card p-10 text-center">
+                  <div class="w-16 h-16 rounded-2xl bg-indigo-50 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clipboard-list text-indigo-400 text-2xl"></i>
+                  </div>
+                  <h4 class="font-bold text-gray-700 mb-2">No Questions Yet</h4>
+                  <p class="text-gray-400 text-sm mb-5">Add questions manually or upload a CSV to import in bulk.</p>
+                  <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button onclick="addQuestion()" class="btn-primary">
+                      <i class="fas fa-plus"></i> Add Question
+                    </button>
+                    <button onclick="tcrTriggerCSV()" class="px-4 py-2 rounded-xl font-semibold border-2 border-dashed border-indigo-300 text-indigo-600 hover:bg-indigo-50 transition text-sm flex items-center gap-2 justify-center">
+                      <i class="fas fa-file-csv"></i> Upload CSV
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════
+             SECTION: TEST PREVIEW
+        ══════════════════════════════ -->
+        <div class="admin-section hidden" id="section-test-preview">
+          <div class="section-header">
+            <div class="flex items-center gap-3">
+              <button onclick="closeTestPreview()" class="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 transition">
+                <i class="fas fa-arrow-left text-sm"></i>
+              </button>
+              <div>
+                <h2 class="section-title">Test Preview</h2>
+                <p class="text-sm text-gray-500 mt-0.5">Student-facing view of your mock test</p>
+              </div>
+            </div>
+            <button onclick="closeTestPreview()" class="btn-primary" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+              <i class="fas fa-pencil-alt"></i> Back to Editor
+            </button>
+          </div>
+          <div id="tcr-preview-content" class="admin-card p-6 lg:p-8"></div>
+        </div>
+
+      </div><!-- /p-5 lg:p-7 -->
+    </main>
+  </div>
+
+  <!-- ═══════════ MODAL ═══════════ -->
+  <div id="adminModal" class="hidden" style="position:fixed;inset:0;z-index:9000;background:rgba(15,23,42,0.5);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;">
+    <div class="modal-box" id="adminModalBox">
+      <div id="adminModalBody"></div>
+    </div>
+  </div>
+
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    // Date display
+    document.getElementById('topBarDate').textContent = new Date().toLocaleDateString('en-IN', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+
+    // Refresh DB stats for settings page
+    function refreshDbStats() {
+      const el = document.getElementById('dbStats');
+      if (!el) return;
+      const users = DB.getUsers();
+      const courses = DB.getCourses();
+      const tests = DB.getTests();
+      const mats = DB.getMaterials();
+      const results = DB.getResults();
+      const stats = [
+        ['Users (lh_users_db)', users.length, 'bg-indigo-50 text-indigo-600'],
+        ['Courses (lh_courses_db)', courses.length, 'bg-sky-50 text-sky-600'],
+        ['Mock Tests (lh_mock_tests_db)', tests.length, 'bg-purple-50 text-purple-600'],
+        ['Materials (lh_study_materials_db)', mats.length, 'bg-green-50 text-green-600'],
+        ['Test Results (lh_test_results_db)', results.length, 'bg-amber-50 text-amber-600']
+      ];
+      el.innerHTML = stats.map(([label, count, cls]) => `
+        <div class="flex items-center justify-between py-1.5">
+          <span class="text-sm text-gray-600">${label}</span>
+          <span class="px-2.5 py-0.5 rounded-lg text-xs font-bold ${cls}">${count} records</span>
+        </div>
+      `).join('');
+    }
+
+    function clearStudentData() {
+      if (!confirm('This will delete ALL student accounts (non-admin). Seed data will remain. Continue?')) return;
+      const users = DB.getUsers().filter(u => u.role === 'admin');
+      DB.saveUsers(users);
+      showToast('All student data cleared', 'warning');
+      refreshDbStats();
+    }
+
+    function resetAllData() {
+      if (!confirm('RESET ALL DATA? This will clear and reseed everything from defaults.')) return;
+      const keys = ['lh_users_db','lh_courses_db','lh_mock_tests_db','lh_study_materials_db','lh_test_results_db'];
+      keys.forEach(k => localStorage.removeItem(k));
+      showToast('All data reset. Reloading…', 'info');
+      setTimeout(() => location.reload(), 1500);
+    }
+
+    // Load exam category stats for analytics
+    const _origLoadAnalytics = loadAnalytics;
+    function loadAnalytics() {
+      _origLoadAnalytics();
+      // Exam cat stats
+      const users = DB.getUsers().filter(u=>u.role==='student');
+      const examMap = {};
+      users.forEach(u => {
+        const exam = u.profile?.targetExam || u.analytics?.targetExam || 'Other';
+        const key = exam.split(' ')[0] || 'Other';
+        examMap[key] = (examMap[key]||0) + 1;
+      });
+      const examGrid = document.getElementById('examCatStats');
+      const catColors = { SSC:'#6366f1', Banking:'#0ea5e9', UPSC:'#10b981', Railway:'#f59e0b', Other:'#94a3b8' };
+      if (examGrid) {
+        examGrid.innerHTML = Object.entries(examMap).map(([exam, count]) => `
+          <div class="admin-card p-4 text-center">
+            <div class="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center" style="background:${catColors[exam]||'#94a3b8'}20">
+              <i class="fas fa-graduation-cap" style="color:${catColors[exam]||'#94a3b8'}"></i>
+            </div>
+            <p class="text-2xl font-bold text-gray-800">${count}</p>
+            <p class="text-xs text-gray-500 mt-0.5">${exam}</p>
+          </div>
+        `).join('');
+      }
+      refreshDbStats();
+    }
+
+    // Update student badge count
+    function updateSidebarBadges() {
+      const count = DB.getUsers().filter(u=>u.role==='student').length;
+      const el = document.getElementById('studentCountBadge');
+      if (el) el.textContent = count;
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', () => {
+      window.adminInit();
+      updateSidebarBadges();
+    });
+
+    // Modal fix: flex display
+    const origOpenModal = openModal;
+    window.openModal = function(content, title) {
+      const overlay = document.getElementById('adminModal');
+      const body = document.getElementById('adminModalBody');
+      if (!overlay || !body) return;
+      body.innerHTML = content;
+      overlay.style.display = 'flex';
+      overlay.classList.remove('hidden');
+      setTimeout(() => document.getElementById('adminModalBox')?.classList.add('modal-in'), 10);
+    };
+    window.closeModal = function() {
+      const overlay = document.getElementById('adminModal');
+      const box = document.getElementById('adminModalBox');
+      if (!overlay) return;
+      if(box) box.classList.remove('modal-in');
+      setTimeout(() => { overlay.style.display = 'none'; overlay.classList.add('hidden'); }, 200);
+    };
+    document.getElementById('adminModal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+  </script>
+  <!-- AI Translator Widget (preserved) -->
+  <script src="js/translator.js" defer></script>
+
+  <!-- ═══════════ THUMBNAIL CROPPER OVERLAY ═══════════ -->
+  <style>
+    #lhCropperOverlay {
+      position: fixed; inset: 0; z-index: 9500;
+      background: rgba(10,14,26,0.82); backdrop-filter: blur(6px);
+      display: none; align-items: center; justify-content: center; padding: 16px;
+    }
+    #lhCropperOverlay.active { display: flex; }
+    #lhCropperBox {
+      background: #fff; border-radius: 20px; padding: 24px;
+      width: 100%; max-width: 520px; box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+      animation: cropperIn 0.25s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes cropperIn { from { transform: scale(0.94) translateY(12px); opacity:0; } to { transform: scale(1) translateY(0); opacity:1; } }
+    #lhCropperCanvas {
+      display: block; border-radius: 12px; cursor: grab;
+      touch-action: none; user-select: none;
+    }
+    #lhCropperCanvas:active { cursor: grabbing; }
+    .lh-crop-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border-radius: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.18s; font-family: 'Inter', sans-serif;
+    }
+    .lh-crop-btn-primary { background: linear-gradient(135deg,#6366f1,#4f46e5); color:#fff; box-shadow: 0 4px 12px rgba(99,102,241,0.35); }
+    .lh-crop-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(99,102,241,0.45); }
+    .lh-crop-btn-ghost { background: #f1f5f9; color: #64748b; }
+    .lh-crop-btn-ghost:hover { background: #e2e8f0; }
+    .lh-zoom-track { -webkit-appearance:none; appearance:none; width:100%; height:4px; border-radius:4px; background:#e2e8f0; outline:none; cursor:pointer; }
+    .lh-zoom-track::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:#6366f1; cursor:pointer; box-shadow:0 2px 6px rgba(99,102,241,0.4); }
+  </style>
+
+  <div id="lhCropperOverlay">
+    <div id="lhCropperBox">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div>
+          <h3 style="font-size:16px;font-weight:700;color:#1e293b;margin:0;">Crop Thumbnail</h3>
+          <p style="font-size:12px;color:#94a3b8;margin:4px 0 0;">Drag to reposition · Scroll or slider to zoom</p>
+        </div>
+        <button onclick="lhCropper.cancel()" style="width:32px;height:32px;border-radius:50%;background:#f1f5f9;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#64748b;font-size:14px;"><i class="fas fa-times"></i></button>
+      </div>
+
+      <!-- Canvas -->
+      <div style="width:100%;border-radius:12px;overflow:hidden;background:#0f172a;position:relative;">
+        <canvas id="lhCropperCanvas"></canvas>
+        <!-- Crop frame overlay lines -->
+        <div id="lhCropFrame" style="position:absolute;inset:0;pointer-events:none;border:2px solid rgba(255,255,255,0.7);border-radius:4px;box-shadow:0 0 0 9999px rgba(0,0,0,0.38);"></div>
+      </div>
+
+      <!-- Zoom control -->
+      <div style="margin-top:14px;display:flex;align-items:center;gap:10px;">
+        <i class="fas fa-search-minus" style="color:#94a3b8;font-size:12px;"></i>
+        <input type="range" id="lhCropZoom" class="lh-zoom-track" min="100" max="300" value="100" oninput="lhCropper.setZoom(this.value)">
+        <i class="fas fa-search-plus" style="color:#94a3b8;font-size:12px;"></i>
+        <span id="lhCropZoomLabel" style="font-size:11px;font-weight:600;color:#6366f1;min-width:36px;text-align:right;">1.0×</span>
+      </div>
+
+      <!-- Actions -->
+      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+        <button class="lh-crop-btn lh-crop-btn-primary" onclick="lhCropper.confirm()" style="flex:1;">
+          <i class="fas fa-crop-alt"></i> Apply Crop
+        </button>
+        <button class="lh-crop-btn lh-crop-btn-ghost" onclick="lhCropper.reset()">
+          <i class="fas fa-undo"></i> Reset
+        </button>
+        <button class="lh-crop-btn lh-crop-btn-ghost" onclick="lhCropper.cancel()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* ═══════════════════════════════════════════════
+     lhCropper — Lightweight canvas-based cropper
+     Aspect ratio: 16:9 (course card thumbnail)
+  ═══════════════════════════════════════════════ */
+  const lhCropper = (() => {
+    const RATIO = 16 / 9;
+    let img = new Image();
+    let canvas, ctx;
+    let scale = 1, minScale = 1;
+    let offsetX = 0, offsetY = 0;
+    let dragStart = null;
+    let canvasW = 0, canvasH = 0;
+    let originalSrc = '';
+    let onConfirmCb = null;
+
+    function clampOffset() {
+      const iw = img.naturalWidth * scale;
+      const ih = img.naturalHeight * scale;
+      const maxX = 0, minX = canvasW - iw;
+      const maxY = 0, minY = canvasH - ih;
+      offsetX = Math.min(maxX, Math.max(offsetX, minX));
+      offsetY = Math.min(maxY, Math.max(offsetY, minY));
+    }
+
+    function draw() {
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvasW, canvasH);
+      ctx.drawImage(img, offsetX, offsetY, img.naturalWidth * scale, img.naturalHeight * scale);
+    }
+
+    function initCanvas() {
+      canvas = document.getElementById('lhCropperCanvas');
+      ctx = canvas.getContext('2d');
+      const boxW = Math.min(472, canvas.parentElement.clientWidth - 0);
+      canvasW = boxW;
+      canvasH = Math.round(boxW / RATIO);
+      canvas.width = canvasW;
+      canvas.height = canvasH;
+      canvas.style.width = '100%';
+
+      // Remove crop frame (canvas IS the crop area)
+      const frame = document.getElementById('lhCropFrame');
+      if (frame) frame.style.display = 'none';
+
+      // Fit image to canvas maintaining its aspect ratio
+      const scaleX = canvasW / img.naturalWidth;
+      const scaleY = canvasH / img.naturalHeight;
+      minScale = Math.max(scaleX, scaleY); // cover mode as minimum
+      scale = minScale;
+
+      // Center
+      offsetX = (canvasW - img.naturalWidth * scale) / 2;
+      offsetY = (canvasH - img.naturalHeight * scale) / 2;
+      clampOffset();
+
+      // Reset zoom slider
+      const zoomSlider = document.getElementById('lhCropZoom');
+      if (zoomSlider) { zoomSlider.value = 100; }
+      document.getElementById('lhCropZoomLabel').textContent = '1.0×';
+
+      draw();
+      bindEvents();
+    }
+
+    function bindEvents() {
+      // Mouse drag
+      canvas.onmousedown = e => {
+        dragStart = { x: e.clientX - offsetX, y: e.clientY - offsetY };
+        e.preventDefault();
+      };
+      window.onmousemove = e => {
+        if (!dragStart) return;
+        offsetX = e.clientX - dragStart.x;
+        offsetY = e.clientY - dragStart.y;
+        clampOffset(); draw();
+      };
+      window.onmouseup = () => { dragStart = null; };
+
+      // Touch drag
+      canvas.ontouchstart = e => {
+        const t = e.touches[0];
+        dragStart = { x: t.clientX - offsetX, y: t.clientY - offsetY };
+        e.preventDefault();
+      };
+      canvas.ontouchmove = e => {
+        if (!dragStart) return;
+        const t = e.touches[0];
+        offsetX = t.clientX - dragStart.x;
+        offsetY = t.clientY - dragStart.y;
+        clampOffset(); draw(); e.preventDefault();
+      };
+      canvas.ontouchend = () => { dragStart = null; };
+
+      // Scroll zoom
+      canvas.onwheel = e => {
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.05 : -0.05;
+        applyZoomDelta(delta, e.offsetX, e.offsetY);
+        syncZoomSlider();
+      };
+    }
+
+    function applyZoomDelta(delta, pivotX, pivotY) {
+      const newScale = Math.min(Math.max(scale + delta * scale, minScale), minScale * 3);
+      const ratio = newScale / scale;
+      offsetX = (pivotX || canvasW/2) - ratio * ((pivotX || canvasW/2) - offsetX);
+      offsetY = (pivotY || canvasH/2) - ratio * ((pivotY || canvasH/2) - offsetY);
+      scale = newScale;
+      clampOffset(); draw();
+    }
+
+    function syncZoomSlider() {
+      const pct = Math.round(((scale - minScale) / (minScale * 2)) * 200);
+      const slider = document.getElementById('lhCropZoom');
+      if (slider) slider.value = Math.min(300, Math.max(100, 100 + pct));
+      document.getElementById('lhCropZoomLabel').textContent = (scale / minScale).toFixed(1) + '×';
+    }
+
+    return {
+      open(src, cb) {
+        originalSrc = src;
+        onConfirmCb = cb;
+        img = new Image();
+        img.onload = () => {
+          document.getElementById('lhCropperOverlay').classList.add('active');
+          setTimeout(initCanvas, 30);
+        };
+        img.src = src;
+      },
+
+      setZoom(val) {
+        // val: 100–300
+        const targetScale = minScale * (1 + ((val - 100) / 200) * 2);
+        const newScale = Math.min(Math.max(targetScale, minScale), minScale * 3);
+        const ratio = newScale / scale;
+        offsetX = canvasW/2 - ratio * (canvasW/2 - offsetX);
+        offsetY = canvasH/2 - ratio * (canvasH/2 - offsetY);
+        scale = newScale;
+        clampOffset(); draw();
+        document.getElementById('lhCropZoomLabel').textContent = (scale / minScale).toFixed(1) + '×';
+      },
+
+      reset() {
+        const scaleX = canvasW / img.naturalWidth;
+        const scaleY = canvasH / img.naturalHeight;
+        scale = Math.max(scaleX, scaleY);
+        minScale = scale;
+        offsetX = (canvasW - img.naturalWidth * scale) / 2;
+        offsetY = (canvasH - img.naturalHeight * scale) / 2;
+        clampOffset();
+        const slider = document.getElementById('lhCropZoom');
+        if (slider) slider.value = 100;
+        document.getElementById('lhCropZoomLabel').textContent = '1.0×';
+        draw();
+      },
+
+      confirm() {
+        // Export at 2× for retina quality
+        const exportW = 800, exportH = Math.round(800 / RATIO);
+        const offscreen = document.createElement('canvas');
+        offscreen.width = exportW; offscreen.height = exportH;
+        const octx = offscreen.getContext('2d');
+        const scaleRatio = exportW / canvasW;
+        octx.drawImage(
+          img,
+          offsetX * scaleRatio, offsetY * scaleRatio,
+          img.naturalWidth * scale * scaleRatio,
+          img.naturalHeight * scale * scaleRatio
+        );
+        const dataUrl = offscreen.toDataURL('image/jpeg', 0.88);
+        document.getElementById('lhCropperOverlay').classList.remove('active');
+        if (onConfirmCb) onConfirmCb(dataUrl);
+      },
+
+      cancel() {
+        document.getElementById('lhCropperOverlay').classList.remove('active');
+      }
+    };
+  })();
+  window.lhCropper = lhCropper;
+  </script>
+</body>
+</html>

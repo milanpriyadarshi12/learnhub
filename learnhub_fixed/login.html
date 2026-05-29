@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - LearnHub</title>
+  <meta name="description" content="Login to your LearnHub account and continue your learning journey.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <div class="auth-container">
+    <!-- Background Shapes -->
+    <div class="auth-bg-shapes">
+      <div class="auth-shape auth-shape-1"></div>
+      <div class="auth-shape auth-shape-2"></div>
+      <div class="auth-shape auth-shape-3"></div>
+    </div>
+    
+    <!-- Login Card -->
+    <div class="auth-card">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center justify-center gap-2 mb-8">
+        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-2xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-2">Welcome Back!</h2>
+      <p class="text-gray-500 text-center mb-8">Login to continue your learning journey</p>
+      
+      <form action="dashboard.html" method="GET">
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="form-input-icon">
+            <i class="fas fa-envelope icon"></i>
+            <input type="email" class="form-input" placeholder="Enter your email" required>
+          </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="form-input-icon relative">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" class="form-input" placeholder="Enter your password" required>
+            <span class="password-toggle">
+              <i class="fas fa-eye"></i>
+            </span>
+          </div>
+        </div>
+        
+        <!-- Remember & Forgot -->
+        <div class="flex items-center justify-between mb-6">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 text-primary rounded">
+            <span class="text-sm text-gray-600">Remember me</span>
+          </label>
+          <a href="forgotpassword.html" class="text-sm text-primary hover:underline">Forgot Password?</a>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-full mb-6">
+          Login <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </form>
+      
+      <!-- Divider -->
+      <div class="divider">
+        <span>or continue with</span>
+      </div>
+      
+      <!-- Social Login (Coming Soon) -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <button class="social-btn" type="button">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+          <span>Google</span>
+        </button>
+        <button class="social-btn" type="button">
+          <i class="fab fa-facebook text-blue-600 text-xl"></i>
+          <span>Facebook</span>
+        </button>
+      </div>
+      
+      <!-- Sign Up Link -->
+      <p class="text-center text-gray-600">
+        Don't have an account? 
+        <a href="signup.html" class="text-primary font-medium hover:underline">Sign Up Free</a>
+      </p>
+
+      <!-- Demo credentials hint -->
+      <div class="mt-6 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
+        <p class="text-xs text-indigo-700 font-semibold mb-1">Demo Accounts</p>
+        <p class="text-xs text-indigo-600">Student: student@learnhub.com / student123</p>
+        <p class="text-xs text-indigo-600">Admin: admin@learnhub.com / admin123</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/script.js"></script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+</body>
+</html>

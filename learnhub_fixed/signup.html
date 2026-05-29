@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - LearnHub</title>
+  <meta name="description" content="Create your free LearnHub account and start your exam preparation journey.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <div class="auth-container">
+    <!-- Background Shapes -->
+    <div class="auth-bg-shapes">
+      <div class="auth-shape auth-shape-1"></div>
+      <div class="auth-shape auth-shape-2"></div>
+      <div class="auth-shape auth-shape-3"></div>
+    </div>
+    
+    <!-- Signup Card -->
+    <div class="auth-card">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center justify-center gap-2 mb-6">
+        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-xl"></i>
+        </div>
+        <span class="text-2xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      
+      <h2 class="text-2xl font-bold text-gray-800 text-center mb-2">Create Account</h2>
+      <p class="text-gray-500 text-center mb-6">Start your learning journey for free</p>
+      
+      <form action="dashboard.html" method="GET">
+        <!-- Full Name -->
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <div class="form-input-icon">
+            <i class="fas fa-user icon"></i>
+            <input type="text" class="form-input" placeholder="Enter your full name" required>
+          </div>
+        </div>
+        
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="form-input-icon">
+            <i class="fas fa-envelope icon"></i>
+            <input type="email" class="form-input" placeholder="Enter your email" required>
+          </div>
+        </div>
+        
+        <!-- Phone -->
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <div class="form-input-icon">
+            <i class="fas fa-phone icon"></i>
+            <input type="tel" class="form-input" placeholder="+91 Enter your phone number" required>
+          </div>
+        </div>
+        
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="form-input-icon relative">
+            <i class="fas fa-lock icon"></i>
+            <input type="password" class="form-input" placeholder="Create a strong password" required>
+            <span class="password-toggle">
+              <i class="fas fa-eye"></i>
+            </span>
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Must be at least 8 characters</p>
+        </div>
+        
+        <!-- Target Exam -->
+        <div class="form-group">
+          <label class="form-label">Target Exam</label>
+          <select class="form-input">
+            <option value="">Select your target exam</option>
+            <option value="ssc">SSC CGL / CHSL / MTS</option>
+            <option value="banking">Banking (IBPS / SBI / RBI)</option>
+            <option value="upsc">UPSC Civil Services</option>
+            <option value="railways">Railways (RRB / NTPC)</option>
+            <option value="teaching">Teaching (CTET / TET)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        
+        <!-- Terms -->
+        <div class="form-group">
+          <label class="flex items-start gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 text-primary rounded mt-1" required>
+            <span class="text-sm text-gray-600">I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a></span>
+          </label>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-full mb-6">
+          Create Account <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </form>
+      
+      <!-- Divider -->
+      <div class="divider">
+        <span>or sign up with</span>
+      </div>
+      
+      <!-- Social Signup (Coming Soon) -->
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <button class="social-btn" type="button">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" class="w-5 h-5">
+          <span>Google</span>
+        </button>
+        <button class="social-btn" type="button">
+          <i class="fab fa-facebook text-blue-600 text-xl"></i>
+          <span>Facebook</span>
+        </button>
+      </div>
+      
+      <!-- Login Link -->
+      <p class="text-center text-gray-600">
+        Already have an account? 
+        <a href="login.html" class="text-primary font-medium hover:underline">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/script.js"></script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+</body>
+</html>

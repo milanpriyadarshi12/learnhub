@@ -1,0 +1,203 @@
+/* ================================================================
+   LearnHub — Auth UI Styles · auth.css
+   Error/success banners, nav user badge, animations.
+   Does NOT change any existing layout.
+   ================================================================ */
+
+/* ── Error banner ─────────────────────────────────────────────── */
+.lh-auth-error {
+  display: none;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-left: 4px solid #ef4444;
+  color: #b91c1c;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  animation: lhFadeInDown 0.25s ease;
+}
+
+/* ── Success banner ───────────────────────────────────────────── */
+.lh-auth-success {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid #10b981;
+  color: #065f46;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 12px 16px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  animation: lhFadeInDown 0.25s ease;
+}
+
+@keyframes lhFadeInDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Shake animation for invalid inputs ──────────────────────── */
+@keyframes lhShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+.lh-auth-shake {
+  animation: lhShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ── Nav user badge ───────────────────────────────────────────── */
+.lh-nav-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lh-nav-user-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.lh-nav-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.25);
+}
+
+.lh-nav-initials {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.lh-nav-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.lh-nav-name-text {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.lh-nav-role-text {
+  font-size: 11px;
+  color: #6366f1;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ── Logout button in navbar ─────────────────────────────────── */
+.lh-nav-logout {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.lh-nav-logout:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #ef4444;
+}
+
+/* ── Admin page indicator badge (sidebar) ────────────────────── */
+.lh-admin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+}
+
+/* ── Loading button spinner ───────────────────────────────────── */
+.lh-btn-loading {
+  opacity: 0.85 !important;
+  cursor: not-allowed !important;
+}
+
+/* ── Input error highlight ───────────────────────────────────── */
+.lh-input-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12) !important;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .lh-nav-name { display: none; }
+  .lh-nav-avatar { width: 32px; height: 32px; }
+  .lh-nav-initials { font-size: 12px; }
+}
+
+/* ── Subscription badge under name in navbar ──────────────────── */
+.lh-sub-nav-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 100px;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.lh-sub-badge-paid {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #7c2d12;
+}
+
+.lh-sub-badge-free {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* ── Navbar user link layout ──────────────────────────────────── */
+.lh-nav-user-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+/* ── Profile avatar ring hover ──────────────────────────────────── */
+#avatarRing {
+  transition: box-shadow 0.2s ease;
+}
+#avatarRing:hover {
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
+}

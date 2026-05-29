@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Material - LearnHub</title>
+  <meta name="description" content="Download high-quality study materials, PDFs, notes, and practice sets for competitive exams.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="mocktests.html" class="nav-link">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link active">Study Material</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="pt-28 pb-12 bg-gradient-to-br from-purple-50 to-indigo-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center reveal">
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Study Material</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Download high-quality notes, PDFs, practice sets & current affairs compilations</p>
+      </div>
+      
+      <!-- Search -->
+      <div class="max-w-xl mx-auto mt-8 reveal">
+        <div class="relative sm-search-wrapper">
+          <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 transition-all duration-300" id="sm-search-icon"></i>
+          <input type="text" id="sm-search-input" placeholder="Search study materials..." 
+            class="w-full pl-12 pr-16 py-4 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all duration-300"
+            autocomplete="off">
+          <span class="sm-search-count" id="sm-search-count"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filter -->
+  <section class="py-6 bg-white border-b border-gray-100 sticky top-[72px] z-40">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex gap-4 overflow-x-auto pb-2">
+        <button class="sm-filter-btn active px-6 py-2 rounded-full bg-primary text-white font-medium whitespace-nowrap" data-filter="all">All Materials</button>
+        <button class="sm-filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-600 font-medium whitespace-nowrap hover:bg-gray-200" data-filter="notes">Notes</button>
+        <button class="sm-filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-600 font-medium whitespace-nowrap hover:bg-gray-200" data-filter="pdfs">PDFs</button>
+        <button class="sm-filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-600 font-medium whitespace-nowrap hover:bg-gray-200" data-filter="practice">Practice Sets</button>
+        <button class="sm-filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-600 font-medium whitespace-nowrap hover:bg-gray-200" data-filter="current-affairs">Current Affairs</button>
+        <button class="sm-filter-btn px-6 py-2 rounded-full bg-gray-100 text-gray-600 font-medium whitespace-nowrap hover:bg-gray-200" data-filter="previous-papers">Previous Papers</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Study Materials Grid -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Featured Section -->
+      <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 md:p-8 mb-12 reveal">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-white">
+            <span class="text-xs bg-white/20 px-3 py-1 rounded-full">NEW</span>
+            <h3 class="text-2xl font-bold mt-3 mb-2">Current Affairs March 2026 PDF</h3>
+            <p class="opacity-90">Complete monthly compilation with MCQs and one-liners</p>
+          </div>
+          <a href="current-affairs-march-2026.pdf" class="btn bg-white text-indigo-600 hover:bg-gray-100">
+            <i class="fas fa-download mr-1"></i> Download Free
+          </a>
+        </div>
+      </div>
+
+      <!-- Subject-wise Notes -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Subject-wise Notes</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" id="sm-notes-grid" data-section="notes pdfs">
+        <div class="sm-card-wrapper filter-show" data-search="mathematics maths quantitative aptitude formulas shortcuts pdf notes">
+        <!-- Note Card 1 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover h-full">
+          <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+            <i class="fas fa-calculator text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Mathematics Complete Notes</h3>
+          <p class="text-sm text-gray-500 mb-4">All topics covered with shortcuts and formulas</p>
+          <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <span><i class="fas fa-file-pdf mr-1 text-red-500"></i> 250 pages</span>
+            <span><i class="fas fa-download mr-1"></i> 45K downloads</span>
+          </div>
+          <button onclick="lhDownloadPDF(this)" class="btn btn-outline w-full text-sm py-2"><i class="fas fa-download mr-1"></i> Download PDF</button>
+        </div>
+        </div>
+        
+        <div class="sm-card-wrapper filter-show" data-search="reasoning ability logical puzzles coding decoding notes pdf">
+        <!-- Note Card 2 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover h-full">
+          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+            <i class="fas fa-brain text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Reasoning Ability Notes</h3>
+          <p class="text-sm text-gray-500 mb-4">Logical reasoning, puzzles, coding-decoding</p>
+          <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <span><i class="fas fa-file-pdf mr-1 text-red-500"></i> 180 pages</span>
+            <span><i class="fas fa-download mr-1"></i> 38K downloads</span>
+          </div>
+          <button onclick="lhDownloadPDF(this)" class="btn btn-outline w-full text-sm py-2"><i class="fas fa-download mr-1"></i> Download PDF</button>
+        </div>
+        </div>
+        
+        <div class="sm-card-wrapper filter-show" data-search="english grammar rules vocabulary notes pdf ssc upsc banking">
+        <!-- Note Card 3 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover h-full">
+          <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+            <i class="fas fa-spell-check text-orange-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">English Grammar Notes</h3>
+          <p class="text-sm text-gray-500 mb-4">Complete grammar rules with examples</p>
+          <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <span><i class="fas fa-file-pdf mr-1 text-red-500"></i> 200 pages</span>
+            <span><i class="fas fa-download mr-1"></i> 52K downloads</span>
+          </div>
+          <button onclick="lhDownloadPDF(this)" class="btn btn-outline w-full text-sm py-2"><i class="fas fa-download mr-1"></i> Download PDF</button>
+        </div>
+        </div>
+        
+        <div class="sm-card-wrapper filter-show" data-search="general knowledge gk history geography science upsc ssc railway pdf notes">
+        <!-- Note Card 4 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover h-full">
+          <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+            <i class="fas fa-globe-asia text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">General Knowledge Notes</h3>
+          <p class="text-sm text-gray-500 mb-4">Static GK, history, geography, science</p>
+          <div class="flex items-center gap-2 text-sm text-gray-500 mb-4">
+            <span><i class="fas fa-file-pdf mr-1 text-red-500"></i> 320 pages</span>
+            <span><i class="fas fa-download mr-1"></i> 65K downloads</span>
+          </div>
+          <button onclick="lhDownloadPDF(this)" class="btn btn-outline w-full text-sm py-2"><i class="fas fa-download mr-1"></i> Download PDF</button>
+        </div>
+        </div>
+      </div>
+
+      <!-- Current Affairs -->
+      <div class="sm-section" data-section="current-affairs">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Current Affairs</h2>
+      
+      <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-calendar-alt text-red-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">May 2024</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-calendar-alt text-red-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">April 2024</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-calendar-alt text-red-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">March 2024</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-calendar-alt text-red-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">February 2024</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-calendar-alt text-red-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">January 2024</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm hover:shadow-lg transition reveal">
+          <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <i class="fas fa-star text-yellow-500"></i>
+          </div>
+          <h4 class="font-medium text-gray-800 text-sm">Yearly 2023</h4>
+          <a href="login.html" class="text-xs text-primary hover:underline">Download</a>
+        </div>
+      </div>
+
+      </div><!-- /sm-section current-affairs -->
+
+      <!-- Previous Year Papers -->
+      <div class="sm-section" data-section="previous-papers">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Previous Year Papers</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-blue-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">SSC CGL Previous Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">2018-2023 all shifts with solutions</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">50+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-green-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">IBPS PO Previous Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">2019-2023 Prelims & Mains papers</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">40+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-purple-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">UPSC Prelims Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">2015-2023 GS & CSAT papers</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">20+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-orange-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">RRB NTPC Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">2019-2023 all phases papers</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">35+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-teal-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">CTET Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">Paper 1 & 2 with answer keys</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">25+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fas fa-file-alt text-red-600 text-xl"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-800 mb-1">SBI PO/Clerk Papers</h3>
+              <p class="text-sm text-gray-500 mb-3">2019-2023 all papers</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs text-gray-400">30+ Papers</span>
+                <a href="login.html" class="text-sm text-primary font-medium hover:underline">Download All →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /previous-papers inner grid -->
+      </div><!-- /sm-section previous-papers -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform for competitive exam preparation.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="mocktests.html" class="footer-link">SSC</a>
+          <a href="mocktests.html" class="footer-link">Banking</a>
+          <a href="mocktests.html" class="footer-link">UPSC</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">© 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script src="js/script.js"></script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+
+  <!-- Fix #7 & #8: Study Material Filters + PDF Download Flow -->
+  <script>
+  // ── Filter tabs ──────────────────────────────────────
+  document.querySelectorAll('.sm-filter-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.sm-filter-btn').forEach(b => {
+        b.classList.remove('active','bg-primary','text-white');
+        b.classList.add('bg-gray-100','text-gray-600');
+      });
+      this.classList.add('active','bg-primary','text-white');
+      this.classList.remove('bg-gray-100','text-gray-600');
+
+      var f = this.dataset.filter;
+      var notesGrid = document.getElementById('sm-notes-grid');
+      var sections = document.querySelectorAll('.sm-section');
+
+      if (f === 'all') {
+        if (notesGrid) notesGrid.style.display = '';
+        document.querySelector('h2.text-2xl') && null;
+        // Show everything
+        document.querySelectorAll('.sm-section').forEach(s => s.style.display = '');
+        if (notesGrid) notesGrid.closest('div.py-12') && null;
+        // Show all headings before notes grid
+        document.querySelectorAll('#sm-notes-grid').forEach(g => { g.style.display = ''; });
+        sections.forEach(s => s.style.display = '');
+        // show notes heading
+        var allH2 = document.querySelectorAll('.py-12 h2');
+        allH2.forEach(h => h.style.display = '');
+        if (notesGrid) notesGrid.style.display = '';
+      } else if (f === 'notes' || f === 'pdfs') {
+        if (notesGrid) notesGrid.style.display = '';
+        sections.forEach(s => s.style.display = 'none');
+        var h2s = document.querySelectorAll('.py-12 > .max-w-7xl > h2');
+        h2s.forEach(h => h.style.display = (h.textContent.trim() === 'Subject-wise Notes') ? '' : 'none');
+      } else if (f === 'current-affairs') {
+        if (notesGrid) notesGrid.style.display = 'none';
+        sections.forEach(s => {
+          s.style.display = s.dataset.section === 'current-affairs' ? '' : 'none';
+        });
+        var h2s = document.querySelectorAll('.py-12 > .max-w-7xl > h2');
+        h2s.forEach(h => h.style.display = 'none');
+      } else if (f === 'previous-papers' || f === 'practice') {
+        if (notesGrid) notesGrid.style.display = 'none';
+        sections.forEach(s => {
+          s.style.display = s.dataset.section === 'previous-papers' ? '' : 'none';
+        });
+        var h2s = document.querySelectorAll('.py-12 > .max-w-7xl > h2');
+        h2s.forEach(h => h.style.display = 'none');
+      }
+    });
+  });
+
+  // ── PDF Download flow ────────────────────────────────
+  /* ── Material data — free flag per card (all subject notes = free, premium PDFs = paid) */
+  var LH_MAT_CATALOG = {
+    'Mathematics Complete Notes':  { id: 'm01', free: true },
+    'Reasoning Ability Notes':     { id: 'm02', free: true },
+    'English Grammar Notes':       { id: 'm03', free: true },
+    'General Knowledge Notes':     { id: 'm04', free: true },
+    'Banking Awareness Notes':     { id: 'm05', free: false, price: 99,  originalPrice: 199, name: 'Banking Awareness Premium Notes' },
+    'UPSC GS Notes':               { id: 'm06', free: false, price: 199, originalPrice: 399, name: 'UPSC GS Premium Notes' },
+    'Previous Year Papers':        { id: 'm07', free: false, price: 149, originalPrice: 299, name: 'Previous Year Papers Pack' }
+  };
+
+  function lhDownloadPDF(btn) {
+    var session = (window.LH_SUB ? LH_SUB._getSession() : null) ||
+                  (function(){ try { return JSON.parse(localStorage.getItem('learnhubUser') || sessionStorage.getItem('learnhubUser') || 'null'); } catch(e){ return null; } })();
+    if (!session || !session.id) {
+      window.location.href = 'login.html?next=studymaterial.html';
+      return;
+    }
+
+    // Get card title
+    var card = btn.closest('.bg-white') || btn.closest('[class*="card"]');
+    var titleEl = card ? card.querySelector('h3') : null;
+    var title = titleEl ? titleEl.textContent.trim() : '';
+    var matData = null;
+    Object.keys(LH_MAT_CATALOG).forEach(function(k) {
+      if (title.toLowerCase().includes(k.toLowerCase())) matData = LH_MAT_CATALOG[k];
+    });
+
+    // Default: treat as free if not in catalog
+    if (!matData || matData.free) {
+      _lhDoDownload(btn, title);
+      return;
+    }
+
+    // Check if purchased
+    if (LH_SUB && LH_SUB.canAccessMaterial(matData.id, false)) {
+      _lhDoDownload(btn, title);
+      return;
+    }
+
+    // Open payment
+    if (window.LH_SUB) {
+      LH_SUB.openPayment({
+        type: 'material',
+        id: matData.id,
+        name: matData.name || title,
+        price: matData.price || 99,
+        originalPrice: matData.originalPrice,
+        onSuccess: function() {
+          _lhDoDownload(btn, title);
+        }
+      });
+    }
+  }
+
+  function _lhDoDownload(btn, title) {
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-1"></i> Preparing...';
+    btn.disabled = true;
+    setTimeout(function(){
+      btn.innerHTML = '<i class="fas fa-check-circle mr-1"></i> Downloaded!';
+      btn.style.color = '#10b981';
+      btn.style.borderColor = '#10b981';
+      setTimeout(function(){
+        btn.innerHTML = '<i class="fas fa-download mr-1"></i> Download PDF';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+        btn.disabled = false;
+      }, 2500);
+    }, 1200);
+  }
+  </script>
+</body>
+</html>

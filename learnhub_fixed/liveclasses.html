@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Classes - LearnHub</title>
+  <meta name="description" content="Join interactive live classes with India's top educators and clear your doubts in real-time.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="mocktests.html" class="nav-link">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link active">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link">Study Material</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="pt-28 pb-12 bg-gradient-to-br from-red-50 to-orange-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center reveal">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <h1 class="text-4xl lg:text-5xl font-bold text-gray-900">Live Classes</h1>
+          <span class="live-badge text-lg px-4 py-2">LIVE</span>
+        </div>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Interactive sessions with India's top educators. Ask doubts in real-time!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Now Section -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3 reveal">
+        <span class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+        Live Now
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Live Class 1 -->
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=220&fit=crop" alt="Live Class" class="w-full h-52 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <span class="absolute top-4 left-4 live-badge">LIVE</span>
+            <span class="absolute top-4 right-4 live-badge bg-green-500">FREE</span>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <p class="text-sm opacity-80 flex items-center gap-2">
+                <i class="fas fa-eye"></i> 1,250 watching
+              </p>
+            </div>
+          </div>
+          <div class="p-5">
+            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">SSC CGL</span>
+            <h3 class="font-semibold text-gray-800 mt-3 mb-2">Complete Maths - Percentage, Ratio & Proportion</h3>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop" alt="Teacher" class="w-10 h-10 rounded-full">
+              <div>
+                <p class="text-sm font-medium text-gray-800">Ravinder Sir</p>
+                <p class="text-xs text-gray-500">Maths Expert • 15 yrs exp</p>
+              </div>
+            </div>
+            <a href="#" onclick="lhJoinLiveClass(1,'https://www.youtube.com/live/AWmA8dlmaM4?si=tJe6O65cEZwhaHOI');return false;" class="btn btn-primary w-full">
+              <i class="fab fa-youtube mr-1"></i> Join Live Class
+            </a>
+          </div>
+        </div>
+        
+        <!-- Live Class 2 -->
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=220&fit=crop" alt="Live Class" class="w-full h-52 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <span class="absolute top-4 left-4 live-badge">LIVE</span>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <p class="text-sm opacity-80 flex items-center gap-2">
+                <i class="fas fa-eye"></i> 890 watching
+              </p>
+            </div>
+          </div>
+          <div class="p-5">
+            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">UPSC</span>
+            <h3 class="font-semibold text-gray-800 mt-3 mb-2">Indian Polity - Constitutional Framework</h3>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=40&h=40&fit=crop" alt="Teacher" class="w-10 h-10 rounded-full">
+              <div>
+                <p class="text-sm font-medium text-gray-800">Dr. Priya Singh</p>
+                <p class="text-xs text-gray-500">Polity Expert • IAS Mentor</p>
+              </div>
+            </div>
+            <a href="#" onclick="lhJoinLiveClass(2,null);return false;" class="btn btn-primary w-full">
+              <i class="fab fa-youtube mr-1"></i> Join Live Class
+            </a>
+          </div>
+        </div>
+        
+        <!-- Live Class 3 -->
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=220&fit=crop" alt="Live Class" class="w-full h-52 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+            <span class="absolute top-4 left-4 live-badge">LIVE</span>
+            <div class="absolute bottom-4 left-4 right-4 text-white">
+              <p class="text-sm opacity-80 flex items-center gap-2">
+                <i class="fas fa-eye"></i> 650 watching
+              </p>
+            </div>
+          </div>
+          <div class="p-5">
+            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Banking</span>
+            <h3 class="font-semibold text-gray-800 mt-3 mb-2">Reasoning Ability - Puzzles & Seating Arrangement</h3>
+            <div class="flex items-center gap-3 mb-4">
+              <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop" alt="Teacher" class="w-10 h-10 rounded-full">
+              <div>
+                <p class="text-sm font-medium text-gray-800">Amit Sharma</p>
+                <p class="text-xs text-gray-500">Reasoning Expert • 12 yrs exp</p>
+              </div>
+            </div>
+            <a href="#" onclick="lhJoinLiveClass(3,null);return false;" class="btn btn-primary w-full">
+              <i class="fab fa-youtube mr-1"></i> Join Live Class
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Classes -->
+  <section class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Upcoming Classes</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Upcoming 1 -->
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-medium">In 30 mins</span>
+            <span class="text-xs text-gray-500">Today, 4:00 PM</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">English Grammar - Tenses</h3>
+          <p class="text-sm text-gray-500 mb-4">by Sunita Verma</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">SSC</span>
+            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Banking</span>
+          </div>
+          <a href="login.html" class="btn btn-outline w-full mt-4 text-sm py-2">
+            <i class="fas fa-bell mr-1"></i> Set Reminder
+          </a>
+        </div>
+        
+        <!-- Upcoming 2 -->
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-medium">In 2 hours</span>
+            <span class="text-xs text-gray-500">Today, 6:00 PM</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Current Affairs - May 2024</h3>
+          <p class="text-sm text-gray-500 mb-4">by Rahul Gupta</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">All Exams</span>
+          </div>
+          <a href="login.html" class="btn btn-outline w-full mt-4 text-sm py-2">
+            <i class="fas fa-bell mr-1"></i> Set Reminder
+          </a>
+        </div>
+        
+        <!-- Upcoming 3 -->
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full font-medium">Tomorrow</span>
+            <span class="text-xs text-gray-500">10:00 AM</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">GK Marathon - Static GK</h3>
+          <p class="text-sm text-gray-500 mb-4">by Neha Singh</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">Railways</span>
+          </div>
+          <a href="login.html" class="btn btn-outline w-full mt-4 text-sm py-2">
+            <i class="fas fa-bell mr-1"></i> Set Reminder
+          </a>
+        </div>
+        
+        <!-- Upcoming 4 -->
+        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 hover:shadow-lg transition reveal">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full font-medium">Tomorrow</span>
+            <span class="text-xs text-gray-500">2:00 PM</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Data Interpretation Shortcuts</h3>
+          <p class="text-sm text-gray-500 mb-4">by Vikram Joshi</p>
+          <div class="flex items-center gap-2">
+            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Banking</span>
+          </div>
+          <a href="login.html" class="btn btn-outline w-full mt-4 text-sm py-2">
+            <i class="fas fa-bell mr-1"></i> Set Reminder
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Class Schedule -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Weekly Schedule</h2>
+      
+      <div class="bg-white rounded-2xl shadow-sm overflow-hidden reveal">
+        <div class="grid grid-cols-7 bg-primary text-white text-center">
+          <div class="py-3 font-medium">Mon</div>
+          <div class="py-3 font-medium">Tue</div>
+          <div class="py-3 font-medium">Wed</div>
+          <div class="py-3 font-medium">Thu</div>
+          <div class="py-3 font-medium">Fri</div>
+          <div class="py-3 font-medium">Sat</div>
+          <div class="py-3 font-medium">Sun</div>
+        </div>
+        <div class="grid grid-cols-7 text-center">
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">Maths</p>
+          </div>
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">English</p>
+          </div>
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">Reasoning</p>
+          </div>
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">GK</p>
+          </div>
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">Maths</p>
+          </div>
+          <div class="p-4 border-r border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">Mock Test</p>
+          </div>
+          <div class="p-4 border-b border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">10:00 AM</p>
+            <p class="text-sm font-medium text-gray-800">Doubt Session</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-7 text-center">
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">English</p>
+          </div>
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">GK</p>
+          </div>
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">Maths</p>
+          </div>
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">Reasoning</p>
+          </div>
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">Current Affairs</p>
+          </div>
+          <div class="p-4 border-r border-gray-100">
+            <p class="text-xs text-gray-500 mb-2">4:00 PM</p>
+            <p class="text-sm font-medium text-gray-800">Analysis</p>
+          </div>
+          <div class="p-4">
+            <p class="text-xs text-gray-500 mb-2">-</p>
+            <p class="text-sm font-medium text-gray-400">Holiday</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Educators -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-gray-800">Our Expert Educators</h2>
+        <p class="text-gray-500 mt-2">Learn from India's best teachers</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="text-center reveal">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Teacher" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="font-semibold text-gray-800">Rakesh Kumar</h3>
+          <p class="text-sm text-primary mb-2">Mathematics Expert</p>
+          <p class="text-xs text-gray-500">15+ years experience • 500K+ students</p>
+        </div>
+        <div class="text-center reveal">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Teacher" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="font-semibold text-gray-800">Dr. Priya Singh</h3>
+          <p class="text-sm text-primary mb-2">UPSC Expert</p>
+          <p class="text-xs text-gray-500">IAS Officer • 300K+ students</p>
+        </div>
+        <div class="text-center reveal">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop" alt="Teacher" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="font-semibold text-gray-800">Amit Sharma</h3>
+          <p class="text-sm text-primary mb-2">Reasoning Expert</p>
+          <p class="text-xs text-gray-500">12+ years experience • 400K+ students</p>
+        </div>
+        <div class="text-center reveal">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Teacher" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+          <h3 class="font-semibold text-gray-800">Neha Verma</h3>
+          <p class="text-sm text-primary mb-2">English Expert</p>
+          <p class="text-xs text-gray-500">10+ years experience • 350K+ students</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform for competitive exam preparation.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="#" class="footer-link">SSC</a>
+          <a href="#" class="footer-link">Banking</a>
+          <a href="#" class="footer-link">UPSC</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">© 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+  function lhJoinLiveClass(classNum, youtubeUrl) {
+    var session = window.LH_SUB ? LH_SUB._getSession() : null;
+    if (!session || !session.id) { window.location.href = 'login.html?next=liveclasses.html'; return; }
+    if (classNum === 1 && youtubeUrl) { window.open(youtubeUrl, '_blank', 'noopener'); return; }
+    if (LH_SUB && LH_SUB.canAccessTest('liveclass-' + classNum, false)) {
+      if (youtubeUrl) window.open(youtubeUrl, '_blank', 'noopener');
+      else { var t=document.createElement('div');t.textContent='\u2705 Access granted! Link sent to your email.';t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#6366f1;color:#fff;padding:14px 24px;border-radius:12px;font-size:14px;z-index:99999;';document.body.appendChild(t);setTimeout(function(){t.remove();},3000); }
+      return;
+    }
+    var names={2:'Indian Polity Live Class (UPSC)',3:'Reasoning Live Class (Banking)',4:'Premium Live Batch'};
+    LH_SUB.openPayment({
+      type:'liveclass', id:'liveclass-'+classNum,
+      name: names[classNum]||'Premium Live Class',
+      price: classNum===2?499:399, originalPrice: classNum===2?999:799,
+      onSuccess: function(){
+        var t=document.createElement('div');t.innerHTML='<i class="fas fa-check-circle mr-2"></i>Access granted! Live class link sent to your email.';
+        t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#6366f1;color:#fff;padding:14px 24px;border-radius:12px;font-size:14px;z-index:99999;white-space:nowrap;max-width:90vw;';
+        document.body.appendChild(t); setTimeout(function(){t.remove();},3500);
+      }
+    });
+  }
+  </script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script></body>
+</html>

@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Tests - LearnHub</title>
+  <meta name="description" content="Practice with realistic mock tests designed by experts for competitive exams.">
+ 
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+ 
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+ 
+  <style>
+    /* ── Scrollbar hide for filter tabs ── */
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+ 
+    /* ── Test card wrapper — equal height rows ── */
+    .test-card-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+    .test-card-wrap > .lh-card-inner {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .test-card-wrap > .lh-card-inner .lh-card-footer {
+      margin-top: auto;
+    }
+ 
+    /* ── Tab button active state (resilient) ── */
+    .tab-btn {
+      transition: background 0.2s ease, color 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .tab-btn.lh-tab-active {
+      background-color: #6366f1 !important;
+      color: #ffffff !important;
+    }
+    .tab-btn:not(.lh-tab-active) {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    .tab-btn:not(.lh-tab-active):hover {
+      background-color: #e5e7eb;
+    }
+ 
+    /* ── Sticky filter bar offset fix ── */
+    @media (max-width: 1023px) {
+      .lh-sticky-filters { top: 64px !important; }
+    }
+ 
+    /* ── Test modal full-screen ── */
+    #lh-test-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #lh-test-modal.lh-hidden { display: none !important; }
+ 
+    /* Start screen */
+    #lh-start-screen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    #lh-start-screen.lh-hidden { display: none !important; }
+    .lh-start-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,.1);
+      text-align: center;
+    }
+ 
+    /* Quiz screen */
+    #lh-quiz-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+    #lh-quiz-screen.lh-hidden { display: none !important; }
+ 
+    /* Result screen */
+    #lh-result-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-height: 0;
+    }
+    #lh-result-screen.lh-hidden { display: none !important; }
+ 
+    /* Test header */
+    .lh-test-header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+    .lh-test-header h2 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e293b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lh-timer-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #fef3c7;
+      border: 1.5px solid #f59e0b;
+      border-radius: 10px;
+      padding: 5px 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #b45309;
+      flex-shrink: 0;
+    }
+    .lh-timer-box.lh-danger {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+      animation: lh-pulse 1s infinite;
+    }
+    @keyframes lh-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+ 
+    /* Quiz body */
+    .lh-test-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .lh-q-counter-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      margin-bottom: 8px;
+    }
+    .lh-progress-wrap { margin-bottom: 16px; }
+    .lh-progress-bar { height: 5px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+    .lh-progress-fill { height: 100%; background: #6366f1; border-radius: 3px; transition: width .3s; }
+ 
+    /* Question dots */
+    .lh-q-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
+    .lh-q-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .lh-q-dot.lh-answered { background: #6366f1; border-color: #6366f1; color: #fff; }
+    .lh-q-dot.lh-current { border-color: #6366f1; color: #6366f1; background: #eef2ff; }
+    .lh-q-dot.lh-answered.lh-current { background: #4f46e5; border-color: #4f46e5; color: #fff; }
+ 
+    /* Question text */
+    .lh-q-text {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+ 
+    /* Options */
+    .lh-options { display: flex; flex-direction: column; gap: 10px; }
+    .lh-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      background: #fff;
+      transition: all .2s ease;
+      text-align: left;
+      width: 100%;
+    }
+    .lh-option:hover { border-color: #6366f1; background: #f5f3ff; }
+    .lh-option.lh-selected { border-color: #6366f1; background: #eef2ff; }
+    .lh-option.lh-correct { border-color: #10b981; background: #ecfdf5; cursor: default; }
+    .lh-option.lh-wrong { border-color: #ef4444; background: #fef2f2; cursor: default; }
+    .lh-opt-label {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      color: #334155;
+      transition: all .2s;
+    }
+    .lh-option.lh-selected .lh-opt-label { background: #6366f1; color: #fff; }
+    .lh-option.lh-correct .lh-opt-label { background: #10b981; color: #fff; }
+    .lh-option.lh-wrong .lh-opt-label { background: #ef4444; color: #fff; }
+    .lh-opt-text { font-size: 14px; color: #334155; line-height: 1.4; }
+ 
+    /* Inline nav buttons (below options) */
+    .lh-nav-btns {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1.5px solid #e2e8f0;
+    }
+    .lh-nav-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: 2px solid transparent;
+      white-space: nowrap;
+      min-width: 0;
+    }
+    .lh-nav-btn:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+    /* Previous */
+    .lh-nav-btn-prev {
+      background: #fff;
+      color: #475569;
+      border-color: #e2e8f0;
+    }
+    .lh-nav-btn-prev:hover:not(:disabled) {
+      background: #f8fafc;
+      border-color: #6366f1;
+      color: #6366f1;
+    }
+    .lh-nav-btn-prev:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+    /* Submit */
+    .lh-nav-btn-submit {
+      background: #fff;
+      color: #dc2626;
+      border-color: #fca5a5;
+    }
+    .lh-nav-btn-submit:hover {
+      background: #fef2f2;
+      border-color: #ef4444;
+    }
+    /* Next */
+    .lh-nav-btn-next {
+      background: #6366f1;
+      color: #fff;
+      border-color: #6366f1;
+    }
+    .lh-nav-btn-next:hover {
+      background: #4f46e5;
+      border-color: #4f46e5;
+    }
+    /* Hidden next on last question */
+    .lh-nav-btn-next.lh-invisible {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    @media (max-width: 480px) {
+      .lh-test-body { padding: 16px 14px; }
+      .lh-start-box { padding: 28px 20px; }
+      .lh-nav-btns { gap: 8px; margin-top: 22px; padding-top: 16px; }
+      .lh-nav-btn { padding: 10px 10px; font-size: 13px; border-radius: 10px; }
+      .lh-nav-btn i { font-size: 12px; }
+    }
+    @media (max-width: 360px) {
+      .lh-nav-btn { font-size: 12px; padding: 9px 8px; }
+    }
+ 
+    /* Result */
+    .lh-result-wrap {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .lh-score-ring {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 10px solid #6366f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #eef2ff;
+      margin: 0 auto 24px;
+      transition: border-color .3s, background .3s;
+    }
+    .lh-score-ring .lh-big { font-size: 2rem; font-weight: 800; color: #4f46e5; line-height: 1; }
+    .lh-score-ring .lh-small { font-size: 0.7rem; color: #6366f1; font-weight: 600; margin-top: 2px; }
+ 
+    /* Premium modal */
+    #lh-premium-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      background: rgba(0,0,0,.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #lh-premium-modal.lh-hidden { display: none !important; }
+    .lh-premium-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      max-width: 380px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,.3);
+    }
+  </style>
+</head>
+ 
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+ 
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="mocktests.html" class="nav-link active">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link">Study Material</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="search-container hidden md:block">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search mock tests...">
+          <div class="search-suggestions"></div>
+        </div>
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block text-sm">Login</a>
+        <a href="signup.html" class="btn btn-primary text-sm">Sign Up Free</a>
+        <button class="mobile-menu-btn lg:hidden flex flex-col gap-1.5 p-2">
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- Page Header -->
+  <section class="pt-28 pb-12 bg-gradient-to-br from-green-50 to-emerald-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center reveal">
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Mock Tests</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">50,000+ realistic mock tests with detailed analysis and All India Ranking</p>
+      </div>
+ 
+      <!-- Quick Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-3xl mx-auto">
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+          <span class="text-2xl font-bold text-primary">50K+</span>
+          <p class="text-sm text-gray-500">Mock Tests</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+          <span class="text-2xl font-bold text-green-600">2M+</span>
+          <p class="text-sm text-gray-500">Tests Taken</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+          <span class="text-2xl font-bold text-orange-600">100+</span>
+          <p class="text-sm text-gray-500">Exam Categories</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center shadow-sm">
+          <span class="text-2xl font-bold text-purple-600">Free</span>
+          <p class="text-sm text-gray-500">Practice Tests</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Category Tabs — sticky -->
+  <section class="py-6 bg-white border-b border-gray-100 sticky top-[72px] lh-sticky-filters z-40">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+        <button class="tab-btn lh-tab-active px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="all">All Tests</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="ssc">SSC</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="banking">Banking</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="upsc">UPSC</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="railways">Railways</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="teaching">Teaching</button>
+        <button class="tab-btn px-5 py-2 rounded-full font-medium whitespace-nowrap text-sm" data-tab="engineering">Engineering</button>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Mock Tests Grid -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+ 
+      <!-- Free Tests Banner -->
+      <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 md:p-8 mb-12 reveal">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-white">
+            <h3 class="text-2xl font-bold mb-2">Free Daily Practice Tests</h3>
+            <p class="opacity-90">Attempt free mock tests daily and improve your preparation</p>
+          </div>
+          <button onclick="lhOpenFreeTest()" class="btn bg-white text-green-600 hover:bg-gray-100 whitespace-nowrap flex-shrink-0">
+            Start Free Test <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+ 
+      <!-- Test Series -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 reveal">Popular Test Series</h2>
+ 
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="test-cards-grid">
+ 
+        <!-- Card 1: SSC CGL — has working test -->
+        <div class="test-card-wrap" data-category="ssc">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-file-alt text-blue-600 text-2xl"></i>
+              </div>
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">50 Tests</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">SSC CGL 2024 Test Series</h3>
+            <p class="text-sm text-gray-500 mb-4">Complete test series with Tier 1 &amp; Tier 2 pattern based tests</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 60 mins each</span>
+              <span><i class="fas fa-users mr-1"></i> 25K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-gray-800">&#8377;299</span>
+                <span class="text-sm text-gray-400 line-through ml-2">&#8377;599</span>
+              </div>
+              <button onclick="lhPaidTest('ssc-cgl')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 2: IBPS PO Banking -->
+        <div class="test-card-wrap" data-category="banking">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-university text-green-600 text-2xl"></i>
+              </div>
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">75 Tests</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">IBPS PO 2024 Complete Series</h3>
+            <p class="text-sm text-gray-500 mb-4">Prelims + Mains test series with sectional tests</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 60-180 mins</span>
+              <span><i class="fas fa-users mr-1"></i> 18K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-gray-800">&#8377;399</span>
+                <span class="text-sm text-gray-400 line-through ml-2">&#8377;799</span>
+              </div>
+              <button onclick="lhPaidTest('banking')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 3: UPSC Prelims -->
+        <div class="test-card-wrap" data-category="upsc">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-landmark text-purple-600 text-2xl"></i>
+              </div>
+              <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">100 Tests</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">UPSC Prelims Test Series</h3>
+            <p class="text-sm text-gray-500 mb-4">GS Paper 1 &amp; CSAT complete test series</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 120 mins each</span>
+              <span><i class="fas fa-users mr-1"></i> 10K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-gray-800">&#8377;999</span>
+                <span class="text-sm text-gray-400 line-through ml-2">&#8377;1,999</span>
+              </div>
+              <button onclick="lhPaidTest('upsc')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 4: RRB NTPC Railways -->
+        <div class="test-card-wrap" data-category="railways">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-train text-orange-600 text-2xl"></i>
+              </div>
+              <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">40 Tests</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">RRB NTPC Test Series 2024</h3>
+            <p class="text-sm text-gray-500 mb-4">CBT 1 &amp; CBT 2 pattern based mock tests</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 90 mins each</span>
+              <span><i class="fas fa-users mr-1"></i> 30K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-gray-800">&#8377;199</span>
+                <span class="text-sm text-gray-400 line-through ml-2">&#8377;399</span>
+              </div>
+              <button onclick="lhPaidTest('railways')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 5: CTET Free Teaching -->
+        <div class="test-card-wrap" data-category="teaching">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border-2 border-green-200 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-chalkboard-teacher text-teal-600 text-2xl"></i>
+              </div>
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">FREE</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">CTET Free Practice Tests</h3>
+            <p class="text-sm text-gray-500 mb-4">Paper 1 &amp; Paper 2 practice tests with solutions</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 150 mins each</span>
+              <span><i class="fas fa-users mr-1"></i> 50K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-green-600">FREE</span>
+              </div>
+              <button onclick="lhPaidTest('teaching')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 6: Quantitative Aptitude SSC -->
+        <div class="test-card-wrap" data-category="ssc">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-calculator text-red-600 text-2xl"></i>
+              </div>
+              <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-medium">30 Tests</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Quantitative Aptitude Series</h3>
+            <p class="text-sm text-gray-500 mb-4">Topic-wise &amp; full-length quant practice tests</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 30-60 mins</span>
+              <span><i class="fas fa-users mr-1"></i> 45K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-gray-800">&#8377;149</span>
+                <span class="text-sm text-gray-400 line-through ml-2">&#8377;299</span>
+              </div>
+              <button onclick="lhPaidTest('quant')" class="btn btn-primary text-sm py-2 px-4">Start Test</button>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 7: Engineering JEE/GATE -->
+        <div class="test-card-wrap" data-category="engineering">
+          <div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">
+            <div class="flex items-start justify-between mb-4">
+              <div class="w-14 h-14 bg-cyan-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-microchip text-cyan-600 text-2xl"></i>
+              </div>
+              <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Free</span>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">JEE / GATE Mock Test Series</h3>
+            <p class="text-sm text-gray-500 mb-4">Full-length engineering entrance exam mock tests</p>
+            <div class="flex items-center gap-4 text-sm text-gray-500 mb-4">
+              <span><i class="fas fa-clock mr-1"></i> 3 hours</span>
+              <span><i class="fas fa-users mr-1"></i> 28K+ attempts</span>
+            </div>
+            <div class="lh-card-footer flex items-center justify-between pt-4 border-t border-gray-100">
+              <div>
+                <span class="text-xl font-bold text-green-600">FREE</span>
+              </div>
+              <a href="mocktest-detail.html" class="btn btn-primary text-sm py-2 px-4">Start Test</a>
+            </div>
+          </div>
+        </div>
+ 
+      </div><!-- /#test-cards-grid -->
+ 
+      <!-- View More -->
+      <div class="text-center mt-12">
+        <button onclick="lhViewMore()" class="btn btn-outline">
+          View All Test Series <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- How It Works -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-gray-800">How Mock Tests Work</h2>
+        <p class="text-gray-500 mt-2">Simple steps to boost your preparation</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center reveal">
+          <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-primary">1</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Choose Test</h3>
+          <p class="text-sm text-gray-500">Select from our wide range of exam-specific tests</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-green-600">2</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Attempt Test</h3>
+          <p class="text-sm text-gray-500">Take the test in exam-like environment with timer</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-orange-600">3</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Get Analysis</h3>
+          <p class="text-sm text-gray-500">Detailed performance report with solutions</p>
+        </div>
+        <div class="text-center reveal">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-purple-600">4</span>
+          </div>
+          <h3 class="font-semibold text-gray-800 mb-2">Improve</h3>
+          <p class="text-sm text-gray-500">Focus on weak areas and track your progress</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform for competitive exam preparation.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="#" class="footer-link">SSC</a>
+          <a href="#" class="footer-link">Banking</a>
+          <a href="#" class="footer-link">UPSC</a>
+          <a href="#" class="footer-link">Railways</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">&copy; 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+      </div>
+    </div>
+  </footer>
+ 
+  <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+ 
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/translator.js" defer></script>
+ 
+  <!-- ============================================================
+       PREMIUM COMING-SOON MODAL
+  ============================================================ -->
+  <div id="lh-premium-modal" class="lh-hidden">
+    <div class="lh-premium-box">
+      <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <i class="fas fa-lock text-indigo-600 text-2xl"></i>
+      </div>
+      <h2 class="text-xl font-bold text-gray-800 mb-2">Premium Test Series</h2>
+      <p class="text-gray-500 mb-6 text-sm">This test series is coming soon! We are working hard to bring you the best exam preparation experience.</p>
+      <button onclick="lhClosePremium()" class="btn btn-primary w-full">Got it</button>
+    </div>
+  </div>
+ 
+  <!-- ============================================================
+       FULL-SCREEN TEST MODAL
+  ============================================================ -->
+  <div id="lh-test-modal" class="lh-hidden">
+ 
+    <!-- START SCREEN -->
+    <div id="lh-start-screen">
+      <div class="lh-start-box">
+        <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-file-alt text-indigo-600 text-2xl"></i>
+        </div>
+        <h2 id="lh-start-title" class="text-xl font-bold text-gray-800 mb-2"></h2>
+        <p id="lh-start-sub" class="text-gray-500 text-sm mb-6 leading-relaxed"></p>
+        <div class="flex justify-center gap-5 mb-8 text-sm text-gray-600">
+          <div class="text-center">
+            <div class="font-bold text-xl text-indigo-600" id="lh-info-qs">10</div>
+            <div class="text-xs mt-0.5">Questions</div>
+          </div>
+          <div class="text-center">
+            <div class="font-bold text-xl text-orange-500" id="lh-info-mins">10</div>
+            <div class="text-xs mt-0.5">Minutes</div>
+          </div>
+          <div class="text-center">
+            <div class="font-bold text-xl text-green-600">+4</div>
+            <div class="text-xs mt-0.5">Per Correct</div>
+          </div>
+          <div class="text-center">
+            <div class="font-bold text-xl text-red-500">-1</div>
+            <div class="text-xs mt-0.5">Per Wrong</div>
+          </div>
+        </div>
+        <button onclick="lhBeginTest()" class="btn btn-primary w-full mb-3">
+          Start Test &nbsp;<i class="fas fa-arrow-right"></i>
+        </button>
+        <button onclick="lhCloseTest()" class="w-full text-sm text-gray-400 hover:text-gray-600 py-2 transition">Cancel</button>
+      </div>
+    </div>
+ 
+    <!-- QUIZ SCREEN -->
+    <div id="lh-quiz-screen" class="lh-hidden">
+      <div class="lh-test-header">
+        <h2 id="lh-quiz-title">Test</h2>
+        <div class="lh-timer-box" id="lh-timer-box">
+          <i class="fas fa-clock"></i>
+          <span id="lh-timer-display">10:00</span>
+        </div>
+      </div>
+      <div class="lh-test-body">
+        <div class="lh-progress-wrap">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+            <span id="lh-q-counter-top" class="lh-q-counter-label"></span>
+            <span id="lh-answered-count" style="font-size:11px;color:#94a3b8;"></span>
+          </div>
+          <div class="lh-progress-bar">
+            <div class="lh-progress-fill" id="lh-progress-fill" style="width:10%"></div>
+          </div>
+        </div>
+        <div class="lh-q-nav" id="lh-q-nav"></div>
+        <div class="lh-q-text" id="lh-q-text"></div>
+        <div class="lh-options" id="lh-options"></div>
+ 
+        <!-- ── Inline navigation buttons ── -->
+        <div class="lh-nav-btns">
+          <button id="lh-prev-btn" onclick="lhNav(-1)" class="lh-nav-btn lh-nav-btn-prev">
+            <i class="fas fa-chevron-left mr-1"></i> Previous
+          </button>
+          <button onclick="lhSubmitConfirm()" class="lh-nav-btn lh-nav-btn-submit">
+            <i class="fas fa-paper-plane mr-1"></i> Submit Test
+          </button>
+          <button id="lh-next-btn" onclick="lhNav(1)" class="lh-nav-btn lh-nav-btn-next">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- RESULT SCREEN -->
+    <div id="lh-result-screen" class="lh-hidden">
+      <div class="lh-test-header">
+        <h2>Test Completed!</h2>
+        <button onclick="lhCloseTest()" style="background:none;border:none;cursor:pointer;color:#94a3b8;font-size:1.2rem;" title="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="lh-result-wrap">
+        <div class="lh-score-ring" id="lh-score-ring">
+          <span class="lh-big" id="lh-result-score">0</span>
+          <span class="lh-small" id="lh-result-max">/ 40</span>
+        </div>
+        <h2 class="text-xl font-bold text-center text-gray-800 mb-1" id="lh-result-grade"></h2>
+        <p class="text-center text-gray-500 text-sm mb-8" id="lh-result-pct"></p>
+ 
+        <div class="grid grid-cols-3 gap-3 mb-8">
+          <div class="bg-green-50 rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold text-green-600" id="lh-res-correct">0</div>
+            <div class="text-xs text-gray-500 mt-1">Correct</div>
+          </div>
+          <div class="bg-red-50 rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold text-red-500" id="lh-res-wrong">0</div>
+            <div class="text-xs text-gray-500 mt-1">Wrong</div>
+          </div>
+          <div class="bg-gray-100 rounded-xl p-4 text-center">
+            <div class="text-2xl font-bold text-gray-500" id="lh-res-skip">0</div>
+            <div class="text-xs text-gray-500 mt-1">Skipped</div>
+          </div>
+        </div>
+ 
+        <h3 class="font-semibold text-gray-800 mb-4">Answer Review</h3>
+        <div id="lh-answer-review" class="space-y-3 mb-8"></div>
+ 
+        <div class="flex gap-3">
+          <button onclick="lhCloseTest()" class="flex-1 btn btn-outline">Back to Tests</button>
+          <button onclick="lhRetakeTest()" class="flex-1 btn btn-primary">Retake Test</button>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /#lh-test-modal -->
+ 
+  <!-- ============================================================
+       ALL JAVASCRIPT
+  ============================================================ -->
+  <script>
+  /* ── TEST DATA ──────────────────────────────────────────────── */
+  var LH_TESTS = {
+    'free-daily': {
+      title: 'Free Daily Practice Test',
+      subtitle: 'General Knowledge & Aptitude — 10 Questions, 10 Minutes',
+      minutes: 10,
+      questions: [
+        { q: 'Which planet is known as the "Red Planet"?', opts: ['Venus', 'Mars', 'Jupiter', 'Saturn'], ans: 1 },
+        { q: 'Who was the first Prime Minister of independent India?', opts: ['Mahatma Gandhi', 'Sardar Patel', 'Jawaharlal Nehru', 'Rajendra Prasad'], ans: 2 },
+        { q: 'What is 15% of 200?', opts: ['25', '30', '35', '40'], ans: 1 },
+        { q: 'The national animal of India is:', opts: ['Lion', 'Elephant', 'Tiger', 'Leopard'], ans: 2 },
+        { q: 'Find the next number: 2, 6, 12, 20, __', opts: ['28', '30', '32', '36'], ans: 1 },
+        { q: 'Who composed the Indian National Anthem "Jana Gana Mana"?', opts: ['Bankim Chandra Chatterjee', 'Rabindranath Tagore', 'Sarojini Naidu', 'Subramanya Bharati'], ans: 1 },
+        { q: '144 divided by 12 = ?', opts: ['11', '12', '13', '14'], ans: 1 },
+        { q: 'Which planet is closest to the Sun?', opts: ['Venus', 'Earth', 'Mars', 'Mercury'], ans: 3 },
+        { q: 'Capital of Maharashtra is:', opts: ['Pune', 'Nagpur', 'Mumbai', 'Aurangabad'], ans: 2 },
+        { q: 'If 5x + 3 = 28, then x = ?', opts: ['4', '5', '6', '7'], ans: 1 }
+      ]
+    },
+    'scc-cgl': {
+      title: 'SSC CGL 2024 — Test 1',
+      subtitle: 'Tier-I Pattern: GK, Reasoning, Maths, English — 10 Questions, 15 Minutes',
+      minutes: 15,
+      questions: [
+        { q: 'Which Article of the Indian Constitution abolishes untouchability?', opts: ['Article 14', 'Article 15', 'Article 17', 'Article 21'], ans: 2 },
+        { q: 'Letter series: A, C, F, J, O, __', opts: ['T', 'U', 'V', 'S'], ans: 1 },
+        { q: 'If A earns 20% more than B, by what % is B less than A?', opts: ['16.67%', '20%', '15%', '25%'], ans: 0 },
+        { q: 'Choose the correctly spelt word:', opts: ['Accomodation', 'Accommodation', 'Accomudation', 'Acommodation'], ans: 1 },
+        { q: 'Headquarters of the Reserve Bank of India (RBI) is in:', opts: ['New Delhi', 'Chennai', 'Kolkata', 'Mumbai'], ans: 3 },
+        { q: '3 : 27 :: 4 : __', opts: ['48', '64', '56', '72'], ans: 1 },
+        { q: 'HCF of 36 and 48 is:', opts: ['6', '9', '12', '18'], ans: 2 },
+        { q: 'Synonym of "Benevolent":', opts: ['Cruel', 'Hostile', 'Kind', 'Strict'], ans: 2 },
+        { q: 'Simple Interest formula is:', opts: ['P x R / T x 100', 'P + R x T', 'P x R x T / 100', 'P / (R x T)'], ans: 2 },
+        { q: 'The Battle of Plassey was fought in the year:', opts: ['1757', '1764', '1801', '1857'], ans: 0 }
+      ]
+    }
+  };
+ 
+  /* ── STATE ──────────────────────────────────────────────────── */
+  var LH_STATE = {
+    testId: null,
+    current: 0,
+    answers: {},
+    timer: null,
+    seconds: 0
+  };
+ 
+  /* ── CATEGORY FILTER ────────────────────────────────────────── */
+  function applyTabFilter(cat) {
+    // Update button active states
+    document.querySelectorAll('.tab-btn').forEach(function (b) {
+      b.classList.remove('lh-tab-active');
+    });
+    var activeBtn = document.querySelector('.tab-btn[data-tab="' + cat + '"]');
+    if (activeBtn) activeBtn.classList.add('lh-tab-active');
+
+    // Filter cards
+    document.querySelectorAll('.test-card-wrap').forEach(function (card) {
+      if (cat === 'all' || card.getAttribute('data-category') === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var cat = this.getAttribute('data-tab');
+      applyTabFilter(cat);
+    });
+  });
+
+  // Read ?category= URL param and auto-apply filter on page load
+  (function () {
+    var urlParams = new URLSearchParams(window.location.search);
+    var urlCategory = urlParams.get('category');
+    if (urlCategory) {
+      applyTabFilter(urlCategory);
+    }
+  })();
+ 
+  /* ── VIEW MORE ──────────────────────────────────────────────── */
+  function lhViewMore() {
+    var session = JSON.parse(localStorage.getItem('learnhubUser') || sessionStorage.getItem('learnhubUser') || 'null');
+    if (!session || !session.userId) {
+      window.location.href = 'login.html';
+      return;
+    }
+    lhShowToast('More test series coming soon!', '#6366f1');
+  }
+ 
+  /* ── TEST SERIES CATALOG (maps card buttons to purchase data) ── */
+  var LH_TEST_SERIES = {
+    'ssc-cgl':   { name: 'SSC CGL 2024 Test Series',          price: 299,  originalPrice: 599,  testId: 'ssc-cgl-2024' },
+    'banking':   { name: 'IBPS PO 2024 Complete Series',      price: 399,  originalPrice: 799,  testId: 'ibps-po-2024' },
+    'upsc':      { name: 'UPSC Prelims Test Series',           price: 999,  originalPrice: 1999, testId: 'upsc-prelims' },
+    'railways':  { name: 'RRB NTPC Test Series 2024',          price: 199,  originalPrice: 399,  testId: 'rrb-ntpc-2024' },
+    'teaching':  { name: 'CTET Free Practice Tests',           price: 0,    originalPrice: 0,    testId: 'ctet-free' },
+    'quant':     { name: 'Quantitative Aptitude Series',       price: 149,  originalPrice: 299,  testId: 'quant-series' },
+    'jee':       { name: 'JEE / GATE Mock Test Series',        price: 0,    originalPrice: 0,    testId: 'jee-gate-free' }
+  };
+
+  /* ── PAID TEST FLOW (updated) ────────────────────────────────── */
+  function lhPaidTest(seriesKey) {
+    var session = LH_SUB._getSession();
+    if (!session || !session.id) {
+      window.location.href = 'login.html?next=mocktests.html';
+      return;
+    }
+    var series = LH_TEST_SERIES[seriesKey] || LH_TEST_SERIES['ssc-cgl'];
+
+    // Free test
+    if (!series.price || series.price === 0) {
+      lhOpenFreeTest();
+      return;
+    }
+
+    // Already purchased?
+    if (LH_SUB.canAccessTest(series.testId, false)) {
+      lhStartTest(series.testId in LH_TESTS ? series.testId : 'free-daily');
+      return;
+    }
+
+    // Show payment
+    LH_SUB.openPayment({
+      type: 'test',
+      id: series.testId,
+      name: series.name,
+      price: series.price,
+      originalPrice: series.originalPrice,
+      onSuccess: function() {
+        // Start a real test if we have it, else show toast
+        if (series.testId in LH_TESTS) {
+          lhStartTest(series.testId);
+        } else {
+          lhOpenFreeTest();  // fallback
+        }
+      }
+    });
+  }
+
+  function lhClosePremium() {
+    // Legacy — kept for any old onclick handlers
+    if (window.LH_SUB) LH_SUB.closePayment();
+  }
+
+
+  /* ── TEST OPEN / CLOSE ──────────────────────────────────────── */
+  function lhOpenFreeTest() {
+    lhOpenTest('free-daily');
+  }
+ 
+  function lhStartTest(id) {
+    lhOpenTest(id);
+  }
+ 
+  function lhOpenTest(testId) {
+    var test = LH_TESTS[testId];
+    if (!test) { console.warn('Test not found:', testId); return; }
+ 
+    // Reset state
+    LH_STATE.testId = testId;
+    LH_STATE.current = 0;
+    LH_STATE.answers = {};
+    clearInterval(LH_STATE.timer);
+ 
+    // Populate start screen
+    document.getElementById('lh-start-title').textContent = test.title;
+    document.getElementById('lh-start-sub').textContent = test.subtitle;
+    document.getElementById('lh-info-qs').textContent = test.questions.length;
+    document.getElementById('lh-info-mins').textContent = test.minutes;
+ 
+    // Show modal with start screen
+    lhShowScreen('start');
+    document.getElementById('lh-test-modal').classList.remove('lh-hidden');
+    document.body.style.overflow = 'hidden';
+  }
+ 
+  function lhCloseTest() {
+    clearInterval(LH_STATE.timer);
+    LH_STATE.timer = null;
+    document.getElementById('lh-test-modal').classList.add('lh-hidden');
+    document.body.style.overflow = '';
+  }
+ 
+  /* ── SCREEN SWITCHING ───────────────────────────────────────── */
+  function lhShowScreen(name) {
+    var screens = ['start', 'quiz', 'result'];
+    screens.forEach(function (s) {
+      var el = document.getElementById('lh-' + s + '-screen');
+      if (!el) return;
+      if (s === name) {
+        el.classList.remove('lh-hidden');
+      } else {
+        el.classList.add('lh-hidden');
+      }
+    });
+  }
+ 
+  /* ── BEGIN TEST ─────────────────────────────────────────────── */
+  function lhBeginTest() {
+    var test = LH_TESTS[LH_STATE.testId];
+    if (!test) return;
+ 
+    LH_STATE.seconds = test.minutes * 60;
+    document.getElementById('lh-quiz-title').textContent = test.title;
+    document.getElementById('lh-timer-box').classList.remove('lh-danger');
+    lhUpdateTimer();
+    lhRenderQuestion();
+    lhShowScreen('quiz');
+ 
+    clearInterval(LH_STATE.timer);
+    LH_STATE.timer = setInterval(function () {
+      LH_STATE.seconds--;
+      lhUpdateTimer();
+      if (LH_STATE.seconds <= 0) {
+        clearInterval(LH_STATE.timer);
+        lhShowResult();
+      }
+    }, 1000);
+  }
+ 
+  function lhUpdateTimer() {
+    var m = Math.floor(LH_STATE.seconds / 60);
+    var s = LH_STATE.seconds % 60;
+    document.getElementById('lh-timer-display').textContent =
+      String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    if (LH_STATE.seconds <= 60) {
+      document.getElementById('lh-timer-box').classList.add('lh-danger');
+    }
+  }
+ 
+  /* ── RENDER QUESTION ────────────────────────────────────────── */
+  function lhRenderQuestion() {
+    var test = LH_TESTS[LH_STATE.testId];
+    var idx = LH_STATE.current;
+    var q = test.questions[idx];
+    var total = test.questions.length;
+    var answered = Object.keys(LH_STATE.answers).length;
+ 
+    // Counter + progress
+    document.getElementById('lh-q-counter-top').textContent = 'Question ' + (idx + 1) + ' of ' + total;
+    document.getElementById('lh-answered-count').textContent = answered + ' answered';
+    document.getElementById('lh-progress-fill').style.width = (((idx + 1) / total) * 100) + '%';
+ 
+    // Question text
+    document.getElementById('lh-q-text').textContent = (idx + 1) + '. ' + q.q;
+ 
+    // Navigation dots
+    var nav = document.getElementById('lh-q-nav');
+    nav.innerHTML = '';
+    for (var i = 0; i < total; i++) {
+      (function (i) {
+        var dot = document.createElement('button');
+        dot.textContent = i + 1;
+        var cls = 'lh-q-dot';
+        if (LH_STATE.answers[i] !== undefined) cls += ' lh-answered';
+        if (i === idx) cls += ' lh-current';
+        dot.className = cls;
+        dot.addEventListener('click', function () {
+          LH_STATE.current = i;
+          lhRenderQuestion();
+        });
+        nav.appendChild(dot);
+      })(i);
+    }
+ 
+    // Options
+    var optsDiv = document.getElementById('lh-options');
+    optsDiv.innerHTML = '';
+    var labels = ['A', 'B', 'C', 'D'];
+    q.opts.forEach(function (opt, oi) {
+      (function (oi) {
+        var btn = document.createElement('button');
+        var cls = 'lh-option';
+        if (LH_STATE.answers[idx] === oi) cls += ' lh-selected';
+        btn.className = cls;
+        btn.innerHTML =
+          '<div class="lh-opt-label">' + labels[oi] + '</div>' +
+          '<span class="lh-opt-text">' + lhEscape(opt) + '</span>';
+        btn.addEventListener('click', function () {
+          LH_STATE.answers[idx] = oi;
+          lhRenderQuestion();
+        });
+        optsDiv.appendChild(btn);
+      })(oi);
+    });
+ 
+    // Prev / Next buttons
+    var prevBtn = document.getElementById('lh-prev-btn');
+    var nextBtn = document.getElementById('lh-next-btn');
+    prevBtn.disabled = (idx === 0);
+    prevBtn.style.opacity = '';          // let CSS handle via :disabled
+    if (idx === total - 1) {
+      nextBtn.classList.add('lh-invisible');
+    } else {
+      nextBtn.classList.remove('lh-invisible');
+    }
+  }
+ 
+  /* ── NAVIGATION ─────────────────────────────────────────────── */
+  function lhNav(dir) {
+    var test = LH_TESTS[LH_STATE.testId];
+    LH_STATE.current = Math.max(0, Math.min(test.questions.length - 1, LH_STATE.current + dir));
+    lhRenderQuestion();
+  }
+ 
+  /* ── SUBMIT ─────────────────────────────────────────────────── */
+  function lhSubmitConfirm() {
+    var test = LH_TESTS[LH_STATE.testId];
+    var skipped = test.questions.length - Object.keys(LH_STATE.answers).length;
+    if (skipped > 0) {
+      if (!confirm(skipped + ' question(s) unanswered. Submit test anyway?')) return;
+    }
+    clearInterval(LH_STATE.timer);
+    lhShowResult();
+  }
+ 
+  /* ── SHOW RESULT ────────────────────────────────────────────── */
+  function lhShowResult() {
+    clearInterval(LH_STATE.timer);
+    var test = LH_TESTS[LH_STATE.testId];
+    var correct = 0, wrong = 0, skipped = 0;
+ 
+    test.questions.forEach(function (q, i) {
+      if (LH_STATE.answers[i] === undefined) { skipped++; }
+      else if (LH_STATE.answers[i] === q.ans) { correct++; }
+      else { wrong++; }
+    });
+ 
+    var score = 0;
+    var maxScore = 0;
+    test.questions.forEach(function(q, i) {
+      var qMarks = q.marks || 1;
+      maxScore += qMarks;
+      var userAns = LH_STATE.answers[i];
+      if (userAns === undefined) return;
+      if (userAns === q.ans) {
+        score += qMarks;
+      } else {
+        score -= (test.negativeMarks || 0);
+      }
+    });
+    score = Math.max(0, score);
+    var pct = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+
+    // Score ring
+    document.getElementById('lh-result-score').textContent = score % 1 === 0 ? score : score.toFixed(1);
+    document.getElementById('lh-result-max').textContent = '/ ' + maxScore;
+    document.getElementById('lh-res-correct').textContent = correct;
+    document.getElementById('lh-res-wrong').textContent = wrong;
+    document.getElementById('lh-res-skip').textContent = skipped;
+    document.getElementById('lh-result-pct').textContent =
+      pct + '% Score \u2014 ' + correct + ' correct out of ' + test.questions.length;
+
+    var grade, gradeColor;
+    if (pct >= 80) { grade = 'Excellent Work! \uD83C\uDF89'; gradeColor = '#10b981'; }
+    else if (pct >= 60) { grade = 'Good Job! \uD83D\uDC4D'; gradeColor = '#6366f1'; }
+    else if (pct >= 40) { grade = 'Keep Practicing! \uD83D\uDCDA'; gradeColor = '#f59e0b'; }
+    else { grade = "Don't Give Up! \uD83D\uDCAA"; gradeColor = '#ef4444'; }
+
+    document.getElementById('lh-result-grade').textContent = grade;
+    var ring = document.getElementById('lh-score-ring');
+    ring.style.borderColor = gradeColor;
+    ring.style.background = gradeColor + '18';
+    ring.querySelector('.lh-big').style.color = gradeColor;
+    ring.querySelector('.lh-small').style.color = gradeColor;
+ 
+    // Answer review with explanations and per-question marks
+    var rev = document.getElementById('lh-answer-review');
+    rev.innerHTML = '';
+    var labels = ['A', 'B', 'C', 'D'];
+    test.questions.forEach(function (q, i) {
+      var userAns = LH_STATE.answers[i];
+      var isCorrect = userAns === q.ans;
+      var isSkipped = userAns === undefined;
+      var sc = isSkipped ? '#94a3b8' : isCorrect ? '#10b981' : '#ef4444';
+      var st = isSkipped ? 'Skipped' : isCorrect ? '\u2713 Correct' : '\u2717 Wrong';
+      var qMarks = q.marks || 1;
+      var html = '<div style="border:1.5px solid ' + sc + '44;border-radius:12px;padding:14px;background:' + sc + '08;margin-bottom:8px;">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">';
+      html += '<span style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.4;">Q' + (i + 1) + '. ' + lhEscape(q.q) + '</span>';
+      html += '<span style="font-size:11px;font-weight:700;color:' + sc + ';white-space:nowrap;background:' + sc + '18;padding:2px 8px;border-radius:100px;">' + st + '</span>';
+      html += '</div>';
+      if (!isSkipped) {
+        var userLabel = labels[userAns] || '?';
+        var userOpt = (q.opts && q.opts[userAns] !== undefined) ? lhEscape(q.opts[userAns]) : '\u2014';
+        html += '<p style="font-size:12px;color:' + (isCorrect ? '#10b981' : '#ef4444') + ';margin-bottom:3px;">Your answer: <strong>' + userLabel + '. ' + userOpt + '</strong></p>';
+      }
+      if (!isCorrect) {
+        var corrLabel = labels[q.ans] || '?';
+        var corrOpt = (q.opts && q.opts[q.ans] !== undefined) ? lhEscape(q.opts[q.ans]) : '\u2014';
+        html += '<p style="font-size:12px;color:#10b981;margin-bottom:3px;">Correct: <strong>' + corrLabel + '. ' + corrOpt + '</strong> <span style="color:#94a3b8;font-weight:400;">(+' + qMarks + ' mark' + (qMarks !== 1 ? 's' : '') + ')</span></p>';
+      }
+      if (q.explanation) {
+        html += '<div style="margin-top:6px;padding:8px 10px;background:#eff6ff;border-radius:8px;font-size:11px;color:#3b82f6;">';
+        html += '<strong>\uD83D\uDCA1 Explanation:</strong> ' + lhEscape(q.explanation);
+        html += '</div>';
+      }
+      html += '</div>';
+      rev.innerHTML += html;
+    });
+    lhShowScreen('result');
+  }
+ 
+  /* ── RETAKE ─────────────────────────────────────────────────── */
+  function lhRetakeTest() {
+    LH_STATE.current = 0;
+    LH_STATE.answers = {};
+    clearInterval(LH_STATE.timer);
+    lhShowScreen('start');
+  }
+ 
+  /* ── UTILS ──────────────────────────────────────────────────── */
+  function lhEscape(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+ 
+  function lhShowToast(msg, color) {
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:' + (color || '#1e293b') + ';color:#fff;padding:12px 22px;border-radius:12px;font-size:14px;font-weight:500;z-index:99999;box-shadow:0 8px 20px rgba(0,0,0,.15);white-space:nowrap;max-width:90vw;text-align:center;';
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, 3000);
+  }
+ 
+  // Close modals on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      lhClosePremium();
+      lhCloseTest();
+    }
+  });
+
+  /* ── LOAD ADMIN-PUBLISHED TESTS ────────────────────────────── */
+  (function lhLoadAdminTests() {
+    var diffColors = { Easy: '#10b981', Medium: '#f59e0b', Hard: '#ef4444' };
+    var diffBg     = { Easy: '#dcfce7', Medium: '#fef9c3', Hard: '#fee2e2' };
+    var catIcons   = { SSC: 'fa-file-alt text-blue-600', Banking: 'fa-university text-green-600', UPSC: 'fa-landmark text-purple-600', Railway: 'fa-train text-orange-600', General: 'fa-globe text-sky-600' };
+    var catBg      = { SSC: 'bg-blue-100', Banking: 'bg-green-100', UPSC: 'bg-purple-100', Railway: 'bg-orange-100', General: 'bg-sky-100' };
+
+    try {
+      var raw = localStorage.getItem('lh_mock_tests_db');
+      if (!raw) return;
+      var adminTests = JSON.parse(raw);
+      if (!Array.isArray(adminTests)) return;
+
+      var grid = document.getElementById('test-cards-grid');
+      if (!grid) return;
+
+      var published = adminTests.filter(function(t) {
+        return t.published && t.questionData && t.questionData.length > 0;
+      });
+      if (!published.length) return;
+
+      /* Add tests to LH_TESTS so the existing modal engine can run them */
+      published.forEach(function(t) {
+        var key = 'admin-test-' + t.id;
+        LH_TESTS[key] = {
+          title: t.title,
+          subtitle: (t.category || '') + ' — ' + t.questionData.length + ' Questions, ' + (t.duration || 60) + ' Minutes',
+          minutes: t.duration || 60,
+          questions: t.questionData.map(function(q) {
+            return {
+              q: q.text || '',
+              opts: (q.type === 'truefalse') ? ['True','False'] : (q.options || ['Option A','Option B','Option C','Option D']),
+              ans: typeof q.correct === 'number' ? q.correct : 0,
+              explanation: q.explanation || ''
+            };
+          })
+        };
+      });
+
+      /* Section heading divider */
+      var section = document.createElement('div');
+      section.id = 'admin-tests-section';
+      section.style.cssText = 'grid-column:1/-1;margin-top:20px;margin-bottom:4px;';
+      section.innerHTML =
+        '<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">' +
+          '<div style="height:2px;flex:1;background:linear-gradient(90deg,#6366f1,transparent);border-radius:2px;"></div>' +
+          '<span style="font-size:13px;font-weight:700;color:#6366f1;white-space:nowrap;">' +
+            '<i class="fas fa-rocket" style="margin-right:6px;"></i>Admin Published Tests' +
+          '</span>' +
+          '<div style="height:2px;flex:1;background:linear-gradient(270deg,#6366f1,transparent);border-radius:2px;"></div>' +
+        '</div>';
+      grid.appendChild(section);
+
+      /* Render each published test card */
+      published.forEach(function(t) {
+        var key     = 'admin-test-' + t.id;
+        var catCls  = catBg[t.category]  || 'bg-indigo-100';
+        var catIcon = catIcons[t.category] || 'fa-file-alt text-indigo-600';
+        var accessBadge = t.freeAccess
+          ? '<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">Free</span>'
+          : '<span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">Paid</span>';
+        var diffBadge =
+          '<span class="px-2.5 py-0.5 rounded-full text-xs font-semibold" style="background:' +
+          (diffBg[t.difficulty] || '#e2e8f0') + ';color:' + (diffColors[t.difficulty] || '#64748b') + '">' +
+          (t.difficulty || 'Medium') + '</span>';
+
+        var wrap = document.createElement('div');
+        wrap.className = 'test-card-wrap';
+        wrap.setAttribute('data-category', (t.category || 'general').toLowerCase());
+        wrap.innerHTML =
+          '<div class="lh-card-inner bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition reveal glow-hover">' +
+            '<div class="flex items-start justify-between mb-4">' +
+              '<div class="w-14 h-14 ' + catCls + ' rounded-xl flex items-center justify-center">' +
+                '<i class="fas ' + catIcon + ' text-2xl"></i>' +
+              '</div>' +
+              accessBadge +
+            '</div>' +
+            '<h3 class="font-bold text-gray-800 text-lg mb-1 line-clamp-2">' + lhEscape(t.title) + '</h3>' +
+            '<p class="text-sm text-gray-500 mb-4">' +
+              lhEscape(t.description || t.category + ' mock test — ' + t.questionData.length + ' questions') +
+            '</p>' +
+            '<div class="flex flex-wrap gap-2 mb-4">' +
+              '<span class="bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full text-xs font-medium">' +
+                '<i class="fas fa-question-circle mr-1"></i>' + t.questionData.length + ' Questions' +
+              '</span>' +
+              '<span class="bg-sky-50 text-sky-700 px-2.5 py-1 rounded-full text-xs font-medium">' +
+                '<i class="fas fa-clock mr-1"></i>' + (t.duration || 60) + ' min' +
+              '</span>' +
+              diffBadge +
+            '</div>' +
+            '<div class="lh-card-footer flex gap-2">' +
+              '<button onclick="lhStartTest(\'' + key + '\')" class="btn btn-primary text-sm py-2 px-4 flex-1">' +
+                'Start Test <i class="fas fa-arrow-right ml-1"></i>' +
+              '</button>' +
+            '</div>' +
+          '</div>';
+        grid.appendChild(wrap);
+      });
+
+    } catch(e) {
+      console.log('Admin tests load error:', e);
+    }
+  })();
+  </script>
+ 
+</body>
+</html>

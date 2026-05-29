@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - LearnHub</title>
+  <meta name="description" content="Your personal learning dashboard on LearnHub.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans bg-gray-50">
+  <script src="js/loader.js"></script>
+
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="index.html" class="flex items-center gap-2 mb-8 px-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      
+      <nav class="space-y-1">
+        <a href="dashboard.html" class="sidebar-link active">
+          <i class="fas fa-home w-5"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="courses.html" class="sidebar-link">
+          <i class="fas fa-book w-5"></i>
+          <span>My Courses</span>
+        </a>
+        <a href="mocktests.html" class="sidebar-link">
+          <i class="fas fa-file-alt w-5"></i>
+          <span>Mock Tests</span>
+        </a>
+        <a href="liveclasses.html" class="sidebar-link">
+          <i class="fas fa-video w-5"></i>
+          <span>Live Classes</span>
+        </a>
+        <a href="studymaterial.html" class="sidebar-link">
+          <i class="fas fa-folder w-5"></i>
+          <span>Study Material</span>
+        </a>
+        
+        <div class="pt-4 mt-4 border-t border-gray-100">
+          <a href="profile.html" class="sidebar-link">
+            <i class="fas fa-user w-5"></i>
+            <span>Profile</span>
+          </a>
+          <a href="#" class="sidebar-link">
+            <i class="fas fa-cog w-5"></i>
+            <span>Settings</span>
+          </a>
+          <a href="#" id="dashLogoutBtn" class="sidebar-link text-red-500 hover:bg-red-50 hover:text-red-600">
+            <i class="fas fa-sign-out-alt w-5"></i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h1 class="text-2xl font-bold text-gray-800" id="dashGreeting">Welcome back! 👋</h1>
+          <p class="text-gray-500">Continue your preparation journey</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <button class="relative p-2 rounded-lg hover:bg-gray-100 transition">
+            <i class="fas fa-bell text-gray-500 text-xl"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <div class="flex items-center gap-3">
+            <div id="dashAvatarWrap" class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+              ?
+            </div>
+            <div class="hidden md:block">
+              <p class="text-sm font-medium text-gray-800" id="dashUserName">—</p>
+              <p class="text-xs text-gray-500" id="dashUserExam">—</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+              <i class="fas fa-book-open text-blue-600 text-xl"></i>
+            </div>
+            <span class="text-green-500 text-sm font-medium">Active</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-800" id="statCourses">—</p>
+          <p class="text-sm text-gray-500">Courses Enrolled</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+              <i class="fas fa-check-circle text-green-600 text-xl"></i>
+            </div>
+            <span class="text-green-500 text-sm font-medium">Total</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-800" id="statTests">—</p>
+          <p class="text-sm text-gray-500">Tests Completed</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+              <i class="fas fa-clock text-purple-600 text-xl"></i>
+            </div>
+            <span class="text-green-500 text-sm font-medium">Total</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-800" id="statHours">—</p>
+          <p class="text-sm text-gray-500">Study Hours</p>
+        </div>
+        
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+              <i class="fas fa-chart-line text-amber-600 text-xl"></i>
+            </div>
+            <span class="text-green-500 text-sm font-medium">Avg</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-800" id="statScore">—</p>
+          <p class="text-sm text-gray-500">Average Score</p>
+        </div>
+      </div>
+
+      <!-- Subscription Status Card -->
+      <div id="lh-sub-card-container" class="mb-8"></div>
+      
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <!-- Progress Overview -->
+        <div class="lg:col-span-2 dashboard-card">
+          <h2 class="text-lg font-semibold text-gray-800 mb-6">Course Progress</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-medium text-gray-700">SSC CGL Complete Course</span>
+                <span class="text-sm text-primary font-medium">76%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="76"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-medium text-gray-700">Quantitative Aptitude</span>
+                <span class="text-sm text-primary font-medium">92%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="92"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-medium text-gray-700">English Grammar</span>
+                <span class="text-sm text-primary font-medium">58%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="58"></div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-medium text-gray-700">General Knowledge</span>
+                <span class="text-sm text-primary font-medium">41%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar-fill" data-width="41"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Achievements -->
+        <div class="dashboard-card">
+          <h2 class="text-lg font-semibold text-gray-800 mb-6">Your Achievements</h2>
+          <div class="space-y-3" id="dashAchievements">
+            <div class="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
+              <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center">
+                <i class="fas fa-trophy text-white text-sm"></i>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-gray-800">Loading…</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="grid lg:grid-cols-2 gap-6">
+        <!-- Upcoming Live Classes -->
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-800">Upcoming Live Classes</h2>
+            <a href="liveclasses.html" class="text-sm text-primary hover:underline">View All</a>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="flex items-center gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
+              <div class="text-center">
+                <p class="text-2xl font-bold text-red-600">15</p>
+                <p class="text-xs text-red-500">mins</p>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-800">Complete Maths - DI & Data Sufficiency</h3>
+                <p class="text-sm text-gray-500">by Rakesh Kumar</p>
+              </div>
+              <a href="liveclasses.html" class="btn btn-primary text-sm py-2 px-4">Join</a>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+              <div class="text-center">
+                <p class="text-lg font-bold text-gray-600">4:00</p>
+                <p class="text-xs text-gray-500">PM</p>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-800">English - Error Detection</h3>
+                <p class="text-sm text-gray-500">by Sunita Verma</p>
+              </div>
+              <button class="btn btn-outline text-sm py-2 px-4">Remind</button>
+            </div>
+            
+            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+              <div class="text-center">
+                <p class="text-lg font-bold text-gray-600">6:00</p>
+                <p class="text-xs text-gray-500">PM</p>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-medium text-gray-800">Current Affairs - May 2024</h3>
+                <p class="text-sm text-gray-500">by Rahul Gupta</p>
+              </div>
+              <button class="btn btn-outline text-sm py-2 px-4">Remind</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Test Results -->
+        <div class="dashboard-card">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-gray-800">Recent Test Results</h2>
+            <a href="mocktests.html" class="text-sm text-primary hover:underline">Take Test</a>
+          </div>
+          
+          <div class="space-y-4" id="dashRecentTests">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-green-600"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">SSC CGL Mock Test #1</p>
+                <p class="text-xs text-gray-500">Score: 156/200 • Rank: #234</p>
+                <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-check text-blue-600"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">SSC CGL Mock Test #2</p>
+                <p class="text-xs text-gray-500">Score: 162/200 • Rank: #198</p>
+                <p class="text-xs text-gray-400 mt-1">Yesterday</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var user = LH_AUTH.getUser();
+      if (!user) return;
+
+      /* ── Greeting ── */
+      var greetEl = document.getElementById('dashGreeting');
+      if (greetEl) greetEl.innerHTML = 'Welcome back, ' + user.name.split(' ')[0] + '! 👋';
+
+      /* ── Avatar in header ── */
+      var avatarWrap = document.getElementById('dashAvatarWrap');
+      var avatar = user.profile ? user.profile.avatar : (user.avatar || '');
+      if (avatarWrap) {
+        if (avatar) {
+          avatarWrap.innerHTML = '<img src="' + avatar + '" alt="' + user.name + '" class="w-10 h-10 rounded-full object-cover">';
+        } else {
+          var initials = user.name.split(' ').map(function (w) { return w[0]; }).slice(0, 2).join('').toUpperCase();
+          avatarWrap.textContent = initials;
+        }
+      }
+
+      /* ── Name & Exam ── */
+      var nameEl = document.getElementById('dashUserName');
+      var examEl = document.getElementById('dashUserExam');
+      if (nameEl) nameEl.textContent = user.name;
+      if (examEl) {
+        var exam = user.profile ? user.profile.targetExam : (user.targetExam || '');
+        examEl.textContent = exam || (user.role === 'admin' ? 'Administrator' : 'Student');
+      }
+
+      /* ── Analytics stats ── */
+      var analytics = LH_DB.getUserAnalytics(user.id);
+      if (analytics) {
+        var el;
+        el = document.getElementById('statCourses');
+        if (el) el.textContent = analytics.coursesEnrolled;
+        el = document.getElementById('statTests');
+        if (el) el.textContent = analytics.testsAttempted;
+        el = document.getElementById('statHours');
+        if (el) el.textContent = analytics.studyHours + 'h';
+        el = document.getElementById('statScore');
+        if (el) el.textContent = analytics.averageScore + '%';
+
+        /* ── Achievements ── */
+        var achEl = document.getElementById('dashAchievements');
+        if (achEl && analytics.achievements && analytics.achievements.length > 0) {
+          var icons = ['fa-trophy', 'fa-fire', 'fa-star', 'fa-medal', 'fa-award', 'fa-crown'];
+          var colors = ['amber', 'blue', 'green', 'purple', 'indigo', 'yellow'];
+          achEl.innerHTML = analytics.achievements.map(function (a, i) {
+            var col = colors[i % colors.length];
+            var ico = icons[i % icons.length];
+            return '<div class="flex items-center gap-3 p-3 bg-' + col + '-50 rounded-xl">' +
+              '<div class="w-8 h-8 bg-' + col + '-500 rounded-lg flex items-center justify-center">' +
+                '<i class="fas ' + ico + ' text-white text-sm"></i>' +
+              '</div>' +
+              '<div class="flex-1"><p class="text-sm font-medium text-gray-800">' + a + '</p></div>' +
+            '</div>';
+          }).join('');
+        }
+
+        /* ── Recent test results ── */
+        var testsEl = document.getElementById('dashRecentTests');
+        if (testsEl && analytics.recentTests && analytics.recentTests.length > 0) {
+          var colMap = { 0: 'green', 1: 'blue', 2: 'purple', 3: 'amber', 4: 'indigo' };
+          testsEl.innerHTML = analytics.recentTests.map(function (r, i) {
+            var test = LH_DB.getMockTestById(r.testId);
+            var col  = colMap[i % 5] || 'green';
+            return '<div class="flex items-start gap-4">' +
+              '<div class="w-10 h-10 bg-' + col + '-100 rounded-lg flex items-center justify-center flex-shrink-0">' +
+                '<i class="fas fa-check text-' + col + '-600"></i>' +
+              '</div>' +
+              '<div>' +
+                '<p class="text-sm text-gray-800 font-medium">' + (test ? test.title : 'Mock Test') + '</p>' +
+                '<p class="text-xs text-gray-500">Score: ' + r.score + '/' + r.maxScore + ' • ' + r.percentage + '%</p>' +
+                '<p class="text-xs text-gray-400 mt-1">' + r.date + '</p>' +
+              '</div>' +
+            '</div>';
+          }).join('');
+        }
+      }
+
+      /* ── Logout button ── */
+      var logoutBtn = document.getElementById('dashLogoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          LH_AUTH.logout();
+        });
+      }
+
+      /* ── Subscription card & nav badge ── */
+      if (window.LH_SUB) {
+        LH_SUB.injectDashboardSubCard();
+        LH_SUB.injectNavBadge();
+      }
+
+      /* ── Paid Member / Plan status badge ── */
+      _renderSubscriptionStatus(user);
+    });
+
+    /* ── Subscription status renderer ── */
+    function _renderSubscriptionStatus(user) {
+      var container = document.getElementById('lh-sub-card-container');
+      if (!container) return;
+
+      var isPaid = user.subscription === 'paid';
+      var plan   = user.plan || (isPaid ? 'pro' : 'free');
+      var planLabel = plan.charAt(0).toUpperCase() + plan.slice(1);
+
+      if (isPaid) {
+        container.innerHTML =
+          '<div style="background:linear-gradient(135deg,#6366f1 0%,#7c3aed 100%);border-radius:20px;' +
+          'padding:24px 28px;color:#fff;display:flex;align-items:center;justify-content:space-between;' +
+          'flex-wrap:wrap;gap:16px;box-shadow:0 8px 32px rgba(99,102,241,.3);">' +
+            '<div style="display:flex;align-items:center;gap:14px;">' +
+              '<div style="width:48px;height:48px;background:rgba(255,255,255,.2);border-radius:14px;' +
+              'display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+                '<i class="fas fa-crown" style="font-size:20px;color:#fbbf24;"></i>' +
+              '</div>' +
+              '<div>' +
+                '<p style="font-weight:800;font-size:16px;margin:0 0 2px;">Paid Member</p>' +
+                '<p style="font-size:13px;opacity:.85;margin:0;">' + planLabel + ' Plan · Premium Access Enabled</p>' +
+              '</div>' +
+            '</div>' +
+            '<div style="display:flex;gap:10px;flex-wrap:wrap;">' +
+              '<span style="background:rgba(255,255,255,.2);border-radius:100px;padding:6px 14px;' +
+              'font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;">' +
+                '<i class="fas fa-check-circle"></i> Active Plan' +
+              '</span>' +
+              '<a href="pricing.html" style="background:#fff;color:#6366f1;border-radius:100px;padding:6px 16px;' +
+              'font-size:12px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:6px;">' +
+                '<i class="fas fa-arrow-up"></i> Manage Plan' +
+              '</a>' +
+            '</div>' +
+          '</div>';
+      } else {
+        container.innerHTML =
+          '<div style="background:#f8fafc;border:2px dashed #e2e8f0;border-radius:20px;' +
+          'padding:20px 28px;display:flex;align-items:center;justify-content:space-between;' +
+          'flex-wrap:wrap;gap:16px;">' +
+            '<div style="display:flex;align-items:center;gap:12px;">' +
+              '<div style="width:44px;height:44px;background:#e0e7ff;border-radius:12px;' +
+              'display:flex;align-items:center;justify-content:center;">' +
+                '<i class="fas fa-lock" style="color:#6366f1;font-size:16px;"></i>' +
+              '</div>' +
+              '<div>' +
+                '<p style="font-weight:700;color:#1e293b;margin:0 0 2px;font-size:14px;">Free Plan</p>' +
+                '<p style="font-size:12px;color:#64748b;margin:0;">Upgrade for premium access to all content</p>' +
+              '</div>' +
+            '</div>' +
+            '<a href="pricing.html" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;' +
+            'border-radius:100px;padding:10px 22px;font-size:13px;font-weight:700;text-decoration:none;">' +
+              '<i class="fas fa-arrow-up mr-2"></i>Upgrade Now' +
+            '</a>' +
+          '</div>';
+      }
+    }
+  </script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LearnHub - India's Most Trusted Learning Platform</title>
+  <meta name="description" content="Master your dream exam with LearnHub. Join 5M+ learners with expert-curated courses, realistic mock tests, and smart analytics.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            'primary-dark': '#4f46e5',
+            secondary: '#0ea5e9',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      
+      <!-- Navigation Links -->
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="mocktests.html" class="nav-link">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link">Study Material</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+      </div>
+      
+      <!-- Search & Auth -->
+      <div class="flex items-center gap-4">
+        <div class="search-container hidden md:block">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search for courses, tests...">
+          <div class="search-suggestions">
+            <div class="search-suggestion-item">
+              <i class="fas fa-book text-gray-400"></i>
+              <span>UPSC Civil Services</span>
+            </div>
+            <div class="search-suggestion-item">
+              <i class="fas fa-landmark text-gray-400"></i>
+              <span>SSC CGL 2024</span>
+            </div>
+            <div class="search-suggestion-item">
+              <i class="fas fa-train text-gray-400"></i>
+              <span>Railway NTPC</span>
+            </div>
+          </div>
+        </div>
+        
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+        
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn lg:hidden flex flex-col gap-1.5 p-2">
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+          <span class="w-6 h-0.5 bg-gray-600 transition"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-bg-shapes">
+      <div class="hero-shape hero-shape-1"></div>
+      <div class="hero-shape hero-shape-2"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Content -->
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <i class="fas fa-star"></i>
+            <span>India's Most Trusted Learning Platform</span>
+          </div>
+          
+          <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+            Master Your<br>
+            <span class="text-primary">Dream Exam</span>
+          </h1>
+          <p class="text-lg text-gray-600 mb-8 max-w-lg">
+            Join 5M+ learners and achieve your goals with expert-curated courses, realistic mock tests, and smart analytics.
+          </p>
+          
+          <div class="flex flex-wrap gap-4 mb-12">
+            <a href="courses.html" class="btn btn-primary">
+              Start Learning Free
+              <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="mocktests.html" class="btn btn-outline">
+              <i class="fas fa-file-alt"></i>
+              Explore Mock Tests
+            </a>
+          </div>
+          
+          <!-- Stats -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="5" data-suffix="M+">0</span>
+              <span class="stat-label">Happy Learners</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="50" data-suffix="K+">0</span>
+              <span class="stat-label">Mock Tests</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="200" data-suffix="+">0</span>
+              <span class="stat-label">Expert Teachers</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="95" data-suffix="%">0</span>
+              <span class="stat-label">Success Rate</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Right Content - Hero Image & Floating Cards -->
+        <div class="relative hidden lg:block">
+          <!-- Main Image -->
+          <div class="relative z-10">
+  <img src="student.png" 
+       alt="Student learning" 
+       class="rounded-3xl shadow-2xl w-full max-w-2xl ml-auto">
+</div>
+          <!-- Floating Cards -->
+          <!-- Progress Card -->
+          <div class="floating-card" style="bottom: 20px; right: 150px;">
+            <div class="card-float-wrapper" style="animation-delay: 0s;">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                  <i class="fas fa-chart-line text-primary text-xl"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500">Your Progress</p>
+                  <div class="flex items-center gap-3">
+                    <div class="relative w-14 h-14">
+                      <svg class="progress-ring w-14 h-14">
+                        <circle class="text-gray-200" stroke-width="4" stroke="currentColor" fill="transparent" r="22" cx="28" cy="28"/>
+                        <circle class="progress-ring-circle text-primary" stroke-width="4" stroke="currentColor" fill="transparent" r="22" cx="28" cy="28" data-percent="76" style="stroke-dasharray: 138.23; stroke-dashoffset: 33.17;"/>
+                      </svg>
+                      <span class="absolute inset-0 flex items-center justify-center text-sm font-bold">76%</span>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold">Course Completion</p>
+                      <p class="text-xs text-gray-500">Keep going! You're doing great.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Today's Goal Card -->
+          <div class="floating-card" style="bottom: 240px; left: 10px;">
+            <div class="card-float-wrapper" style="animation-delay: 0.7s;">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                  <i class="fas fa-bullseye text-green-600"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500">Today's Goal</p>
+                  <p class="text-2xl font-bold text-gray-800">2 / 3</p>
+                  <p class="text-xs text-gray-500">Mock Tests Completed</p>
+                  <div class="w-32 h-2 bg-gray-100 rounded-full mt-2">
+                    <div class="h-full bg-green-500 rounded-full" style="width: 66%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rank Card -->
+          <div class="floating-card" style="bottom: 60px; right: 20px;">
+            <div class="card-float-wrapper" style="animation-delay: 1.4s;">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                  <i class="fas fa-trophy text-amber-600"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-gray-500">Rank</p>
+                  <p class="text-xl font-bold text-gray-800">#142</p>
+                  <p class="text-xs text-gray-500">All India</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Strip -->
+  <section class="py-12 bg-white border-y border-gray-100">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="feature-card reveal">
+          <div class="feature-icon blue">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800">Smart Analytics</h3>
+            <p class="text-sm text-gray-500">AI-powered insights to improve your performance</p>
+          </div>
+        </div>
+        
+        <div class="feature-card reveal">
+          <div class="feature-icon orange">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800">Expert Faculty</h3>
+            <p class="text-sm text-gray-500">Learn from India's top educators & mentors</p>
+          </div>
+        </div>
+        
+        <div class="feature-card reveal">
+          <div class="feature-icon green">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800">Realistic Mock Tests</h3>
+            <p class="text-sm text-gray-500">Exam-pattern based tests with detailed analysis</p>
+          </div>
+        </div>
+        
+        <div class="feature-card reveal">
+          <div class="feature-icon red">
+            <i class="fas fa-video"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800">Live Classes</h3>
+            <p class="text-sm text-gray-500">Interactive live sessions & doubt solving</p>
+          </div>
+        </div>
+        
+        <div class="feature-card reveal">
+          <div class="feature-icon purple">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800">Study Material</h3>
+            <p class="text-sm text-gray-500">High-quality notes, PDFs & practice sets</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Exam Categories -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12 reveal">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800">Popular Exam Categories</h2>
+          <p class="text-gray-500 mt-2">Choose from wide range of competitive exams</p>
+        </div>
+        <a href="courses.html" class="text-primary font-medium hover:underline flex items-center gap-2">
+          View All <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <a href="courses.html?category=ssc" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/2641/2641457.png" alt="SSC" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">SSC</h3>
+          <p class="text-sm text-gray-500">12+ Courses</p>
+        </a>
+        
+        <a href="courses.html?category=banking" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/2830/2830284.png" alt="Banking" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">Banking</h3>
+          <p class="text-sm text-gray-500">18+ Courses</p>
+        </a>
+        
+        <a href="courses.html?category=upsc" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/1570/1570102.png" alt="UPSC" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">UPSC</h3>
+          <p class="text-sm text-gray-500">15+ Courses</p>
+        </a>
+        
+        <a href="courses.html?category=railways" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/3124/3124103.png" alt="Railways" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">Railways</h3>
+          <p class="text-sm text-gray-500">10+ Courses</p>
+        </a>
+        
+        <a href="courses.html?category=teaching" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/2436/2436874.png" alt="Teaching" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">Teaching</h3>
+          <p class="text-sm text-gray-500">8+ Courses</p>
+        </a>
+        
+        <a href="courses.html?category=engineering" class="category-card reveal glow-hover">
+          <div class="category-icon">
+            <img src="https://cdn-icons-png.flaticon.com/128/2972/2972351.png" alt="Engineering" class="w-10 h-10">
+          </div>
+          <h3 class="font-semibold text-gray-800">Engineering</h3>
+          <p class="text-sm text-gray-500">20+ Courses</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Classes Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12 reveal">
+        <div class="flex items-center gap-3">
+          <h2 class="text-3xl font-bold text-gray-800">Live Now</h2>
+          <span class="live-badge">LIVE</span>
+        </div>
+        <a href="liveclasses.html" class="text-primary font-medium hover:underline flex items-center gap-2">
+          View All Live Classes <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      
+      <p class="text-gray-500 mb-8 -mt-8 reveal">Join live classes and learn from the best</p>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop" 
+                 alt="Live Class" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-4 left-4 live-badge">LIVE</span>
+            <span class="absolute top-4 right-4 live-badge bg-green-500">FREE</span>
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-sm opacity-80">1.2K watching</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-gray-800 mb-2">SSC CGL Complete Maths</h3>
+            <p class="text-sm text-gray-500 mb-4">by Ravinder Sir</p>
+            <a href="https://www.youtube.com/live/AWmA8dlmaM4?si=tJe6O65cEZwhaHOI" class="btn btn-primary w-full text-sm py-2">
+              <i class="fab fa-youtube mr-1"></i> Join Now
+            </a>
+          </div>
+        </div>
+        
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=200&fit=crop" 
+                 alt="Live Class" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-4 left-4 live-badge">LIVE</span>
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-sm opacity-80">890 watching</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-gray-800 mb-2">UPSC Polity Revision</h3>
+            <p class="text-sm text-gray-500 mb-4">by Dr. Priya Singh</p>
+            <a href="login.html" class="btn btn-primary w-full text-sm py-2">
+              <i class="fab fa-youtube mr-1"></i> Join Now
+            </a>
+          </div>
+        </div>
+        
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=200&fit=crop" 
+                 alt="Live Class" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold">UPCOMING</span>
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-sm opacity-80">Starts in 30 min</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-gray-800 mb-2">Banking Reasoning Session</h3>
+            <p class="text-sm text-gray-500 mb-4">by Amit Sharma</p>
+            <a href="login.html" class="btn btn-outline w-full text-sm py-2">
+              <i class="fas fa-bell mr-1"></i> Set Reminder
+            </a>
+          </div>
+        </div>
+        
+        <div class="live-card reveal">
+          <div class="relative overflow-hidden rounded-t-2xl">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop" 
+                 alt="Live Class" class="w-full h-48 object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-semibold">UPCOMING</span>
+            <div class="absolute bottom-4 left-4 text-white">
+              <p class="text-sm opacity-80">Starts in 2 hours</p>
+            </div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-gray-800 mb-2">Railway GK Marathon</h3>
+            <p class="text-sm text-gray-500 mb-4">by Neha Verma</p>
+            <a href="login.html" class="btn btn-outline w-full text-sm py-2">
+              <i class="fas fa-bell mr-1"></i> Set Reminder
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Courses -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex items-center justify-between mb-12 reveal">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-800">Trending Courses</h2>
+          <p class="text-gray-500 mt-2">Popular courses loved by millions of students</p>
+        </div>
+        <a href="courses.html" class="text-primary font-medium hover:underline flex items-center gap-2">
+          View All <i class="fas fa-arrow-right ml-1"></i>
+        </a>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="course-card reveal">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" 
+                 alt="Course" class="course-image">
+            <span class="course-badge">30% OFF</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">SSC CGL</span>
+              <span class="text-xs text-gray-500">120+ hours</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">Complete SSC CGL Foundation 2024</h3>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="text-sm text-gray-500">(4.8) • 15K students</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xl font-bold text-gray-800">₹2,499</span>
+                <span class="text-sm text-gray-400 line-through ml-2">₹3,499</span>
+              </div>
+              <a href="login.html" class="text-primary font-medium text-sm hover:underline">Enroll →</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-card reveal">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" 
+                 alt="Course" class="course-image">
+            <span class="course-badge">BESTSELLER</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Banking</span>
+              <span class="text-xs text-gray-500">180+ hours</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">IBPS PO Complete Course 2024</h3>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="text-sm text-gray-500">(4.9) • 22K students</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xl font-bold text-gray-800">₹3,999</span>
+                <span class="text-sm text-gray-400 line-through ml-2">₹5,999</span>
+              </div>
+              <a href="login.html" class="text-primary font-medium text-sm hover:underline">Enroll →</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-card reveal">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop" 
+                 alt="Course" class="course-image">
+            <span class="course-badge">NEW</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">UPSC</span>
+              <span class="text-xs text-gray-500">300+ hours</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">UPSC CSE Prelims + Mains 2024</h3>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <span class="text-sm text-gray-500">(4.7) • 8K students</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xl font-bold text-gray-800">₹9,999</span>
+                <span class="text-sm text-gray-400 line-through ml-2">₹14,999</span>
+              </div>
+              <a href="login.html" class="text-primary font-medium text-sm hover:underline">Enroll →</a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-card reveal">
+          <div class="relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=400&h=200&fit=crop" 
+                 alt="Course" class="course-image">
+            <span class="course-badge">40% OFF</span>
+          </div>
+          <div class="p-5">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">Railways</span>
+              <span class="text-xs text-gray-500">100+ hours</span>
+            </div>
+            <h3 class="font-semibold text-gray-800 mb-2">RRB NTPC Complete Batch 2024</h3>
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <span class="text-sm text-gray-500">(4.9) • 18K students</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xl font-bold text-gray-800">₹1,999</span>
+                <span class="text-sm text-gray-400 line-through ml-2">₹3,299</span>
+              </div>
+              <a href="login.html" class="text-primary font-medium text-sm hover:underline">Enroll →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Peak Achievers - Premium Carousel -->
+  <section class="py-20 bg-white achievers-section">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <span class="inline-block bg-indigo-100 text-indigo-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-3 tracking-wide uppercase">Wall of Fame</span>
+        <h2 class="text-3xl font-bold text-gray-800">Our Peak Achievers</h2>
+        <p class="text-gray-500 mt-2">Real students. Real results. Celebrating excellence across India.</p>
+      </div>
+
+      <!-- Carousel Wrapper -->
+      <div class="achievers-carousel-wrapper reveal">
+        <div class="achievers-carousel" id="achieversCarousel">
+          <div class="achiever-slide active">
+            <img src="achiever1.png" alt="ICSE Toppers - Nikshep, Pranathi, Deethya" />
+          </div>
+          <div class="achiever-slide">
+            <img src="achiever2.png" alt="JEE Mains 2026 - Kevin & Jhenkar District Toppers" />
+          </div>
+          <div class="achiever-slide">
+            <img src="achiever3.png" alt="NEET & JEE Achievers - IIT Madras, Bangalore Medical College" />
+          </div>
+          <div class="achiever-slide">
+            <img src="achiever4.png" alt="NEET UG 2023 Champions - AIR 3, 5, 6, 8" />
+          </div>
+          <div class="achiever-slide">
+            <img src="achiever5.png" alt="JEE Mains 2026 District Toppers" />
+          </div>
+        </div>
+
+        <!-- Prev / Next Arrows -->
+        <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Previous slide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Next slide">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+      <!-- Dot Indicators -->
+      <div class="carousel-indicators" id="carouselIndicators">
+        <button class="carousel-dot active" data-index="0" aria-label="Slide 1"></button>
+        <button class="carousel-dot" data-index="1" aria-label="Slide 2"></button>
+        <button class="carousel-dot" data-index="2" aria-label="Slide 3"></button>
+        <button class="carousel-dot" data-index="3" aria-label="Slide 4"></button>
+        <button class="carousel-dot" data-index="4" aria-label="Slide 5"></button>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ===== ACHIEVERS CAROUSEL ===== */
+    .achievers-section { background: linear-gradient(180deg, #fff 0%, #f8f7ff 100%); }
+
+    .achievers-carousel-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(79, 70, 229, 0.15), 0 8px 24px rgba(0,0,0,0.10);
+      background: #0a0a1a;
+      aspect-ratio: 16 / 5.5;
+      max-height: 440px;
+      user-select: none;
+    }
+
+    .achievers-carousel {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .achiever-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+    }
+
+    .achiever-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .achiever-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* Subtle gradient overlay at bottom for polish */
+    .achiever-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    /* Nav Arrows */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.92);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      color: #3730a3;
+    }
+
+    .carousel-btn:hover {
+      background: #4f46e5;
+      color: #fff;
+      transform: translateY(-50%) scale(1.08);
+      box-shadow: 0 6px 22px rgba(79,70,229,0.35);
+    }
+
+    .carousel-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .carousel-prev { left: 16px; }
+    .carousel-next { right: 16px; }
+
+    /* Dot Indicators */
+    .carousel-indicators {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .carousel-dot {
+      height: 8px;
+      border-radius: 100px;
+      border: none;
+      background: #d1d5db;
+      cursor: pointer;
+      transition: width 0.2s cubic-bezier(0.4,0,0.2,1), background 0.4s;
+      padding: 0;
+      width: 8px;
+    }
+
+    .carousel-dot.active {
+      width: 32px;
+      background: #4f46e5;
+    }
+
+    .carousel-dot:hover:not(.active) {
+      background: #a5b4fc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .achievers-carousel-wrapper {
+        aspect-ratio: 16 / 9;
+        max-height: none;
+        border-radius: 16px;
+      }
+      .carousel-btn { width: 36px; height: 36px; }
+      .carousel-btn svg { width: 16px; height: 16px; }
+      .carousel-prev { left: 8px; }
+      .carousel-next { right: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .achievers-carousel-wrapper {
+        aspect-ratio: 4 / 3;
+        border-radius: 12px;
+      }
+    }
+  </style>
+
+  <script>
+    (function() {
+      const carousel = document.getElementById('achieversCarousel');
+      if (!carousel) return;
+
+      const slides = carousel.querySelectorAll('.achiever-slide');
+      const dots = document.querySelectorAll('#carouselIndicators .carousel-dot');
+      const prevBtn = document.getElementById('carouselPrev');
+      const nextBtn = document.getElementById('carouselNext');
+      let current = 0;
+      let autoTimer = null;
+      const total = slides.length;
+      const INTERVAL = 3500;
+
+      function goTo(idx) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (idx + total) % total;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(() => goTo(current + 1), INTERVAL);
+      }
+
+      function stopAuto() {
+        if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+      }
+
+      prevBtn.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+      nextBtn.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); startAuto(); });
+      });
+
+      // Pause on hover
+      const wrapper = document.querySelector('.achievers-carousel-wrapper');
+      wrapper.addEventListener('mouseenter', stopAuto);
+      wrapper.addEventListener('mouseleave', startAuto);
+
+      // Touch swipe support
+      let touchStartX = 0;
+      wrapper.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+      wrapper.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); startAuto(); }
+      }, { passive: true });
+
+      startAuto();
+    })();
+  </script>
+
+  <!-- Reviews Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-gray-800">What Our Students Say</h2>
+        <p class="text-gray-500 mt-2">Trusted by millions of learners across India</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="review-card reveal">
+          <div class="review-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 mb-6">"LearnHub's mock tests are incredibly close to the actual exam pattern. The detailed analysis helped me understand my weak areas and improve significantly."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop" alt="User" class="w-12 h-12 rounded-full">
+            <div>
+              <h4 class="font-semibold text-gray-800">Vikram Joshi</h4>
+              <p class="text-sm text-gray-500">Cleared SSC CGL 2023</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-card reveal">
+          <div class="review-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <p class="text-gray-600 mb-6">"The live classes are amazing! Teachers explain concepts so clearly, and the doubt-solving sessions are very helpful. Best investment for my preparation."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=50&h=50&fit=crop" alt="User" class="w-12 h-12 rounded-full">
+            <div>
+              <h4 class="font-semibold text-gray-800">Anita Reddy</h4>
+              <p class="text-sm text-gray-500">UPSC Aspirant</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="review-card reveal">
+          <div class="review-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <p class="text-gray-600 mb-6">"Affordable pricing and quality content make LearnHub stand out. The study materials are comprehensive and the app is very user-friendly."</p>
+          <div class="flex items-center gap-3">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=50&h=50&fit=crop" alt="User" class="w-12 h-12 rounded-full">
+            <div>
+              <h4 class="font-semibold text-gray-800">Sandeep Verma</h4>
+              <p class="text-sm text-gray-500">Banking Aspirant</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-gray-800">Frequently Asked Questions</h2>
+        <p class="text-gray-500 mt-2">Got questions? We've got answers</p>
+      </div>
+      
+      <div class="space-y-4 reveal">
+        <div class="faq-item active">
+          <div class="faq-question">
+            <span>What is LearnHub and how does it work?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              LearnHub is India's leading online learning platform for competitive exam preparation. We offer comprehensive courses, realistic mock tests, live classes, and study materials for exams like UPSC, SSC, Banking, Railways, and more. Simply sign up, choose your course, and start learning at your own pace.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Are the mock tests based on actual exam patterns?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes! Our mock tests are designed by subject matter experts and closely follow the actual exam pattern, difficulty level, and marking scheme. We also provide detailed performance analytics to help you identify and improve your weak areas.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I access the content on mobile devices?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Absolutely! LearnHub is fully responsive and works seamlessly on all devices including smartphones, tablets, laptops, and desktops. You can also download our mobile app for a better learning experience on the go.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We accept all major payment methods including Credit/Debit Cards, UPI, Net Banking, Wallets (Paytm, PhonePe, Google Pay), and EMI options. All transactions are secure and encrypted.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a refund policy?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes, we offer a 7-day money-back guarantee. If you're not satisfied with our courses, you can request a full refund within 7 days of purchase, no questions asked.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download App Banner -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="app-banner text-white reveal">
+        <div class="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4">Download the LearnHub App</h2>
+            <p class="text-lg opacity-90 mb-8">Get access to all courses, mock tests, and live classes on the go. Learn anytime, anywhere!</p>
+            <div class="flex flex-wrap gap-4">
+              <a href="#" class="inline-flex items-center gap-3 bg-black/30 hover:bg-black/50 px-6 py-3 rounded-xl transition">
+                <i class="fab fa-google-play text-2xl"></i>
+                <div class="text-left">
+                  <p class="text-xs opacity-80">GET IT ON</p>
+                  <p class="font-semibold">Google Play</p>
+                </div>
+              </a>
+              <a href="#" class="inline-flex items-center gap-3 bg-black/30 hover:bg-black/50 px-6 py-3 rounded-xl transition">
+                <i class="fab fa-apple text-2xl"></i>
+                <div class="text-left">
+                  <p class="text-xs opacity-80">Download on the</p>
+                  <p class="font-semibold">App Store</p>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="hidden lg:block text-center">
+            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=400&fit=crop" 
+                 alt="Mobile App" class="inline-block rounded-3xl shadow-2xl max-w-xs">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform. Join millions of students achieving their dreams with us.</p>
+          <div class="flex gap-3">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="courses.html?category=ssc" class="footer-link">SSC</a>
+          <a href="courses.html?category=banking" class="footer-link">Banking</a>
+          <a href="courses.html?category=upsc" class="footer-link">UPSC</a>
+          <a href="courses.html?category=railways" class="footer-link">Railways</a>
+          <a href="courses.html?category=teaching" class="footer-link">Teaching</a>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+          <a href="#" class="footer-link">Current Affairs</a>
+          <a href="#" class="footer-link">Blog</a>
+        </div>
+        
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Careers</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-gray-400 text-sm">© 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+        <div class="flex items-center gap-6">
+          <img src="https://cdn-icons-png.flaticon.com/64/349/349221.png" alt="Visa" class="h-8 opacity-50 hover:opacity-100 transition">
+          <img src="https://cdn-icons-png.flaticon.com/64/349/349228.png" alt="Mastercard" class="h-8 opacity-50 hover:opacity-100 transition">
+          <img src="https://cdn-icons-png.flaticon.com/64/6124/6124998.png" alt="UPI" class="h-8 opacity-50 hover:opacity-100 transition">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script src="js/script.js"></script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script></body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses - LearnHub</title>
+  <meta name="description" content="Explore our wide range of courses for competitive exam preparation.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link active">Courses</a>
+        <a href="mocktests.html" class="nav-link">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link">Study Material</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <div class="search-container hidden md:block">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search courses...">
+        </div>
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+        <button class="mobile-menu-btn lg:hidden flex flex-col gap-1.5 p-2">
+          <span class="w-6 h-0.5 bg-gray-600"></span>
+          <span class="w-6 h-0.5 bg-gray-600"></span>
+          <span class="w-6 h-0.5 bg-gray-600"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="pt-28 pb-12 bg-gradient-to-br from-indigo-50 to-purple-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center reveal">
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Explore Our Courses</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose from 500+ expert-curated courses for competitive exam preparation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters & Courses -->
+  <section class="py-12 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <div class="lg:w-72 flex-shrink-0">
+          <div class="bg-white rounded-2xl p-6 shadow-sm sticky top-24">
+            <h3 class="font-semibold text-gray-800 mb-4">Filter Courses</h3>
+            
+            <div class="mb-6">
+              <h4 class="text-sm font-medium text-gray-700 mb-3">Category</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" id="cat-all" class="w-4 h-4 text-primary rounded" checked>
+                  <span class="text-gray-600">All Courses</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="ssc">
+                  <span class="text-gray-600">SSC</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="banking">
+                  <span class="text-gray-600">Banking</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="upsc">
+                  <span class="text-gray-600">UPSC</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="railways">
+                  <span class="text-gray-600">Railways</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="teaching">
+                  <span class="text-gray-600">Teaching</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" class="cat-checkbox w-4 h-4 text-primary rounded" value="engineering">
+                  <span class="text-gray-600">Engineering</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-sm font-medium text-gray-700 mb-3">Price</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="price" value="all" class="w-4 h-4 text-primary" checked>
+                  <span class="text-gray-600">All Prices</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="price" value="free" class="w-4 h-4 text-primary">
+                  <span class="text-gray-600">Free</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="price" value="under-1000" class="w-4 h-4 text-primary">
+                  <span class="text-gray-600">Under ₹1,000</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="price" value="1000-5000" class="w-4 h-4 text-primary">
+                  <span class="text-gray-600">₹1,000 – ₹5,000</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="price" value="above-5000" class="w-4 h-4 text-primary">
+                  <span class="text-gray-600">Above ₹5,000</span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-sm font-medium text-gray-700 mb-3">Rating</h4>
+              <div class="space-y-2">
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="rating" value="all" class="w-4 h-4 text-primary" checked>
+                  <span class="text-gray-600">All Ratings</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="rating" value="4.5" class="w-4 h-4 text-primary">
+                  <span class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> &amp; up (4.5+)</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="rating" value="4" class="w-4 h-4 text-primary">
+                  <span class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> &amp; up (4.0+)</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                  <input type="radio" name="rating" value="3" class="w-4 h-4 text-primary">
+                  <span class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> &amp; up (3.0+)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="flex gap-2">
+              <button id="apply-filters-btn" class="flex-1 btn btn-primary text-sm py-2.5">Apply Filters</button>
+              <button id="reset-filters-btn" class="px-4 py-2.5 border border-gray-200 rounded-xl text-gray-600 text-sm hover:bg-gray-50 transition">Reset</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Course Grid -->
+        <div class="flex-1">
+          <div class="flex items-center justify-between mb-6">
+            <p class="text-gray-600">Showing <span id="courses-count" class="font-semibold">6</span> courses</p>
+            <select id="sort-select" class="px-4 py-2 border border-gray-200 rounded-lg text-gray-600 focus:outline-none focus:border-primary">
+              <option value="default">Most Popular</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Highest Rated</option>
+            </select>
+          </div>
+          
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+            <!-- Course Card 1 — SSC CGL ₹2,499 · 4.8★ -->
+            <div class="course-card reveal" data-category="ssc" data-price="1000-5000" data-price-num="2499" data-rating="4.8">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge">30% OFF</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">SSC CGL</span>
+                  <span class="text-xs text-gray-500">120+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">Complete SSC CGL Foundation 2024</h3>
+                <p class="text-sm text-gray-500 mb-3">by Rakesh Kumar</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.8) • 15K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-gray-800">₹2,499</span>
+                    <span class="text-sm text-gray-400 line-through ml-2">₹3,499</span>
+                  </div>
+                  <button onclick="lhEnroll(1,'Complete SSC CGL Foundation 2024' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 2 — Banking ₹3,999 · 4.9★ -->
+            <div class="course-card reveal" data-category="banking" data-price="1000-5000" data-price-num="3999" data-rating="4.9">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge bg-green-500">BESTSELLER</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Banking</span>
+                  <span class="text-xs text-gray-500">180+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">IBPS PO Complete Course 2024</h3>
+                <p class="text-sm text-gray-500 mb-3">by Priya Sharma</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.9) • 22K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-gray-800">₹3,999</span>
+                    <span class="text-sm text-gray-400 line-through ml-2">₹5,999</span>
+                  </div>
+                  <button onclick="lhEnroll(2,'IBPS PO Complete Course 2024' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 3 — UPSC ₹9,999 · 4.7★ -->
+            <div class="course-card reveal" data-category="upsc" data-price="above-5000" data-price-num="9999" data-rating="4.7">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge bg-purple-500">NEW</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">UPSC</span>
+                  <span class="text-xs text-gray-500">300+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">UPSC CSE Prelims + Mains 2024</h3>
+                <p class="text-sm text-gray-500 mb-3">by Dr. Amit Singh</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.7) • 8K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-gray-800">₹9,999</span>
+                    <span class="text-sm text-gray-400 line-through ml-2">₹14,999</span>
+                  </div>
+                  <button onclick="lhEnroll(3,'UPSC CSE Prelims + Mains 2024' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 4 — Railways ₹1,999 · 4.9★ -->
+            <div class="course-card reveal" data-category="railways" data-price="1000-5000" data-price-num="1999" data-rating="4.9">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge">40% OFF</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded-full">Railways</span>
+                  <span class="text-xs text-gray-500">100+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">RRB NTPC Complete Batch 2024</h3>
+                <p class="text-sm text-gray-500 mb-3">by Vijay Kumar</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.9) • 18K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-gray-800">₹1,999</span>
+                    <span class="text-sm text-gray-400 line-through ml-2">₹3,299</span>
+                  </div>
+                  <button onclick="lhEnroll(4,'RRB NTPC Complete Batch 2024' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 5 — Teaching FREE · 4.2★ -->
+            <div class="course-card reveal" data-category="teaching" data-price="free" data-price-num="0" data-rating="4.2">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge bg-teal-500">FREE</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-teal-100 text-teal-700 px-2 py-1 rounded-full">Teaching</span>
+                  <span class="text-xs text-gray-500">50+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">CTET Paper 1 Free Course</h3>
+                <p class="text-sm text-gray-500 mb-3">by Sunita Devi</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.2) • 45K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-green-600">FREE</span>
+                  </div>
+                  <button onclick="lhEnroll(5,'CTET Paper 1 Free Course' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Course Card 6 — SSC CHSL ₹1,499 · 4.6★ -->
+            <div class="course-card reveal" data-category="ssc" data-price="1000-5000" data-price-num="1499" data-rating="4.6">
+              <div class="relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop" alt="Course" class="course-image">
+                <span class="course-badge">25% OFF</span>
+              </div>
+              <div class="p-5">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">SSC CHSL</span>
+                  <span class="text-xs text-gray-500">80+ hours</span>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">SSC CHSL Complete Package 2024</h3>
+                <p class="text-sm text-gray-500 mb-3">by Mohit Verma</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <div class="flex text-yellow-400 text-sm">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="text-sm text-gray-500">(4.6) • 12K students</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-xl font-bold text-gray-800">₹1,499</span>
+                    <span class="text-sm text-gray-400 line-through ml-2">₹1,999</span>
+                  </div>
+                  <button onclick="lhEnroll(6,'SSC CHSL Complete Package 2024' )" class="btn btn-primary text-sm py-2 enroll-btn">Enroll Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pagination -->
+          <div class="flex justify-center mt-12">
+            <nav class="flex items-center gap-2">
+              <button class="w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                <i class="fas fa-chevron-left text-gray-400"></i>
+              </button>
+              <button class="w-10 h-10 rounded-lg bg-primary text-white font-medium">1</button>
+              <button class="w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-50">2</button>
+              <button class="w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-50">3</button>
+              <span class="px-2 text-gray-400">...</span>
+              <button class="w-10 h-10 rounded-lg border border-gray-200 hover:bg-gray-50">12</button>
+              <button class="w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50">
+                <i class="fas fa-chevron-right text-gray-400"></i>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform for competitive exam preparation.</p>
+          <div class="flex gap-3">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="#" class="footer-link">SSC</a>
+          <a href="#" class="footer-link">Banking</a>
+          <a href="#" class="footer-link">UPSC</a>
+          <a href="#" class="footer-link">Railways</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">© 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script src="js/script.js"></script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+  <!-- Subscription-aware Enroll Logic -->
+  <script src="js/database.js"></script>
+  <script src="js/subscription.js"></script>
+  <script>
+  /* Course data for access control — matches card data-price-num and lhEnroll args */
+  var LH_COURSE_DATA = {
+    1: { name: 'Complete SSC CGL Foundation 2024', price: 2499, originalPrice: 3499 },
+    2: { name: 'IBPS PO Complete Course 2024',     price: 3999, originalPrice: 5999 },
+    3: { name: 'UPSC CSE Prelims + Mains 2024',    price: 9999, originalPrice: 14999 },
+    4: { name: 'RRB NTPC Complete Batch 2024',     price: 1999, originalPrice: 3299 },
+    5: { name: 'CTET Paper 1 Free Course',         price: 0,    originalPrice: 0 },
+    6: { name: 'SSC CHSL Complete Package 2024',   price: 1499, originalPrice: 1999 }
+  };
+
+  function lhEnroll(courseId, courseName) {
+    var session = LH_SUB._getSession();
+    if (!session || !session.id) {
+      window.location.href = 'login.html?next=courses.html';
+      return;
+    }
+
+    var data = LH_COURSE_DATA[courseId] || { name: courseName, price: 0 };
+
+    // Free course
+    if (!data.price || data.price === 0) {
+      if (window.LH_DB) LH_DB.enrollCourse(session.id, courseId);
+      else {
+        var key = 'lh_enrollments_' + session.id;
+        var enrolled = [];
+        try { enrolled = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
+        if (!enrolled.includes(courseId)) { enrolled.push(courseId); localStorage.setItem(key, JSON.stringify(enrolled)); }
+      }
+      _lhShowEnrollToast(courseName);
+      return;
+    }
+
+    // Already enrolled?
+    if (LH_SUB.canAccessCourse(courseId, data.price)) {
+      _lhShowEnrollToast(courseName, true);
+      return;
+    }
+
+    // Open payment
+    LH_SUB.openPayment({
+      type: 'course',
+      id: courseId,
+      name: data.name || courseName,
+      price: data.price,
+      originalPrice: data.originalPrice,
+      onSuccess: function() {
+        _lhShowEnrollToast(courseName);
+        // Update enroll button on page
+        document.querySelectorAll('.enroll-btn').forEach(function(btn) {
+          if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('lhEnroll(' + courseId + ',')) {
+            btn.textContent = '✅ Enrolled';
+            btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+            btn.disabled = true;
+          }
+        });
+      }
+    });
+  }
+
+  function _lhShowEnrollToast(courseName, alreadyEnrolled) {
+    var toast = document.createElement('div');
+    toast.innerHTML = alreadyEnrolled
+      ? '<i class="fas fa-check-circle mr-2"></i> Already enrolled in <strong>' + courseName + '</strong>! Check your Dashboard.'
+      : '<i class="fas fa-check-circle mr-2"></i> Enrolled in <strong>' + courseName + '</strong>! Check your Dashboard.';
+    toast.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#10b981;color:#fff;padding:14px 24px;border-radius:12px;font-size:14px;z-index:99999;box-shadow:0 8px 20px rgba(0,0,0,.15);white-space:nowrap;max-width:90vw;';
+    document.body.appendChild(toast);
+    setTimeout(function(){ toast.remove(); }, 3500);
+  }
+
+  /* Mark already-enrolled courses on page load */
+  document.addEventListener('DOMContentLoaded', function() {
+    var session = LH_SUB._getSession();
+    if (!session) return;
+    Object.keys(LH_COURSE_DATA).forEach(function(id) {
+      var courseId = parseInt(id);
+      var data = LH_COURSE_DATA[courseId];
+      if (!data.price || LH_SUB.canAccessCourse(courseId, data.price)) {
+        document.querySelectorAll('.enroll-btn').forEach(function(btn) {
+          if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes('lhEnroll(' + courseId + ',')) {
+            if (data.price === 0) {
+              btn.textContent = '✅ Free — Enroll';
+            } else {
+              btn.innerHTML = '✅ Enrolled';
+              btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+            }
+          }
+        });
+      }
+    });
+  });
+  </script>
+</body>
+</html>

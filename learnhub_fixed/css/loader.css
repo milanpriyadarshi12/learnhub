@@ -1,0 +1,176 @@
+/* ============================================================
+   LearnHub — Premium Page Loader
+   Apple / Linear / Stripe inspired. Replaces basic spinner.
+   ============================================================ */
+
+/* ── Lock scroll while loader is visible ─────────────────── */
+body.lh-loading {
+  overflow: hidden;
+}
+
+/* ── Fullscreen overlay ───────────────────────────────────── */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: #ffffff;
+  /* Subtle warm-white radial glow — premium feel */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(99,102,241,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 80% 80%, rgba(139,92,246,0.04) 0%, transparent 60%);
+  /* Enter: fade in instantly; Exit: driven by JS class */
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+
+/* ── Hide state (added by JS after page loads) ────────────── */
+.page-loader.lh-loader-hidden,
+.page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ── Logo container ───────────────────────────────────────── */
+.lh-loader-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  /* Subtle entrance animation */
+  animation: lhLoaderBrandIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes lhLoaderBrandIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Logo row (icon + wordmark) ───────────────────────────── */
+.lh-loader-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Icon orb — matches navbar icon exactly */
+.lh-loader-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 8px 24px rgba(99, 102, 241, 0.32),
+    0 2px 8px rgba(99, 102, 241, 0.18);
+  /* Very subtle pulse — life without distraction */
+  animation: lhIconPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes lhIconPulse {
+  0%, 100% { box-shadow: 0 8px 24px rgba(99,102,241,0.32), 0 2px 8px rgba(99,102,241,0.18); }
+  50%       { box-shadow: 0 8px 32px rgba(99,102,241,0.48), 0 2px 8px rgba(99,102,241,0.24); }
+}
+
+.lh-loader-icon i {
+  font-size: 24px;
+  color: #ffffff;
+}
+
+/* Wordmark */
+.lh-loader-wordmark {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  color: #1e293b;
+  line-height: 1;
+}
+
+/* ── Progress line track ──────────────────────────────────── */
+.lh-loader-bar-track {
+  width: 160px;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.10);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Animated shimmer fill ────────────────────────────────── */
+.lh-loader-bar-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent          0%,
+    rgba(99,102,241,0)   15%,
+    #6366f1              40%,
+    #8b5cf6              55%,
+    #a78bfa              65%,
+    rgba(167,139,250,0)  85%,
+    transparent         100%
+  );
+  background-size: 280px 100%;
+  /* The shimmer: slide left → right, then repeat */
+  animation: lhBarShimmer 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes lhBarShimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(260%);  }
+}
+
+/* ── Tagline (optional micro-copy) ───────────────────────── */
+.lh-loader-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-top: 4px;
+  opacity: 0;
+  animation: lhTaglineIn 0.4s 0.3s ease both;
+}
+
+@keyframes lhTaglineIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+/* ── Kill old spinner if still present ───────────────────── */
+.page-loader .loader-spinner {
+  display: none !important;
+}
+
+/* ── Responsive tweaks ────────────────────────────────────── */
+@media (max-width: 480px) {
+  .lh-loader-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+  .lh-loader-icon i    { font-size: 20px; }
+  .lh-loader-wordmark  { font-size: 24px; }
+  .lh-loader-bar-track { width: 130px;    }
+}

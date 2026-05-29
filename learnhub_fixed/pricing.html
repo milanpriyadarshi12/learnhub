@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - LearnHub</title>
+  <meta name="description" content="Choose the perfect plan for your exam preparation journey. Affordable pricing with premium features.">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#6366f1', 'primary-dark': '#4f46e5', secondary: '#0ea5e9' },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+        },
+      },
+    }
+  </script>
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="font-sans">
+  <script src="js/loader.js"></script>
+
+  <!-- Navbar -->
+  <nav class="navbar py-4 px-6">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+          <i class="fas fa-graduation-cap text-white text-lg"></i>
+        </div>
+        <span class="text-xl font-bold text-gray-800">LearnHub</span>
+      </a>
+      <div class="nav-menu hidden lg:flex items-center gap-8">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="courses.html" class="nav-link">Courses</a>
+        <a href="mocktests.html" class="nav-link">Mock Tests</a>
+        <a href="liveclasses.html" class="nav-link">Live Classes</a>
+        <a href="studymaterial.html" class="nav-link">Study Material</a>
+        <a href="pricing.html" class="nav-link active">Pricing</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="login.html" class="text-gray-600 font-medium hover:text-primary transition hidden sm:block">Login</a>
+        <a href="signup.html" class="btn btn-primary">Sign Up Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="pt-28 pb-12 bg-gradient-to-br from-amber-50 to-orange-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center reveal">
+        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Choose the plan that fits your preparation needs. No hidden charges!</p>
+        
+        <!-- Toggle -->
+        <div class="flex items-center justify-center gap-4 mt-8">
+          <span class="text-gray-600 font-medium">Monthly</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer" id="pricing-toggle">
+            <div class="w-14 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+          </label>
+          <span class="text-gray-600 font-medium">Yearly <span class="text-green-600 text-sm">(Save 40%)</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Cards -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="pricing-grid reveal">
+
+        <!-- ══════════ FREE PLAN ══════════ -->
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-seedling text-gray-500 text-base"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 leading-tight">Free</h3>
+                <p class="text-gray-500 text-xs">Perfect for getting started</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pricing-card-price">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-gray-800">₹0</span>
+              <span class="text-gray-400 text-sm">/month</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">No credit card required</p>
+          </div>
+
+          <div class="pricing-card-features">
+            <ul>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>5 Free Mock Tests</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Basic Study Material</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Daily Current Affairs</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Limited Live Classes Access</span>
+              </li>
+              <li class="text-gray-400">
+                <i class="fas fa-times text-gray-300"></i>
+                <span>Premium Courses</span>
+              </li>
+              <li class="text-gray-400">
+                <i class="fas fa-times text-gray-300"></i>
+                <span>Personalized Analytics</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pricing-card-btn">
+            <button id="btn-free" class="btn btn-outline w-full" onclick="handlePlanClick('free')">
+              <i class="fas fa-check-circle mr-2"></i>Current Plan
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════ PRO PLAN ══════════ -->
+        <div class="pricing-card featured">
+          <span class="pricing-badge">MOST POPULAR</span>
+
+          <div class="pricing-card-header">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-bolt text-primary text-base"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 leading-tight">Pro</h3>
+                <p class="text-gray-500 text-xs">Best for serious aspirants</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pricing-card-price">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-gray-800 monthly-price">₹499</span>
+              <span class="text-4xl font-extrabold text-gray-800 yearly-price hidden">₹2,999</span>
+              <span class="text-gray-400 text-sm monthly-price">/month</span>
+              <span class="text-gray-400 text-sm yearly-price hidden">/year</span>
+            </div>
+            <p class="text-xs text-green-600 mt-1 yearly-price hidden font-medium">Save ₹2,989 per year</p>
+            <p class="text-xs text-gray-400 mt-1 monthly-price">Billed monthly · cancel anytime</p>
+          </div>
+
+          <div class="pricing-card-features">
+            <ul>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Unlimited Mock Tests</span>
+              </li>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>All Study Materials</span>
+              </li>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Full Live Classes Access</span>
+              </li>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>50+ Premium Courses</span>
+              </li>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Detailed Performance Analytics</span>
+              </li>
+              <li class="text-gray-700 font-medium">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Download Videos Offline</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pricing-card-btn">
+            <button id="btn-pro" class="btn btn-primary w-full" onclick="handlePlanClick('pro')">
+              <i class="fas fa-crown mr-2"></i>Subscribe Now
+            </button>
+          </div>
+        </div>
+
+        <!-- ══════════ ULTIMATE PLAN ══════════ -->
+        <div class="pricing-card">
+          <div class="pricing-card-header">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                <i class="fas fa-trophy text-amber-500 text-base"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-gray-800 leading-tight">Ultimate</h3>
+                <p class="text-gray-500 text-xs">For dedicated exam crackers</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pricing-card-price">
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-extrabold text-gray-800 monthly-price">₹999</span>
+              <span class="text-4xl font-extrabold text-gray-800 yearly-price hidden">₹5,999</span>
+              <span class="text-gray-400 text-sm monthly-price">/month</span>
+              <span class="text-gray-400 text-sm yearly-price hidden">/year</span>
+            </div>
+            <p class="text-xs text-green-600 mt-1 yearly-price hidden font-medium">Save ₹5,989 per year</p>
+            <p class="text-xs text-gray-400 mt-1 monthly-price">Billed monthly · cancel anytime</p>
+          </div>
+
+          <div class="pricing-card-features">
+            <ul>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Everything in Pro</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>1-on-1 Mentorship Sessions</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Priority Doubt Resolution</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Interview Preparation</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Job Assistance Program</span>
+              </li>
+              <li class="text-gray-600">
+                <i class="fas fa-check text-green-500"></i>
+                <span>Certificate on Completion</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pricing-card-btn">
+            <button id="btn-ultimate" class="btn btn-outline w-full" onclick="handlePlanClick('ultimate')">
+              <i class="fas fa-rocket mr-2"></i>Subscribe Now
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Comparison -->
+  <section class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-12 reveal">Compare Plans</h2>
+      
+      <div class="overflow-x-auto reveal">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-4 px-4 font-semibold text-gray-800">Features</th>
+              <th class="text-center py-4 px-4 font-semibold text-gray-800">Free</th>
+              <th class="text-center py-4 px-4 font-semibold text-primary">Pro</th>
+              <th class="text-center py-4 px-4 font-semibold text-gray-800">Ultimate</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Mock Tests</td>
+              <td class="py-4 px-4 text-center">5 Tests</td>
+              <td class="py-4 px-4 text-center text-primary font-medium">Unlimited</td>
+              <td class="py-4 px-4 text-center">Unlimited</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Study Material</td>
+              <td class="py-4 px-4 text-center">Basic</td>
+              <td class="py-4 px-4 text-center text-primary font-medium">All Access</td>
+              <td class="py-4 px-4 text-center">All Access</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Live Classes</td>
+              <td class="py-4 px-4 text-center">Limited</td>
+              <td class="py-4 px-4 text-center text-primary font-medium">Full Access</td>
+              <td class="py-4 px-4 text-center">Full Access + Priority</td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Premium Courses</td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Performance Analytics</td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Offline Downloads</td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">1-on-1 Mentorship</td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+            </tr>
+            <tr class="border-b border-gray-100">
+              <td class="py-4 px-4 text-gray-600">Interview Prep</td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-times text-gray-300"></i></td>
+              <td class="py-4 px-4 text-center"><i class="fas fa-check text-green-500"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guarantee Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm reveal">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <i class="fas fa-shield-alt text-green-600 text-3xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">7-Day Money Back Guarantee</h2>
+        <p class="text-gray-600 max-w-xl mx-auto mb-6">Not satisfied with our courses? Get a full refund within 7 days of purchase, no questions asked. We're confident you'll love learning with us!</p>
+        <div class="flex items-center justify-center gap-8 text-sm text-gray-500">
+          <span class="flex items-center gap-2"><i class="fas fa-lock text-green-500 mr-1"></i> Secure Payment</span>
+          <span class="flex items-center gap-2"><i class="fas fa-credit-card text-green-500 mr-1"></i> Multiple Payment Options</span>
+          <span class="flex items-center gap-2"><i class="fas fa-headset text-green-500"></i> 24/7 Support</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-gray-800 text-center mb-12 reveal">Pricing FAQs</h2>
+      
+      <div class="space-y-4 reveal">
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I change my plan later?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll only pay the difference for the remaining period. Downgrades take effect from the next billing cycle.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What payment methods do you accept?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              We accept all major payment methods including Credit/Debit Cards (Visa, MasterCard, RuPay), UPI (Google Pay, PhonePe, Paytm), Net Banking, and Wallets. EMI options are also available on select banks.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a student discount?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              Yes! Students with a valid college ID can get an additional 20% discount on any plan. Contact our support team with your student ID to avail this offer.
+            </div>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I share my account?</span>
+            <i class="fas fa-chevron-down faq-icon"></i>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-content">
+              No, LearnHub accounts are for individual use only. Sharing accounts violates our terms of service and may result in account suspension. We offer family plans at discounted rates if multiple people in your household want to learn.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
+        <div class="lg:col-span-2">
+          <a href="index.html" class="flex items-center gap-2 mb-6">
+            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
+              <i class="fas fa-graduation-cap text-white text-lg"></i>
+            </div>
+            <span class="text-xl font-bold text-white">LearnHub</span>
+          </a>
+          <p class="text-gray-400 mb-6 max-w-sm">India's most trusted learning platform for competitive exam preparation.</p>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Exams</h3>
+          <a href="#" class="footer-link">SSC</a>
+          <a href="#" class="footer-link">Banking</a>
+          <a href="#" class="footer-link">UPSC</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Resources</h3>
+          <a href="mocktests.html" class="footer-link">Mock Tests</a>
+          <a href="liveclasses.html" class="footer-link">Live Classes</a>
+          <a href="studymaterial.html" class="footer-link">Study Material</a>
+        </div>
+        <div>
+          <h3 class="text-white font-semibold mb-4">Company</h3>
+          <a href="about.html" class="footer-link">About Us</a>
+          <a href="contact.html" class="footer-link">Contact Us</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 text-center">
+        <p class="text-gray-400 text-sm">© 2026 LearnHub. Briskode Technology Pvt. Ltd.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="scroll-top"><i class="fas fa-arrow-up"></i></button>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+
+  
+  <script src="js/script.js"></script>
+  <script>
+    /* ── Pricing Toggle ── */
+    document.getElementById('pricing-toggle').addEventListener('change', function() {
+      var monthly = document.querySelectorAll('.monthly-price');
+      var yearly  = document.querySelectorAll('.yearly-price');
+      if (this.checked) {
+        monthly.forEach(function(el){ el.classList.add('hidden'); });
+        yearly.forEach(function(el){ el.classList.remove('hidden'); });
+      } else {
+        monthly.forEach(function(el){ el.classList.remove('hidden'); });
+        yearly.forEach(function(el){ el.classList.add('hidden'); });
+      }
+    });
+
+    /* ── Subscription Prices (monthly / yearly) ── */
+    var PLAN_PRICES = {
+      pro:      { monthly: 499,  yearly: 2999 },
+      ultimate: { monthly: 999,  yearly: 5999 }
+    };
+
+    /* ── Reflect current plan on page load ── */
+    (function initPlanButtons() {
+      var user = (typeof LH_AUTH !== 'undefined') ? LH_AUTH.getUser() : null;
+      if (!user) return; // not logged in → default buttons shown
+
+      var sub  = user.subscription || 'free';
+      var plan = user.plan || 'free';
+
+      // Hide Login-only nav buttons and show user state
+      if (sub === 'paid') {
+        if (plan === 'pro') {
+          markActivePlan('pro');
+        } else if (plan === 'ultimate') {
+          markActivePlan('ultimate');
+        }
+      }
+    })();
+
+    function markActivePlan(activePlan) {
+      var btnFree     = document.getElementById('btn-free');
+      var btnPro      = document.getElementById('btn-pro');
+      var btnUltimate = document.getElementById('btn-ultimate');
+
+      // Reset all
+      btnFree.innerHTML     = '<i class="fas fa-check-circle mr-2"></i>Current Plan';
+      btnPro.innerHTML      = '<i class="fas fa-crown mr-2"></i>Subscribe Now';
+      btnUltimate.innerHTML = '<i class="fas fa-rocket mr-2"></i>Subscribe Now';
+
+      if (activePlan === 'pro') {
+        btnFree.innerHTML     = '<i class="fas fa-arrow-up mr-2"></i>Upgrade Plan';
+        btnPro.innerHTML      = '<i class="fas fa-check-circle mr-2"></i>Active Plan ✓';
+        btnPro.disabled       = true;
+        btnPro.classList.add('opacity-75', 'cursor-default');
+      } else if (activePlan === 'ultimate') {
+        btnFree.innerHTML     = '<i class="fas fa-arrow-up mr-2"></i>Upgrade Plan';
+        btnPro.innerHTML      = '<i class="fas fa-arrow-up mr-2"></i>Upgrade Plan';
+        btnUltimate.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Active Plan ✓';
+        btnUltimate.disabled  = true;
+        btnUltimate.classList.add('opacity-75', 'cursor-default');
+      }
+    }
+
+    /* ── Plan click handler ── */
+    function handlePlanClick(plan) {
+      var user = (typeof LH_AUTH !== 'undefined') ? LH_AUTH.getUser() : null;
+
+      if (plan === 'free') {
+        if (!user) { window.location.href = 'signup.html'; return; }
+        // Already free — go to dashboard
+        window.location.href = 'dashboard.html';
+        return;
+      }
+
+      // Pro or Ultimate require login
+      if (!user) {
+        // Save intended plan and redirect to login
+        sessionStorage.setItem('lh_pending_plan', plan);
+        window.location.href = 'login.html?redirect=pricing.html';
+        return;
+      }
+
+      // Already on this plan?
+      if (user.subscription === 'paid' && user.plan === plan) return;
+
+      // Open payment modal via LH_SUB
+      var isYearly = document.getElementById('pricing-toggle').checked;
+      var billing  = isYearly ? 'yearly' : 'monthly';
+      var price    = PLAN_PRICES[plan][billing];
+      var label    = plan.charAt(0).toUpperCase() + plan.slice(1);
+
+      if (typeof LH_SUB !== 'undefined' && typeof LH_SUB.openPayment === 'function') {
+        LH_SUB.openPayment({
+          id:       'plan_' + plan,
+          type:     'plan',
+          name:     'LearnHub ' + label + ' Plan',
+          price:    price,
+          currency: '₹',
+          plan:     plan,
+          billing:  billing,
+          onSuccess: function() {
+            _applyPlanSubscription(user, plan, billing);
+          }
+        });
+      } else {
+        // Fallback: direct simulation
+        _simulateSubscription(user, plan, billing, price, label);
+      }
+    }
+
+    /* ── Apply plan after payment success ── */
+    function _applyPlanSubscription(user, plan, billing) {
+      var UKEY = 'lh_users_db';
+      var SKEY_LOCAL = 'learnhubUser';
+      var SKEY_SESSION = 'learnhubUser';
+
+      // 1. Update users DB
+      try {
+        var users = JSON.parse(localStorage.getItem(UKEY) || '[]');
+        var idx = users.findIndex(function(u){ return u.id === user.id; });
+        if (idx !== -1) {
+          users[idx].subscription = 'paid';
+          users[idx].plan         = plan;
+          users[idx].planBilling  = billing;
+          users[idx].planActivatedAt = new Date().toISOString();
+          localStorage.setItem(UKEY, JSON.stringify(users));
+        }
+      } catch(e) {}
+
+      // 2. Update session
+      var sessionUser = Object.assign({}, user, {
+        subscription: 'paid',
+        plan: plan,
+        planBilling: billing,
+        planActivatedAt: new Date().toISOString()
+      });
+      var data = JSON.stringify(sessionUser);
+      if (localStorage.getItem(SKEY_LOCAL)) {
+        localStorage.setItem(SKEY_LOCAL, data);
+      } else {
+        sessionStorage.setItem(SKEY_SESSION, data);
+      }
+
+      // 3. Update button states
+      markActivePlan(plan);
+
+      // 4. Show success toast
+      _showToast(
+        '🎉 ' + plan.charAt(0).toUpperCase() + plan.slice(1) + ' Plan Activated!',
+        'Premium access is now unlocked. Redirecting to dashboard…',
+        'success'
+      );
+
+      setTimeout(function(){ window.location.href = 'dashboard.html'; }, 2500);
+    }
+
+    /* ── Fallback simulation (if LH_SUB not available) ── */
+    function _simulateSubscription(user, plan, billing, price, label) {
+      // Show inline loading on button
+      var btn = document.getElementById('btn-' + plan);
+      if (btn) {
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i>Processing…';
+        btn.disabled = true;
+      }
+
+      // Simulate 1.8s payment gateway delay
+      setTimeout(function() {
+        _applyPlanSubscription(user, plan, billing);
+      }, 1800);
+    }
+
+    /* ── Toast notification ── */
+    function _showToast(title, message, type) {
+      var existing = document.getElementById('lh-toast-plan');
+      if (existing) existing.remove();
+
+      var colors = type === 'success'
+        ? 'background:linear-gradient(135deg,#10b981,#059669);'
+        : 'background:linear-gradient(135deg,#6366f1,#4f46e5);';
+
+      var toast = document.createElement('div');
+      toast.id = 'lh-toast-plan';
+      toast.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:99999;' + colors +
+        'color:#fff;padding:16px 22px;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,.2);' +
+        'max-width:340px;animation:lhToastIn .3s ease;font-family:Inter,sans-serif;';
+      toast.innerHTML =
+        '<p style="font-weight:700;font-size:15px;margin:0 0 4px;">' + title + '</p>' +
+        '<p style="font-size:13px;opacity:.9;margin:0;">' + message + '</p>';
+
+      // Inject keyframes once
+      if (!document.getElementById('lh-toast-kf')) {
+        var style = document.createElement('style');
+        style.id  = 'lh-toast-kf';
+        style.textContent = '@keyframes lhToastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}';
+        document.head.appendChild(style);
+      }
+
+      document.body.appendChild(toast);
+      setTimeout(function(){ if (toast.parentNode) toast.remove(); }, 4000);
+    }
+
+    /* ── Handle redirect after login (pending plan) ── */
+    (function checkPendingPlan() {
+      var pending = sessionStorage.getItem('lh_pending_plan');
+      if (!pending) return;
+      var user = (typeof LH_AUTH !== 'undefined') ? LH_AUTH.getUser() : null;
+      if (!user) return;
+      sessionStorage.removeItem('lh_pending_plan');
+      // Auto-trigger after short delay to let page settle
+      setTimeout(function(){ handlePlanClick(pending); }, 400);
+    })();
+  </script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script></body>
+</html>

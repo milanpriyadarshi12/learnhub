@@ -1,0 +1,278 @@
+/* ================================================================
+   LearnHub — Global Polish & Spacing Fixes · polish.css
+   Fixes: emoji alignment, icon spacing, button gaps, typography
+   consistency across all pages.
+================================================================ */
+
+/* ── 1. Emoji & icon baseline alignment ─────────────────────────
+   Prevents emojis from sitting too high or too low relative to text.
+   Applied globally — safe, non-destructive. */
+
+.emoji, [class*="fas "], [class*="fab "], [class*="far "],
+.fa, .fas, .fab, .far, .fal {
+  vertical-align: middle;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* When icon is inside a flex container, reset to auto */
+.flex .fas, .flex .fab, .flex .far,
+.inline-flex .fas, .inline-flex .fab, .inline-flex .far {
+  display: inline;
+  vertical-align: baseline;
+}
+
+/* ── 2. Icon + text gap — enforce minimum spacing ────────────────
+   Adds a tiny right margin to icons that directly precede text
+   (catches mr-1, mr-2 misses). */
+
+.fas + span, .fab + span, .far + span,
+.fas + strong, .fab + strong,
+i.fas + text, i.fab + text {
+  margin-left: 0.35em;
+}
+
+/* ── 3. Button internals — always flex, always centered ──────────
+   Prevents text/icon overlap inside buttons. */
+
+.btn, button[class*="btn-"], a[class*="btn-"],
+button[class*="btn "], a[class*="btn "] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* ── 4. Badge / pill spacing ─────────────────────────────────────
+   Prevents icon + text crunch inside badges. */
+
+.badge, .lh-badge, [class*="rounded-full"][class*="text-xs"],
+[class*="rounded-full"][class*="text-sm"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+}
+
+/* ── 5. Navbar link alignment ─────────────────────────────────── */
+
+.nav-link, .navbar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+/* ── 6. Card header icon + title ─────────────────────────────────
+   Prevents icon floating above title text. */
+
+.dashboard-card h2, .dashboard-card h3, .dashboard-card h4,
+.admin-card h2, .admin-card h3, .admin-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.3;
+}
+
+/* ── 7. Stat card values ─────────────────────────────────────────
+   Fixes number + unit alignment issues. */
+
+.stat-card p, .pstat-val, [id^="stat-"] {
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+/* Revert for block stat values */
+[id^="stat-"]:not([class*="flex"]) {
+  display: block;
+}
+
+/* ── 8. Section header row ───────────────────────────────────────
+   The "title + button" row in admin/dashboard pages. */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* ── 9. Live badge / status chips ─────────────────────────────── */
+
+.live-badge, [class*="live-badge"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1;
+}
+
+/* ── 10. List items with icons ────────────────────────────────── */
+
+li > i.fas, li > i.fab, li > i.far {
+  margin-right: 8px;
+  vertical-align: middle;
+  width: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ── 11. Form label + icon combos ────────────────────────────────
+   Prevents icon+label from having uneven spacing. */
+
+label > i.fas, label > i.fab {
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* ── 12. Toast / notification alignment ──────────────────────────
+   Ensures icon and text sit on the same baseline. */
+
+#lhProfileToast, [id$="Toast"], .lh-toast {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* ── 13. Pricing page card tick/cross icons ───────────────────── */
+
+.pricing-card li, [class*="pricing"] li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+/* ── 14. Footer contact list ─────────────────────────────────────
+   Ensures icon + text baseline matches. */
+
+footer li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+/* ── 15. Responsive typography uniformity ────────────────────────
+   Prevents orphan large text on small screens. */
+
+@media (max-width: 640px) {
+  h1 { font-size: clamp(1.5rem, 6vw, 2.25rem) !important; }
+  h2 { font-size: clamp(1.25rem, 5vw, 1.75rem) !important; }
+}
+
+/* ── 16. Admin table cells ───────────────────────────────────────
+   Prevents text + badge overflow in tight cells. */
+
+.admin-table td {
+  vertical-align: middle;
+}
+
+.admin-table td > div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* ── 17. Subscription badge inline spacing ───────────────────────
+   lh-sub-badge-paid / free used in navbar */
+
+.lh-sub-badge-paid, .lh-sub-badge-free,
+.sub-badge, .lh-sub-nav-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ── 18. Progress bar label rows ─────────────────────────────────
+   Ensures percentage text doesn't float away from label. */
+
+.progress-bar-row, .lh-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* ── 19. Achievement item rows ───────────────────────────────────
+   Prevents icon bubble + text misalignment. */
+
+#achievementsContainer > div,
+#dashAchievements > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  line-height: 1.4;
+}
+
+/* ── 20. Smooth fixes for specific known problem areas ───────────
+   These were identified via manual review. */
+
+/* Mock test start screen stats row */
+.lh-start-box .flex.justify-center.gap-5 > div {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Admin sidebar nav items */
+.sidebar-link, .sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+}
+
+/* Live class card teacher info row */
+.live-card .flex.items-center.gap-3 {
+  align-items: center;
+}
+
+/* Course/test card footer price row */
+.lh-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.lh-card-footer > div {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+/* Payment modal tab buttons */
+#lh-tab-upi, #lh-tab-card, #lh-tab-nb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+/* ── 21. Prevent text from touching container edges ──────────────
+   Gives breathing room in tight spots. */
+
+.px-2\.5 { padding-left: 0.625rem; padding-right: 0.625rem; }
+.py-1     { padding-top: 0.25rem;   padding-bottom: 0.25rem; }
+
+/* ── 22. Icon size consistency in lists/tables ────────────────── */
+
+.fa-xs { font-size: 0.75em; }
+.fa-sm { font-size: 0.875em; }
+
+/* ── END polish.css ── */

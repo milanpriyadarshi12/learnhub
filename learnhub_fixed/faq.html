@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - LearnHub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  <!-- Premium Page Loader -->
+  <link rel="stylesheet" href="css/loader.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="bg-gray-50 font-inter">
+  <script src="js/loader.js"></script>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white text-lg"></i>
+                    </div>
+                    <a href="index.html" class="text-xl font-bold text-gray-900">LearnHub</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Home</a>
+                    <a href="courses.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Courses</a>
+                    <a href="mocktests.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Mock Tests</a>
+                    <a href="liveclasses.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Live Classes</a>
+                    <a href="studymaterial.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Study Material</a>
+                    <a href="pricing.html" class="nav-link text-gray-600 hover:text-indigo-600 font-medium transition-colors">Pricing</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-gray-600 hover:text-indigo-600 font-medium">Login</a>
+                    <a href="signup.html" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-medium hover:shadow-lg hover:shadow-indigo-500/30 transition-all">
+                        Sign Up Free
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h1 class="text-5xl font-bold mb-6">Frequently Asked Questions</h1>
+            <p class="text-xl text-indigo-200 max-w-3xl mx-auto">Find answers to the most common questions about LearnHub courses, subscriptions, and features.</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="py-8 bg-white border-b">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="relative">
+                <input type="text" id="faqSearch" placeholder="Search for questions..." class="w-full px-6 py-4 pl-14 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-lg">
+                <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 text-xl"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Categories -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-4 mb-12">
+                <button class="faq-category-btn active p-4 bg-indigo-600 text-white rounded-xl font-semibold text-center transition-all hover:shadow-lg" data-category="all">
+                    <i class="fas fa-th-large mb-2 text-xl"></i>
+                    <div>All Questions</div>
+                </button>
+                <button class="faq-category-btn p-4 bg-white text-gray-700 rounded-xl font-semibold text-center transition-all hover:bg-indigo-50 hover:text-indigo-600" data-category="account">
+                    <i class="fas fa-user-circle mb-2 text-xl"></i>
+                    <div>Account</div>
+                </button>
+                <button class="faq-category-btn p-4 bg-white text-gray-700 rounded-xl font-semibold text-center transition-all hover:bg-indigo-50 hover:text-indigo-600" data-category="courses">
+                    <i class="fas fa-book mb-2 text-xl"></i>
+                    <div>Courses</div>
+                </button>
+                <button class="faq-category-btn p-4 bg-white text-gray-700 rounded-xl font-semibold text-center transition-all hover:bg-indigo-50 hover:text-indigo-600" data-category="payments">
+                    <i class="fas fa-credit-card mb-2 text-xl"></i>
+                    <div>Payments</div>
+                </button>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div class="max-w-4xl mx-auto space-y-4" id="faqContainer">
+                <!-- Account FAQs -->
+                <div class="faq-item" data-category="account">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How do I create an account on LearnHub?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Creating an account is simple! Click on the "Sign Up Free" button, enter your email address, create a password, and verify your email. You can also sign up using your Google or Facebook account for faster registration.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="account">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How do I reset my password?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Click on "Forgot Password" on the login page. Enter your registered email address and we'll send you a password reset link. The link is valid for 24 hours. If you don't receive the email, check your spam folder or contact support.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="account">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">Can I change my email address?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Yes, you can change your email address from your profile settings. Go to Dashboard > Profile > Edit Profile. You'll need to verify your new email address before the change takes effect.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Courses FAQs -->
+                <div class="faq-item" data-category="courses">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How do I access my enrolled courses?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">After enrollment, log in to your account and go to the Dashboard. All your enrolled courses will be displayed there. Click on any course to start learning. You can also access courses from the "My Courses" section in the navigation menu.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="courses">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">Can I download course videos for offline viewing?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Yes! Pro and Ultimate subscribers can download videos using our mobile app. Downloaded content is available for offline viewing for up to 30 days. Note that downloads are only available on the LearnHub mobile app, not on the web version.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="courses">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How long do I have access to a course?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">All courses come with lifetime access! Once you purchase or enroll in a course, you can access it forever. This includes any future updates to the course content. For subscription plans, access is valid as long as your subscription is active.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="courses">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">Are the mock tests based on the latest exam pattern?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Absolutely! Our team of experts constantly updates mock tests to match the latest exam patterns. We analyze recent exams and update our question bank regularly. You'll always be prepared with the most current and relevant practice material.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments FAQs -->
+                <div class="faq-item" data-category="payments">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">What payment methods do you accept?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">We accept all major payment methods including Credit/Debit Cards (Visa, MasterCard, RuPay), UPI, Net Banking, and popular wallets like Paytm, PhonePe, and Google Pay. All payments are secured with bank-grade encryption.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payments">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">Can I get a refund if I'm not satisfied?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Yes! We offer a 30-day money-back guarantee on all our courses and subscriptions. If you're not satisfied for any reason, contact our support team within 30 days of purchase for a full refund. No questions asked!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payments">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How do I cancel my subscription?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">You can cancel your subscription anytime from Dashboard > Settings > Subscription. Your access will continue until the end of the current billing period. You won't be charged for the next cycle after cancellation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payments">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">Do you offer EMI options?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">Yes! We offer no-cost EMI on Credit Cards from all major banks for purchases above Rs. 3,000. You can also use Pay Later options like Simpl, LazyPay, and ZestMoney for flexible payment plans.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item" data-category="payments">
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <button class="w-full p-6 flex justify-between items-center text-left hover:bg-gray-50 transition-colors" onclick="toggleFAQ(this)">
+                            <span class="font-semibold text-gray-900 pr-4">How do I apply a coupon code?</span>
+                            <i class="fas fa-chevron-down text-indigo-600 transition-transform"></i>
+                        </button>
+                        <div class="hidden px-6 pb-6">
+                            <p class="text-gray-600">During checkout, you'll see an "Apply Coupon" field. Enter your coupon code and click "Apply". The discount will be reflected in your total amount. Note that only one coupon can be used per transaction, and some coupons may have specific terms and conditions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Still Have Questions -->
+    <section class="py-20 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 class="text-4xl font-bold mb-6">Still Have Questions?</h2>
+            <p class="text-xl text-indigo-200 mb-8">Our support team is always here to help you.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="contact.html" class="px-8 py-4 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-colors shadow-lg">
+                    <i class="fas fa-envelope mr-2"></i>Contact Support
+                </a>
+                <a href="#" class="px-8 py-4 bg-white/10 text-white border border-white/30 rounded-xl font-semibold hover:bg-white/20 transition-colors backdrop-blur-sm">
+                    <i class="fas fa-comments mr-2"></i>Live Chat
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold">LearnHub</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">India's most trusted learning platform for competitive exam preparation.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="about.html" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="courses.html" class="hover:text-white transition-colors">Courses</a></li>
+                        <li><a href="mocktests.html" class="hover:text-white transition-colors">Mock Tests</a></li>
+                        <li><a href="pricing.html" class="hover:text-white transition-colors">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="faq.html" class="hover:text-white transition-colors">FAQs</a></li>
+                        <li><a href="contact.html" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Contact Info</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>support@learnhub.com</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone"></i>
+                            <span>+91 1800-123-4567</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 LearnHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+  <script src="js/database.js"></script>
+  <script src="js/auth.js"></script>
+
+
+    <script src="js/script.js"></script>
+    <script>
+        function toggleFAQ(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('.fa-chevron-down');
+            
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Category Filter
+        document.querySelectorAll('.faq-category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const category = this.dataset.category;
+                
+                // Update active button
+                document.querySelectorAll('.faq-category-btn').forEach(b => {
+                    b.classList.remove('bg-indigo-600', 'text-white');
+                    b.classList.add('bg-white', 'text-gray-700');
+                });
+                this.classList.remove('bg-white', 'text-gray-700');
+                this.classList.add('bg-indigo-600', 'text-white');
+                
+                // Filter FAQs
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Filter
+        document.getElementById('faqSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const question = item.querySelector('.font-semibold').textContent.toLowerCase();
+                const answer = item.querySelector('.text-gray-600').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+  <!-- AI Translator Widget -->
+  <script src="js/translator.js" defer></script>
+</body>
+</html>
